@@ -17,7 +17,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarBackImageView.setVisibility(View.VISIBLE);
+        
     }
 
 }
