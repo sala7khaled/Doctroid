@@ -10,6 +10,7 @@
     <string name="slide_2_desc">Explore many feature around the hospital on one tap.</string>
     <string name="slide_3_title">"Don't miss"</string>
     <string name="slide_3_desc">"Don't miss anything! your medical CV is ready for you anywhere, anytime."</string>
+    <string name="sign_in">"Sign in</string>
 
     <string name="image_icon">image_icon</string>
 </resources>
