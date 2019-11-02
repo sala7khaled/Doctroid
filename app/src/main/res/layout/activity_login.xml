@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/login_remember_checkBox"
+        android:id="@+id/login_login_TV"
         android:layout_width="100dp"
         android:gravity="center"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_remember_checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/login_login_TV"
         app:layout_constraintVertical_bias="0.15" />
 
     <TextView
