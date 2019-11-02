@@ -1,4 +1,4 @@
-package view.main;
+package view.activity;
 
 import android.os.Bundle;
 
@@ -6,14 +6,15 @@ import com.s7k.doctroid.R;
 
 import view.base.BaseActivity;
 
-public class LoginActivity extends BaseActivity {
+public class SignUpActivity extends BaseActivity {
 
-    public LoginActivity() {
-        super(R.layout.activity_login, false);
+    public SignUpActivity() {
+        super(R.layout.activity_sign_up, false);
     }
 
     @Override
     protected void doOnCreate(Bundle bundle) {
+
     }
 
 }

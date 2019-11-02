@@ -7,22 +7,25 @@
     <application
         android:name="app.App"
         android:allowBackup="true"
-        android:icon="@drawable/ic_logo"
+        android:icon="@drawable/icon_round"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/ic_logo"
+        android:roundIcon="@drawable/icon_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="view.main.LoginActivity"></activity>
+        <activity android:name="view.activity.AddMedicineActivity"></activity>
+        <activity android:name="view.activity.ForgetPasswordActivity" />
+        <activity android:name="view.activity.SignUpActivity" />
+        <activity android:name="view.activity.LoginActivity" />
         <activity
-            android:name="view.main.SliderActivity"
+            android:name="view.activity.SliderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="view.main.MainActivity"
+            android:name="view.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="view.main.SplashActivity"
+            android:name="view.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,12 +34,12 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <dist:module dist:instant="true" />
 

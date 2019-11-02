@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGrayBackground"
-    tools:context="view.main.LoginActivity">
+    tools:context="view.activity.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="488dp"
@@ -20,7 +20,8 @@
 
     <TextView
         android:id="@+id/login_remember_checkBox"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pacifico_regular"
         android:text="login"

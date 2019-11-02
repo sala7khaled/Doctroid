@@ -1,7 +1,6 @@
-package view.main;
+package view.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.s7k.doctroid.R;
 
