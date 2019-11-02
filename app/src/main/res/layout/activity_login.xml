@@ -29,10 +29,10 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/login_password_CV"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/login_username_CV"
@@ -119,6 +119,7 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_login_TV"
         app:layout_constraintVertical_bias="0.15" />
