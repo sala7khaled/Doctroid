@@ -7,49 +7,119 @@
     android:background="@color/colorGrayBackground"
     tools:context="view.activity.LoginActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="488dp"
-        android:layout_height="741dp"
-        android:src="@drawable/back_solid_curve"
+    <Button
+        android:id="@+id/login_login_button"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/back_gradient_360"
+        android:fontFamily="@font/gotham_rounded_medium"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/login_remember_checkBox"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/login_login_TV"
-        android:layout_width="100dp"
-        android:gravity="center"
+    <CheckBox
+        android:id="@+id/login_remember_checkBox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pacifico_regular"
-        android:text="login"
-        android:textColor="@color/colorWhite"
-        android:textSize="30dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gotham_rounded_medium"
+        android:text="Remember me?"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toBottomOf="@+id/login_password_CV"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.003" />
+
+    <RelativeLayout
+        android:id="@+id/login_view_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/back_solid_wave"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/login_logo_imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_noback" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/login_forgetPassword_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/breeserif_regular"
+        android:text="Forget password?"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/login_remember_checkBox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/login_remember_checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/login_password_CV"
+        app:layout_constraintVertical_bias="0.121" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/gotham_rounded_medium"
+        android:text="Don't Have Account?"
+        android:textColor="#95989A"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/login_createAccount_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/breeserif_regular"
+        android:text="Create Account."
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toEndOf="@+id/textView4" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/login_username_CV"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/login_view_header_layout"
         app:layout_constraintVertical_bias="0.0">
 
         <EditText
-            android:id="@+id/login_username_ET"
+            android:id="@+id/login_username_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -68,118 +138,57 @@
         android:id="@+id/login_password_CV"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toBottomOf="@+id/login_username_CV"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginTop="16dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
-            android:id="@+id/login_password_ET"
-            android:layout_gravity="center"
+            android:id="@+id/login_password_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:fontFamily="@font/gotham_rounded_book"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:textSize="18sp"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@color/colorWhite"
+            android:fontFamily="@font/gotham_rounded_book"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
             android:textColor="@color/colorPrimaryDark"
-            android:padding="8dp" />
+            android:textSize="18sp" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/breeserif_regular"
-        android:text="@string/sign_in"
-        android:textColor="@color/colorWhite"
-        android:textSize="64sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/login_forgetPassword_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/breeserif_regular"
-        android:text="Forget password?"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_login_TV"
-        app:layout_constraintVertical_bias="0.15" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="@font/gotham_rounded_medium"
-        android:text="Don't Have Account?"
-        android:textColor="#95989A"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/login_createAccount_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="@font/breeserif_regular"
-        android:text="Create Account."
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
-
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end"
+        android:id="@+id/guideline_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_begin="24dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start"
+        android:id="@+id/guideline_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="48dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_inside_end"
+        android:id="@+id/guideline_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="48dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_inside_start"
+        android:id="@+id/guideline_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="48dp" />
+        app:layout_constraintGuide_end="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

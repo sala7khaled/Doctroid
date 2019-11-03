@@ -17,5 +17,4 @@ public class MainActivity extends BaseActivity {
         // toolbarBackImageView.setVisibility(View.VISIBLE);
 
     }
-
 }

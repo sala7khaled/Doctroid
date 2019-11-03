@@ -2,7 +2,6 @@ package view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,7 +12,7 @@ import view.base.BaseActivity;
 public class LoginActivity extends BaseActivity {
 
     public LoginActivity() {
-        super(R.layout.activity_login, false);
+        super(R.layout.activity_login, true);
     }
     
     EditText username,password;
@@ -21,21 +20,22 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-
+        toolbarTextView.setText("Sign in");
         initializeComponents();
         setListeners();
     }
 
     private void initializeComponents() {
-        username = findViewById(R.id.login_username_ET);
-        password = findViewById(R.id.login_password_ET);
-        login = findViewById(R.id.login_login_TV);
-        forgetPassword = findViewById(R.id.login_forgetPassword_TV);
-        createAccount = findViewById(R.id.login_createAccount_TV);
+        username = findViewById(R.id.login_username_editText);
+        password = findViewById(R.id.login_password_editText);
+        login = findViewById(R.id.login_login_button);
+        forgetPassword = findViewById(R.id.login_forgetPassword_textView);
+        createAccount = findViewById(R.id.login_createAccount_textView);
     }
 
     private void setListeners() {
         login.setOnClickListener(view -> {
+            // TODO Login Validation
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         });
         forgetPassword.setOnClickListener(view -> {
