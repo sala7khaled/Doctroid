@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/toolbar_back_imageView"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:contentDescription="@string/image_icon"
             android:paddingStart="0dp"
             android:paddingTop="12dp"
@@ -25,7 +25,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/img_arrow_back_white" />
+            app:srcCompat="@drawable/arrow_back" />
 
         <TextView
             android:id="@+id/toolbar_textView"
