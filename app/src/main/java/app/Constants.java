@@ -28,7 +28,7 @@ public class Constants {
      * - FONTS
      * -
      */
-    public static final String FONT_GOTHAM_BOOK = "gotham_rounded_book.ttf";
+    public static final String FONT_GOTHAM_BOOK = "gotham_rounded_book.otf";
     public static final String FONT_GOTHAM_LIGHT = "gotham_rounded_light.otf";
     public static final String FONT_GOTHAM_MEDIUM = "gotham_rounded_medium.otf";
     public static final String FONT_GOTHAM_BOOK_ITALIC = "gotham_rounded_book_italic.otf";

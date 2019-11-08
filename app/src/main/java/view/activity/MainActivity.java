@@ -33,9 +33,7 @@ public class MainActivity extends BaseActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.main_bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.base_frameLayout,
-                new MainFragment()).commit();
+        setFragment(new MainFragment());
 
         bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
     }
@@ -57,8 +55,12 @@ public class MainActivity extends BaseActivity {
                         break;
                 }
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.base_frameLayout, selectedFragment).commit();
-
+                setFragment(selectedFragment);
                 return true;
             };
+
+    private void setFragment(Fragment selectedFragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frameLayout, selectedFragment).commit();
+
+    }
 }

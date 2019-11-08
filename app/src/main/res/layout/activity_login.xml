@@ -8,9 +8,34 @@
     tools:context="view.activity.LoginActivity">
 
     <ImageView
+        android:id="@+id/login_errorDialog_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_error_dialog"
+        android:visibility="invisible"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/login_errorMessage_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gotham_rounded_light"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/login_view_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:translationZ="-10dp"
         android:background="@drawable/back_solid_logo_login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -110,7 +135,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <customView.CustomEditText
-            android:id="@+id/login_username_editText"
+            android:id="@+id/login_email_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"

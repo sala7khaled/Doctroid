@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void navigateToLogin() {
-        Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+        Intent i = new Intent(SplashActivity.this, SliderActivity.class);
         startActivity(i);
         finish();
     }

@@ -12,17 +12,23 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.85"
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:id="@+id/layoutDots"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="105dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/view_pager"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -30,13 +36,12 @@
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="125dp"
         android:fontFamily="@font/gotham_rounded_book"
         android:text="Don't show again"
         android:textColor="@color/colorPrimary"
-        android:visibility="gone"
-
-        app:layout_constraintBottom_toBottomOf="@+id/view_pager"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/layoutDots"
+        app:layout_constraintBottom_toBottomOf="@id/layoutDots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
