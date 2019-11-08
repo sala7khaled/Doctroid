@@ -17,4 +17,5 @@ public interface ApiInterface {
 
     //@GET(ApiClient.BASE_URL + Constants.SERVICES_ADMINS)
     //Call<List<MedicalAnalysis>> doGetAdmins(@HeaderMap Map<String, String> headers);
+
 }
