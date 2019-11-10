@@ -7,11 +7,11 @@ public class Constants {
      * - API
      * -
      */
-    public static final String BASE_URL = "https://www.google.com/";
-    public static final String SERVICES_ADMINS = "admins";
-    public static final String SERVICES_USER = "user";
-    public static final String SERVICES_ADD_ADMIN = "admins/add";
-    public static final String SERVICES_GET_MEDICAL = "get/medical";
+    public static final String BASE_URL = "localhost:4200/";
+    public static final String SERVICES_ADMINS = "admins/";
+    public static final String SERVICES_USER = "user/";
+    public static final String SERVICES_ADD_ADMIN = "admins/add/";
+    public static final String SERVICES_GET_MEDICAL = "user/medical/";
 
     /**
      * -
@@ -41,6 +41,6 @@ public class Constants {
      * - TIMING
      * -
      */
-    public static final int SPLASH_TIME_OUT = 0000;
+    public static final int SPLASH_TIME_OUT = 3000;
 
 }

@@ -65,4 +65,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'com.race604.waveloading:library:1.1.1'
+    implementation 'me.itangqi.waveloadingview:library:0.3.5'
 }

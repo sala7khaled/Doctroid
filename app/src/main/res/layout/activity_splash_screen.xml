@@ -7,6 +7,18 @@
     android:background="@drawable/back_gradient_270"
     tools:context="view.activity.SplashActivity">
 
+    <View
+        android:id="@+id/view"
+        app:layout_constraintCircleRadius="50dp"
+        android:layout_width="280dp"
+        android:layout_height="270dp"
+        android:translationZ="-10dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -15,11 +27,12 @@
         android:orientation="horizontal" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView"
+        android:id="@+id/splash_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/icon_normal"
+        android:translationZ="-10dp"
+        android:src="@drawable/icon_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,13 +62,14 @@
         app:layout_constraintTop_toTopOf="@id/guideline"/>
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
-        android:text="@string/copy_rights"
         android:fontFamily="@font/gotham_rounded_light"
+        android:text="@string/copy_rights"
         android:textColor="@color/colorWhite"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
