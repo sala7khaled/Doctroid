@@ -52,28 +52,11 @@
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
-        app:layout_constraintTop_toBottomOf="@+id/login_remember_checkBox"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/login_forgetPassword_textView"
+        />
 
-    <CheckBox
-        android:id="@+id/login_remember_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/gotham_rounded_medium"
-        android:text="Remember me?"
-        android:textColor="@color/colorPrimary"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline_1"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_text_input_layout"
-        app:layout_constraintVertical_bias="0.003" />
 
     <TextView
         android:id="@+id/login_forgetPassword_textView"
@@ -82,14 +65,11 @@
         android:fontFamily="@font/breeserif_regular"
         android:text="Forget password?"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="17sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/login_remember_checkBox"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/login_remember_checkBox"
         app:layout_constraintTop_toBottomOf="@+id/login_password_text_input_layout"
-        app:layout_constraintVertical_bias="0.121" />
+        />
 
     <TextView
         android:id="@+id/textView4"
@@ -111,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="27dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="23dp"
         android:fontFamily="@font/breeserif_regular"
         android:text="Create Account."
         android:textColor="@color/colorPrimaryDark"
@@ -163,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gotham_rounded_book"
-            android:layout_marginTop="36dp" />
+            android:layout_marginTop="24dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline

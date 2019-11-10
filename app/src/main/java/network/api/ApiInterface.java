@@ -15,7 +15,7 @@ import retrofit2.http.Path;
 
 public interface ApiInterface {
 
-    //@GET(ApiClient.BASE_URL + Constants.SERVICES_ADMINS)
-    //Call<List<MedicalAnalysis>> doGetAdmins(@HeaderMap Map<String, String> headers);
+    //@GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICAL)
+    //Call<List<MedicalAnalysis>> getMedical(@HeaderMap Map<String, String> headers);
 
 }
