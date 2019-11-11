@@ -1,11 +1,9 @@
 package view.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.race604.drawable.wave.WaveDrawable;
 import com.s7k.doctroid.R;
