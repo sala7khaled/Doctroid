@@ -4,28 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.s7k.doctroid.R;
 
-import dialog.ErrorDialog;
-import dialog.PopupDialog;
 import dialog.ProgressViewDialog;
 import helpers.Validator;
 import view.base.BaseActivity;
 
-public class LoginActivity extends BaseActivity {
+public class SignInActivity extends BaseActivity {
 
-    public LoginActivity() {
-        super(R.layout.activity_login, true);
+    public SignInActivity() {
+        super(R.layout.activity_sign_in, true);
     }
 
     EditText email, password;
     TextView login, forgetPassword, createAccount, errorMessage;
     ImageView errorDialog;
+    Button signIn;
 
     @Override
     protected void doOnCreate(Bundle bundle) {
@@ -36,26 +35,26 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initializeComponents() {
-        email = findViewById(R.id.login_email_editText);
-        password = findViewById(R.id.login_password_editText);
-        errorMessage = findViewById(R.id.login_errorMessage_textView);
-        errorDialog = findViewById(R.id.login_errorDialog_imageView);
+        email = findViewById(R.id.signIn_email_editText);
+        password = findViewById(R.id.signIn_password_editText);
+        errorMessage = findViewById(R.id.signIn_errorMessage_textView);
+        errorDialog = findViewById(R.id.signIn_errorDialog_imageView);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        login = findViewById(R.id.login_login_button);
-        forgetPassword = findViewById(R.id.login_forgetPassword_textView);
-        createAccount = findViewById(R.id.login_createAccount_textView);
+        login = findViewById(R.id.signIn_login_button);
+        forgetPassword = findViewById(R.id.signIn_forgetPassword_textView);
+        createAccount = findViewById(R.id.signIn_createAccount_textView);
     }
 
     private void setListeners() {
         login.setOnClickListener(view -> {
 
-            //ErrorDialog.showMessageDialog(getString(R.string.no_internet_connection), "xd", LoginActivity.this);
+            //ErrorDialog.showMessageDialog(getString(R.string.no_internet_connection), "xd", SignInActivity.this);
 
 //            PopupDialog popupDialog = new PopupDialog(new PopupDialog.ErrorDialogListener() {
 //                @Override
 //                public void onOkClick() {
-//                    Toast.makeText(LoginActivity.this, "Hiii", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(SignInActivity.this, "Hiii", Toast.LENGTH_SHORT).show();
 //                }
 //
 //                @Override
@@ -82,10 +81,10 @@ public class LoginActivity extends BaseActivity {
 
         });
         forgetPassword.setOnClickListener(view -> {
-            startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
+            startActivity(new Intent(SignInActivity.this, ForgetPasswordActivity.class));
         });
         createAccount.setOnClickListener(view -> {
-            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
         });
     }
 

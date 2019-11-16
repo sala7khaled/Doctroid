@@ -32,7 +32,7 @@
             android:name="view.activity.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="view.activity.LoginActivity"
+            android:name="view.activity.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="view.activity.SliderActivity"

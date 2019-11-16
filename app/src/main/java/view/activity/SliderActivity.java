@@ -163,12 +163,12 @@ public class SliderActivity extends AppCompatActivity {
         if(check)
         {
             prefManager.setFirstTimeLaunch(false);
-            startActivity(new Intent(SliderActivity.this, LoginActivity.class));
+            startActivity(new Intent(SliderActivity.this, SignInActivity.class));
             finish();
         }
         else
         {
-            startActivity(new Intent(SliderActivity.this, LoginActivity.class));
+            startActivity(new Intent(SliderActivity.this, SignInActivity.class));
             finish();
         }
     }

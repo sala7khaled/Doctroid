@@ -23,7 +23,11 @@ public class Validator {
     }
 
     public static boolean isConfirmPassMatchPass(CharSequence target1, CharSequence target2) {
-        return target1.equals(target2);
+        if (target1.length() >= 6 && target2.length() >= 6) {
+            return target1.equals(target2);
+        } else {
+            return false;
+        }
     }
 
     public static boolean registerValidation(Context context, EditText firstNameEdt, EditText lastNameEdt,
@@ -42,46 +46,6 @@ public class Validator {
                 || password.isEmpty() || confirmPassword.isEmpty() || password.length() < 6
                 || !password.equals(confirmPassword)) {
 
-            if (firstName.isEmpty()) {
-                firstNameEdt.setError(context.getString(R.string.first_name_required));
-            }
-
-            if (lastName.isEmpty()) {
-                lastNameEdt.setError(context.getString(R.string.last_name_required));
-            }
-
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                emailEdt.setError(context.getString(R.string.email_not_valid));
-            }
-
-            if (email.isEmpty()) {
-                emailEdt.setError(context.getString(R.string.email_required));
-            }
-
-            if (phone.length() < 11) {
-                phoneEdt.setError(context.getString(R.string.phone_not_valid));
-            }
-
-            if (phone.isEmpty()) {
-                phoneEdt.setError(context.getString(R.string.phone_required));
-            }
-
-            if (password.length() < 6) {
-                passwordEdt.setError(context.getString(R.string.password_not_valid));
-            }
-
-            if (password.isEmpty()) {
-                passwordEdt.setError(context.getString(R.string.password_required));
-            }
-
-            if (confirmPassword.isEmpty()) {
-                confirmPasswordEdt.setError(context.getString(R.string.confirm_password_required));
-            }
-
-            if (!password.equals(confirmPassword)) {
-                passwordEdt.setError(context.getString(R.string.password_not_matched));
-                confirmPasswordEdt.setError(context.getString(R.string.password_not_matched));
-            }
             return false;
         }
         return true;

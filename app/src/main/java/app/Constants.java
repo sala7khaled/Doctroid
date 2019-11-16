@@ -7,11 +7,12 @@ public class Constants {
      * - API
      * -
      */
-    public static final String BASE_URL = "localhost:4200/";
+    public static final String BASE_URL = "https://lms-doctoroid.herokuapp.com/";
     public static final String SERVICES_ADMINS = "admins/";
     public static final String SERVICES_USER = "user/";
-    public static final String SERVICES_ADD_ADMIN = "admins/add/";
     public static final String SERVICES_GET_MEDICAL = "user/medical/";
+    public static final String SERVICES_SIGNIN = "user/signin/";
+    public static final String SERVICES_SIGNUP = "user/signup/";
 
     /**
      * -
