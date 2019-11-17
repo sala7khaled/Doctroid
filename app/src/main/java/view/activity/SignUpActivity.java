@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.s7k.doctroid.R;
 
+import dialog.ProgressViewDialog;
 import helpers.Validator;
 import network.model.User;
 import view.base.BaseActivity;
@@ -30,6 +31,7 @@ public class SignUpActivity extends BaseActivity {
     @Override
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("Sign Up");
+        toolbarBackImageView.setVisibility(View.VISIBLE);
 
         initializeComponents();
         setListeners();
@@ -125,24 +127,34 @@ public class SignUpActivity extends BaseActivity {
         String emailSTR = email.getText().toString().trim();
         String phoneSTR = phone.getText().toString().trim();
         String passwordSTR = password.getText().toString().trim();
-        String gender;
+        String genderSTR;
 
         if(maleSelected)
         {
-            gender = "male";
+            genderSTR = "male";
         }
         else if(femaleSelected)
         {
-            gender = "female";
+            genderSTR = "female";
         }
         else
         {
-            gender = "empty";
+            genderSTR = "empty";
         }
 
-        // TODO Dialog + send User to Database
-        User user = new User(firstNameSTR, lastNameSTR, emailSTR, phoneSTR, passwordSTR, gender);
-        Toast.makeText(this, "Welcome "+firstNameSTR, Toast.LENGTH_SHORT).show();
+        // TODO send User info to Database
+        ProgressViewDialog progressViewDialog = new ProgressViewDialog(this);
+        progressViewDialog.isShowing();
+        progressViewDialog.setDialogCancelable(false);
+        progressViewDialog.setCanceledOnTouchOutside(false);
+        progressViewDialog.showProgressDialog("Creating new account");
+
+        User user = new User(firstNameSTR, lastNameSTR, emailSTR, phoneSTR, passwordSTR, genderSTR);
+        Toast.makeText(this,
+                user.getFullName() + "\n"+user.getEmail() +"\n"+ user.getPhone() +"\n"+ user.getGender(),
+                Toast.LENGTH_SHORT).show();
+
+        //progressViewDialog.hideDialog();
 
     }
 

@@ -1,5 +1,6 @@
-package view.activity;
+package view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,6 +24,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import network.model.Category;
 import presenter.adapter.MainAdapter;
+import view.category.AppointmentActivity;
+import view.category.EmergencyActivity;
+import view.category.HospitalActivity;
+import view.category.MedicalActivity;
+import view.category.MedicineActivity;
+import view.category.ResultActivity;
 
 public class MainFragment extends Fragment {
 
@@ -48,24 +56,23 @@ public class MainFragment extends Fragment {
             public void onClick(int position) {
                 String categoryName = categoryList.get(position).getName();
                 switch (categoryName) {
-                    case "Hospital":
-                        //startActivity(new Intent(MainActivity.this,));
-                        Toast.makeText(getContext(), "1 clicked", Toast.LENGTH_SHORT).show();
+                    case "O6U Hospital":
+                        startActivity(new Intent(getActivity(), HospitalActivity.class));
                         break;
                     case "Medical Analysis":
-                        Toast.makeText(getContext(), "2 clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), MedicalActivity.class));
                         break;
                     case "Appointment":
-                        Toast.makeText(getContext(), "3 clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), AppointmentActivity.class));
                         break;
                     case "Result":
-                        Toast.makeText(getContext(), "4 clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), ResultActivity.class));
                         break;
                     case "Medicine Shop":
-                        Toast.makeText(getContext(), "5 clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), MedicineActivity.class));
                         break;
                     case "Emergency":
-                        Toast.makeText(getContext(), "6 clicked", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), EmergencyActivity.class));
                         break;
                 }
             }
@@ -73,7 +80,7 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(mainAdapter);
     }
     private void setItems() {
-        categoryList.add(new Category("Hospital", R.drawable.icon_1_hospital));
+        categoryList.add(new Category("O6U Hospital", R.drawable.icon_1_hospital));
         categoryList.add(new Category("Medical Analysis", R.drawable.icon_2_medical_analysis));
         categoryList.add(new Category("Appointment", R.drawable.icon_3_appointment));
         categoryList.add(new Category("Result", R.drawable.icon_4_result));

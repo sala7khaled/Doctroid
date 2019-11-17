@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_gradient_270"
-    tools:context="view.activity.SplashActivity">
+    tools:context="view.base.SplashActivity">
 
     <View
         android:id="@+id/view"

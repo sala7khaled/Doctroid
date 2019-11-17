@@ -1,4 +1,4 @@
-package view.activity;
+package view.base;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.s7k.doctroid.R;
 
 import presenter.adapter.SliderAdapter;
+import view.activity.SignInActivity;
 
 public class SliderActivity extends AppCompatActivity {
 

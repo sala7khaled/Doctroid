@@ -21,7 +21,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name="view.category.EmergencyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.MedicineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.AppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.MedicalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="view.category.HospitalActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="view.activity.AddMedicineActivity"
             android:screenOrientation="portrait" />
@@ -35,13 +52,13 @@
             android:name="view.activity.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="view.activity.SliderActivity"
+            android:name="view.base.SliderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="view.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="view.activity.SplashActivity"
+            android:name="view.base.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,9 +11,9 @@
         android:id="@+id/signIn_errorDialog_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:src="@drawable/back_error_dialog"
         android:visibility="invisible"
-        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_3"
         app:layout_constraintStart_toStartOf="@+id/guideline_2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,11 +22,11 @@
         android:id="@+id/signIn_errorMessage_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/gotham_rounded_light"
         android:gravity="center"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="16dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_3"
         app:layout_constraintStart_toStartOf="@+id/guideline_2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,11 +35,11 @@
         android:id="@+id/signIn_view_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:translationZ="-10dp"
         android:background="@drawable/back_solid_logo_login"
+        android:translationZ="-10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signIn_login_button"
@@ -54,22 +54,20 @@
         android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
-        app:layout_constraintTop_toBottomOf="@+id/signIn_forgetPassword_textView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/signIn_forgetPassword_textView" />
 
 
     <TextView
         android:id="@+id/signIn_forgetPassword_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/breeserif_regular"
         android:text="Forget password?"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
-        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-        app:layout_constraintTop_toBottomOf="@+id/signIn_password_textInputLayout"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/signIn_password_textInputLayout" />
 
     <TextView
         android:id="@+id/doNotHaveAcc_textView"
@@ -118,32 +116,31 @@
             android:id="@+id/signIn_email_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:fontFamily="@font/gotham_rounded_book"
             android:layout_marginTop="36dp"
-            />
+            android:fontFamily="@font/gotham_rounded_book"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signIn_password_textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        app:passwordToggleEnabled="true"
         android:layout_marginTop="24dp"
+        android:hint="Password"
         android:textColorHint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toBottomOf="@+id/signIn_email_textInputLayout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        app:passwordToggleEnabled="true">
 
         <customView.CustomEditText
             android:id="@+id/signIn_password_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/gotham_rounded_book"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/gotham_rounded_book" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline

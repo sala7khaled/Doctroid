@@ -29,6 +29,8 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("Sign in");
+        navigateToMain();
+
 
         initializeComponents();
         setListeners();

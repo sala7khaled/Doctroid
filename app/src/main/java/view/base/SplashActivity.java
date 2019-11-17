@@ -1,4 +1,4 @@
-package view.activity;
+package view.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import com.race604.drawable.wave.WaveDrawable;
 import com.s7k.doctroid.R;
 
 import app.Constants;
-import view.base.BaseActivity;
 
 public class SplashActivity extends BaseActivity {
 

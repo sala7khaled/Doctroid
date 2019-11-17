@@ -30,4 +30,12 @@
     <string name="reset_link">We just need your register e-mail ID to send reset link</string>
     <string name="E_mail">E-mail</string>
     <string name="Reset_password">Reset password</string>
+    <string name="hospital_location">"Al Mehwar Al Markazi Al Nassr St,\n6th of October, Giza."</string>
+    <string name="hospital_phone">"02–38362487"</string>
+    <string name="hospital_website">"http://www.osuth.org/home.html"</string>
+    <string name="hospital_email">"General Manager: Chairman@osuth.org
+        \nAdministration Manager: gm@osuth.org
+        \nIT Manager: It@osuth.org
+        \nMarketing Manager: Info@osuth.org
+        \nPurchasing Manager: Mark@osuth.org"</string>
 </resources>

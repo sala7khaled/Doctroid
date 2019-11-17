@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/hospital_nav_about"
+        android:icon="@drawable/icon_hospital_about"
+        android:title="About" />
+    <item
+        android:id="@+id/hospital_nav_location"
+        android:icon="@drawable/icon_hospital_location"
+        android:title="Location" />
+    <item
+        android:id="@+id/hospital_nav_photos"
+        android:icon="@drawable/icon_hospital_photos"
+        android:title="Photos" />
+
+</menu>

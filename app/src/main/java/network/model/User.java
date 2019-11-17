@@ -16,6 +16,11 @@ public class User {
         this.gender = gender;
     }
 
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }

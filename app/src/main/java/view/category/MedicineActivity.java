@@ -1,4 +1,4 @@
-package view.activity;
+package view.category;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,15 +7,16 @@ import com.s7k.doctroid.R;
 
 import view.base.BaseActivity;
 
-public class AddMedicineActivity extends BaseActivity {
+public class MedicineActivity extends BaseActivity {
 
-    public AddMedicineActivity() {
-        super(R.layout.activity_add_medicine, true);
+    public MedicineActivity() {
+        super(R.layout.activity_medicine, true);
     }
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarTextView.setText("Add Medicine");
+        toolbarTextView.setText("Medicine Shop");
         toolbarBackImageView.setVisibility(View.VISIBLE);
+        toolbarTextView.setTextSize(23);
     }
 }
