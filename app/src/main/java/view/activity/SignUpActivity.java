@@ -1,5 +1,6 @@
 package view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +70,8 @@ public class SignUpActivity extends BaseActivity {
         });
 
         signUp.setOnClickListener(view -> {
+
+            startActivity(new Intent(SignUpActivity.this, AddMedicineActivity.class));
 
             if(firstName.getText().toString().trim().isEmpty() || lastName.getText().toString().trim().isEmpty())
             {

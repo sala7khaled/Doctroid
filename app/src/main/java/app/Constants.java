@@ -11,8 +11,8 @@ public class Constants {
     public static final String SERVICES_ADMINS = "admins/";
     public static final String SERVICES_USER = "user/";
     public static final String SERVICES_GET_MEDICAL = "user/medical/";
-    public static final String SERVICES_SIGNIN = "user/signin/";
-    public static final String SERVICES_SIGNUP = "user/signup/";
+    public static final String SERVICES_SIGNIN = "user/signIn/";
+    public static final String SERVICES_SIGNUP = "user/signUp/";
 
     /**
      * -

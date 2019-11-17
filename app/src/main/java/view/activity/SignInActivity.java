@@ -22,15 +22,13 @@ public class SignInActivity extends BaseActivity {
     }
 
     EditText email, password;
-    TextView login, forgetPassword, createAccount, errorMessage;
+    TextView forgetPassword, createAccount, errorMessage;
     ImageView errorDialog;
     Button signIn;
 
     @Override
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("Sign in");
-        navigateToMain();
-
 
         initializeComponents();
         setListeners();
@@ -43,13 +41,13 @@ public class SignInActivity extends BaseActivity {
         errorDialog = findViewById(R.id.signIn_errorDialog_imageView);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        login = findViewById(R.id.signIn_login_button);
+        signIn = findViewById(R.id.signIn_login_button);
         forgetPassword = findViewById(R.id.signIn_forgetPassword_textView);
         createAccount = findViewById(R.id.signIn_createAccount_textView);
     }
 
     private void setListeners() {
-        login.setOnClickListener(view -> {
+        signIn.setOnClickListener(view -> {
 
             //ErrorDialog.showMessageDialog(getString(R.string.no_internet_connection), "xd", SignInActivity.this);
 
