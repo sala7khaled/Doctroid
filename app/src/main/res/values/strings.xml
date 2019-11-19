@@ -22,6 +22,7 @@
     <string name="password_required">Password is required</string>
     <string name="confirm_password_required">Confirm password</string>
     <string name="password_not_matched">Passwords don\'t matched</string>
+    <string name="request_error">Request error, please try again.</string>
     <string name="no_internet_connection">No internet connection!</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

@@ -11,9 +11,22 @@ import android.widget.Toast;
 
 import com.s7k.doctroid.R;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.HashMap;
+
 import dialog.ProgressViewDialog;
 import helpers.Validator;
+import network.api.ApiClient;
+import network.api.ApiInterface;
 import network.model.User;
+import network.observer.CTHttpError;
+import network.observer.CTOperationResponse;
+import network.operation.OperationsManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import view.base.BaseActivity;
 
 public class SignUpActivity extends BaseActivity {
@@ -26,8 +39,11 @@ public class SignUpActivity extends BaseActivity {
     ImageView errorDialog, male, female;
     TextView errorMessage;
     Button signUp;
+    ProgressViewDialog progressViewDialog;
     boolean maleSelected = false;
     boolean femaleSelected = false;
+
+    ApiInterface apiInterface;
 
     @Override
     protected void doOnCreate(Bundle bundle) {
@@ -61,7 +77,7 @@ public class SignUpActivity extends BaseActivity {
             male.setImageDrawable(getResources().getDrawable(R.drawable.signup_male_selected));
             female.setImageDrawable(getResources().getDrawable(R.drawable.signup_female_deselected));
         });
-        
+
         female.setOnClickListener(view -> {
             maleSelected = false;
             femaleSelected = true;
@@ -71,54 +87,47 @@ public class SignUpActivity extends BaseActivity {
 
         signUp.setOnClickListener(view -> {
 
-            startActivity(new Intent(SignUpActivity.this, AddMedicineActivity.class));
-
-            if(firstName.getText().toString().trim().isEmpty() || lastName.getText().toString().trim().isEmpty())
-            {
+            if (firstName.getText().toString().trim().isEmpty()) {
                 errorDialog.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.VISIBLE);
-                errorMessage.setText("Enter your full name");
-            }
-            else if(!Validator.isValidEmail(email.getText().toString().trim()))
-            {
+                errorMessage.setText("Enter your First name");
+                firstName.requestFocus();
+            } else if (lastName.getText().toString().trim().isEmpty()) {
+                errorDialog.setVisibility(View.VISIBLE);
+                errorMessage.setVisibility(View.VISIBLE);
+                errorMessage.setText("Enter your Last name");
+                lastName.requestFocus();
+            } else if (!Validator.isValidEmail(email.getText().toString().trim())) {
                 errorDialog.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.VISIBLE);
                 errorMessage.setText(getString(R.string.email_not_valid));
-            }
-            else if(!Validator.isValidPhoneNumber(phone.getText().toString().trim()))
-            {
+                email.requestFocus();
+            } else if (!Validator.isValidPhoneNumber(phone.getText().toString().trim())) {
                 errorDialog.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.VISIBLE);
                 errorMessage.setText(getString(R.string.phone_not_valid));
-            }
-            else if(!Validator.isConfirmPassMatchPass(password.getText().toString().trim(),
-                    confirmPassword.getText().toString().trim()))
-            {
+                phone.requestFocus();
+            } else if (!Validator.isConfirmPassMatchPass(password.getText().toString().trim(),
+                    confirmPassword.getText().toString().trim())) {
                 errorDialog.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.VISIBLE);
                 errorMessage.setText(getString(R.string.password_not_valid));
-            }
-            else if(!maleSelected && !femaleSelected)
-            {
+            } else if (!maleSelected && !femaleSelected) {
                 errorDialog.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.VISIBLE);
                 errorMessage.setText("Please select a gender");
-            }
-            else
-            {
+            } else {
                 errorDialog.setVisibility(View.INVISIBLE);
                 errorMessage.setVisibility(View.INVISIBLE);
             }
 
             if (Validator.registerValidation(this, firstName, lastName,
-                    email, password, confirmPassword, phone))
-            {
-                if (maleSelected || femaleSelected)
-                {
+                    email, password, confirmPassword, phone)) {
+                if (maleSelected || femaleSelected) {
                     createNewUser();
                 }
             }
-            
+
         });
 
     }
@@ -132,33 +141,77 @@ public class SignUpActivity extends BaseActivity {
         String passwordSTR = password.getText().toString().trim();
         String genderSTR;
 
-        if(maleSelected)
-        {
+        if (maleSelected) {
             genderSTR = "male";
-        }
-        else if(femaleSelected)
-        {
+        } else if (femaleSelected) {
             genderSTR = "female";
-        }
-        else
-        {
+        } else {
             genderSTR = "empty";
         }
 
-        // TODO send User info to Database
-        ProgressViewDialog progressViewDialog = new ProgressViewDialog(this);
+        progressViewDialog = new ProgressViewDialog(this);
         progressViewDialog.isShowing();
         progressViewDialog.setDialogCancelable(false);
         progressViewDialog.setCanceledOnTouchOutside(false);
         progressViewDialog.showProgressDialog("Creating new account");
 
-        User user = new User(firstNameSTR, lastNameSTR, emailSTR, phoneSTR, passwordSTR, genderSTR);
-        Toast.makeText(this,
-                user.getFullName() + "\n"+user.getEmail() +"\n"+ user.getPhone() +"\n"+ user.getGender(),
-                Toast.LENGTH_SHORT).show();
+        User user = new User("0", firstNameSTR, lastNameSTR,
+                emailSTR, phoneSTR, passwordSTR, genderSTR, false);
 
-        //progressViewDialog.hideDialog();
 
+        callAPI(user);
+
+
+    }
+
+    private void callAPI(User user) {
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiService.doSignUpUser(headers, user);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful())
+                {
+                    Toast.makeText(SignUpActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+                Toast.makeText(SignUpActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignUpActivity.this, AddMedicineActivity.class));
+                    finish();
+                    progressViewDialog.hideDialog();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void callAPI2(User user) {
+        CTOperationResponse response = new CTOperationResponse();
+        try {
+            response.response = createAccount(user);
+            Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+            progressViewDialog.hideDialog();
+
+        } catch (SocketTimeoutException t) {
+            response.error = new CTHttpError("Request Time Out.", 504);
+
+        } catch (Throwable t) {
+            if (!(t instanceof CTHttpError)) t.printStackTrace();
+            response.error = t;
+        }
+    }
+
+    public ResponseBody createAccount(User user) throws Throwable {
+        return OperationsManager.getInstance().doSignUpUser(user);
     }
 
 }

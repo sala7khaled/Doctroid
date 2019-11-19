@@ -8,11 +8,11 @@ public class Constants {
      * -
      */
     public static final String BASE_URL = "https://lms-doctoroid.herokuapp.com/";
-    public static final String SERVICES_ADMINS = "admins/";
-    public static final String SERVICES_USER = "user/";
-    public static final String SERVICES_GET_MEDICAL = "user/medical/";
-    public static final String SERVICES_SIGNIN = "user/signIn/";
-    public static final String SERVICES_SIGNUP = "user/signUp/";
+    public static final String SERVICES_GET_MEDICAL = "medical";
+    public static final String SERVICES_GET_MEDICINE = "medicine";
+    public static final String SERVICES_POST_SIGNIN = "signin";
+    public static final String SERVICES_POST_SIGNUP = "signup";
+    public static final String SERVICES_POST_SIGNUP_CONFIRM = "signupconfirm";
 
     /**
      * -
@@ -42,6 +42,6 @@ public class Constants {
      * - TIMING
      * -
      */
-    public static final int SPLASH_TIME_OUT = 0000;
+    public static final int SPLASH_TIME_OUT = 3000;
 
 }

@@ -1,21 +1,32 @@
 package network.api;
 
-import java.util.List;
 import java.util.Map;
 
 import app.Constants;
+import network.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
+import retrofit2.http.Field;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface ApiInterface {
 
-    //@GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICAL)
-    //Call<List<MedicalAnalysis>> getMedical(@HeaderMap Map<String, String> headers);
+    @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_SIGNUP)
+    Call<ResponseBody> doSignUpUser(@HeaderMap Map<String, String> headers,
+                                    @Body User user);
+
+//    @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_SIGNUP)
+//    Call<User> doSignUpUserConfirm(
+//            @Body List<Medical> medical
+//            @Body
+//    );
+//
+//    @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_SIGNIN)
+//    Call<ResponseBody> doSignIpUser(
+//            @Field("email") String email,
+//            @Field("password") String password
+//    );
 
 }

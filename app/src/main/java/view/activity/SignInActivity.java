@@ -96,6 +96,7 @@ public class SignInActivity extends BaseActivity {
         {
             errorDialog.setVisibility(View.VISIBLE);
             errorMessage.setText("Email/Password not valid");
+            email.requestFocus();
             return false;
         }
 
@@ -103,6 +104,7 @@ public class SignInActivity extends BaseActivity {
         {
             errorDialog.setVisibility(View.VISIBLE);
             errorMessage.setText(getString(R.string.password_not_valid));
+            password.requestFocus();
             return false;
         }
         if (!Validator.isValidEmail(email.getText().toString()) && passSTR.length() >= 6)
