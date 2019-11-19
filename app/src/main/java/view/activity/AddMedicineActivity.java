@@ -1,6 +1,7 @@
 package view.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,16 @@ import com.s7k.doctroid.R;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
+import network.api.ApiClient;
+import network.api.ApiInterface;
+import network.model.User;
+import network.operation.OperationsManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import view.base.BaseActivity;
 import view.fragment.DatePickerFragment;
 
@@ -97,6 +107,11 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             if(!dateSTR.equals("Empty") && !citySTR.equals("Empty"))
             {
                 Toast.makeText(this, dateSTR + " " + citySTR, Toast.LENGTH_SHORT).show();
+
+                dateSTR ="xxxx";
+                citySTR = "zzzzzz";
+                boolean confirm = true;
+                callAPI(dateSTR, citySTR, confirm);
                 errorDialog.setVisibility(android.view.View.INVISIBLE);
                 errorMessage.setVisibility(android.view.View.INVISIBLE);
             }
@@ -122,5 +137,38 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         dateSTR = dayOfMonth + "-" + month + "-" + year;
         date.setText("Date: " + dateSTR);
 
+    }
+
+    private void callAPI(String date, String location, boolean confirm) {
+
+        HashMap<String, String> headers = ApiClient.getHeaders();
+
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiService.doSignUpUserConfirm(headers, date, location, confirm);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful())
+                {
+                    Toast.makeText(AddMedicineActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+                    Toast.makeText(AddMedicineActivity.this, "updated", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(AddMedicineActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public ResponseBody createAccountConfitm(String date, String location, boolean confirm) throws Throwable {
+        return OperationsManager.getInstance().doSignUpUserConfirm(date, location, confirm);
     }
 }

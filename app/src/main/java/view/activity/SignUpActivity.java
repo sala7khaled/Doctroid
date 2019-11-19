@@ -174,7 +174,6 @@ public class SignUpActivity extends BaseActivity {
                 if (!response.isSuccessful())
                 {
                     Toast.makeText(SignUpActivity.this, response.code(), Toast.LENGTH_SHORT).show();
-
                 }
                 else
                 {

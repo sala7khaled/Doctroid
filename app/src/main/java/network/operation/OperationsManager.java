@@ -18,6 +18,7 @@ import network.observer.CTHttpError;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import utilities.Utilities;
 
 public class OperationsManager {
@@ -38,6 +39,20 @@ public class OperationsManager {
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponseBody> call = apiService.doSignUpUser(headers, user);
+        Response<ResponseBody> response = call.execute();
+
+        ensureHttpSuccess(response);
+
+        return response.body();
+    }
+
+    public ResponseBody doSignUpUserConfirm(String date, String location, boolean confirm) throws IOException {
+
+        Log.v(TAG, "doSignUpUserConfirm");
+
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiService.doSignUpUserConfirm(headers, date, location, confirm);
         Response<ResponseBody> response = call.execute();
 
         ensureHttpSuccess(response);
