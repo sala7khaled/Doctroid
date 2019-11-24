@@ -171,16 +171,16 @@ public class SignUpActivity extends BaseActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (!response.isSuccessful())
-                {
-                    Toast.makeText(SignUpActivity.this, response.code(), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                Toast.makeText(SignUpActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+
+                    progressViewDialog.hideDialog();
+                    Toast.makeText(SignUpActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignUpActivity.this, AddMedicineActivity.class));
                     finish();
-                    progressViewDialog.hideDialog();
+
+                } else {
+
+                    Toast.makeText(SignUpActivity.this, response.code(), Toast.LENGTH_SHORT).show();
                 }
 
             }

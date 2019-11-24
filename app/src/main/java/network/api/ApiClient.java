@@ -30,6 +30,10 @@ public class ApiClient {
         headers.put("Accept", "application/json");
         headers.put("Content-Type", "application/json");
         headers.put("time-zone", TimeZone.getDefault().getID());
+
+//        if token.isExit {
+//            headers.put("Authorization", token);
+//        }
         return headers;
     }
 
