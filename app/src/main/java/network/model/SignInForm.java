@@ -1,9 +1,17 @@
 package network.model;
 
-public class SignInForm {
-    String email, password;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public  SignInForm(){
+public class SignInForm {
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("password")
+    @Expose
+    private String password;
+
+    public SignInForm() {
 
     }
 
