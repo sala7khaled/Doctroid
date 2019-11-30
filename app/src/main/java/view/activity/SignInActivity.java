@@ -40,6 +40,14 @@ public class SignInActivity extends BaseActivity {
     Button signIn;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        //TODO check the token if user already signed
+
+    }
+
+    @Override
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("Sign in");
 
@@ -97,12 +105,10 @@ public class SignInActivity extends BaseActivity {
             }
 
         });
-        forgetPassword.setOnClickListener(view -> {
-            startActivity(new Intent(SignInActivity.this, ForgetPasswordActivity.class));
-        });
-        createAccount.setOnClickListener(view -> {
-            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
-        });
+        forgetPassword.setOnClickListener(view ->
+                startActivity(new Intent(SignInActivity.this, ForgetPasswordActivity.class)));
+        createAccount.setOnClickListener(view ->
+                startActivity(new Intent(SignInActivity.this, SignUpActivity.class)));
     }
 
     private boolean validate() {
@@ -111,7 +117,7 @@ public class SignInActivity extends BaseActivity {
 
         if (!Validator.isValidEmail(email.getText().toString()) && passSTR.length() < 6) {
             errorDialog.setVisibility(View.VISIBLE);
-            errorMessage.setText("Email/Password not valid");
+            errorMessage.setText(getString((R.string.email_and_password_not_valid)));
             email.requestFocus();
             return false;
         }
@@ -129,9 +135,8 @@ public class SignInActivity extends BaseActivity {
         }
 
         if (Validator.isValidEmail(emailSTR) && passSTR.length() >= 6) {
-            // TODO Login Validation
             errorDialog.setVisibility(View.VISIBLE);
-            errorMessage.setText("Welcome");
+            errorMessage.setText(getString(R.string.loading));
             return true;
         }
         return false;
@@ -148,6 +153,7 @@ public class SignInActivity extends BaseActivity {
 
                 if (response.isSuccessful()) {
 
+                    // TODO: Safe the token
                     //PrefManager.saveToken(SignInActivity.this, response.headers().toString());
 
                     User user = new User();

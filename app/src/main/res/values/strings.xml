@@ -3,6 +3,7 @@
     <string name="copy_rights">All Rights Reserved © 2019 Doctroid</string>
 
     <string name="next">"Next"</string>
+    <string name="welcome">"Welcome"</string>
     <string name="start">Got it</string>
     <string name="slide_1_title">On Touch</string>
     <string name="slide_1_desc">Stay on one touch with O6U doctors and updated medical analysis.</string>
@@ -19,6 +20,7 @@
     <string name="phone_required">Phone number is required</string>
     <string name="phone_not_valid">Enter valid phone number</string>
     <string name="password_not_valid">Enter valid Password</string>
+    <string name="email_and_password_not_valid">"Email/Password not valid"</string>
     <string name="password_required">Password is required</string>
     <string name="confirm_password_required">Confirm password</string>
     <string name="password_not_matched">Passwords don\'t matched</string>
@@ -33,7 +35,9 @@
     <string name="Reset_password">Reset password</string>
     <string name="hospital_location">"Al Mehwar Al Markazi Al Nassr St,\n6th of October, Giza."</string>
     <string name="hospital_phone">"02–38362487"</string>
-    <string name="hospital_website">"http://www.osuth.org/home.html"</string>
+    <string name="hospital_website">"http://www.o6u.edu.eg/"</string>
+    <string name="hospital_facebook">"https://web.facebook.com/o6u.eg/"</string>
+
     <string name="hospital_email">"General Manager: Chairman@osuth.org
         \nAdministration Manager: gm@osuth.org
         \nIT Manager: It@osuth.org

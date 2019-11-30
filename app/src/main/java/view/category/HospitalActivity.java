@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.s7k.doctroid.R;
 
+import helpers.Navigator;
 import view.base.BaseActivity;
 import view.fragment.HospitalAboutFragment;
 import view.fragment.HospitalLocationFragment;
@@ -48,13 +49,13 @@ public class HospitalActivity extends BaseActivity {
     private void setListeners() {
         
         phone.setOnClickListener(View -> {
-            Toast.makeText(this, "1 clicked!", Toast.LENGTH_SHORT).show();
+            Navigator.callPhoneNumber(HospitalActivity.this, getString(R.string.hospital_phone));
         });
         facebook.setOnClickListener(View -> {
-            Toast.makeText(this, "2 clicked!", Toast.LENGTH_SHORT).show();
+            Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_facebook));
         });
         website.setOnClickListener(View -> {
-            Toast.makeText(this, "3 clicked!", Toast.LENGTH_SHORT).show();
+            Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_website));
         });
         
     }
