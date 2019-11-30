@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    @SerializedName("user_id")
-    @Expose
-    private String mob_id;
     @SerializedName("firstName")
     @Expose
     private String firstName;
@@ -35,9 +32,8 @@ public class User {
     public User() {
     }
 
-    public User(String mob_id, String firstName, String lastName, String email,
+    public User(String firstName, String lastName, String email,
                 String phone, String password, String gender, boolean confirm) {
-        this.mob_id = mob_id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -49,14 +45,6 @@ public class User {
 
     public String getFullName() {
         return firstName + " " + lastName;
-    }
-
-    public String getMob_id() {
-        return mob_id;
-    }
-
-    public void setMob_id(String mob_id) {
-        this.mob_id = mob_id;
     }
 
     public String getFirstName() {

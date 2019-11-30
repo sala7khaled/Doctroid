@@ -155,19 +155,16 @@ public class SignUpActivity extends BaseActivity {
         progressViewDialog.setCanceledOnTouchOutside(false);
         progressViewDialog.showProgressDialog("Creating new account");
 
-        User user = new User("0", firstNameSTR, lastNameSTR,
+        User user = new User(firstNameSTR, lastNameSTR,
                 emailSTR, phoneSTR, passwordSTR, genderSTR, false);
 
-
-        callAPI(user);
-
-
+        signUp(user);
     }
 
-    private void callAPI(User user) {
+    private void signUp(User user) {
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiService.doSignUpUser(headers, user);
+        Call<ResponseBody> call = apiService.signUp(headers, user);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -191,26 +188,6 @@ public class SignUpActivity extends BaseActivity {
             }
         });
 
-    }
-
-    private void callAPI2(User user) {
-        CTOperationResponse response = new CTOperationResponse();
-        try {
-            response.response = createAccount(user);
-            Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
-            progressViewDialog.hideDialog();
-
-        } catch (SocketTimeoutException t) {
-            response.error = new CTHttpError("Request Time Out.", 504);
-
-        } catch (Throwable t) {
-            if (!(t instanceof CTHttpError)) t.printStackTrace();
-            response.error = t;
-        }
-    }
-
-    public ResponseBody createAccount(User user) throws Throwable {
-        return OperationsManager.getInstance().doSignUpUser(user);
     }
 
 }

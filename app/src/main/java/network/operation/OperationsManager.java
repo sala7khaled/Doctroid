@@ -38,7 +38,7 @@ public class OperationsManager {
 
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiService.doSignUpUser(headers, user);
+        Call<ResponseBody> call = apiService.signUp(headers, user);
         Response<ResponseBody> response = call.execute();
 
         ensureHttpSuccess(response);
@@ -52,7 +52,7 @@ public class OperationsManager {
 
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiService.doSignUpUserConfirm(headers, date, location, confirm);
+        Call<ResponseBody> call = apiService.signUpConfirm(headers, date, location, confirm);
         Response<ResponseBody> response = call.execute();
 
         ensureHttpSuccess(response);

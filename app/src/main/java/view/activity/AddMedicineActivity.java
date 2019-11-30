@@ -144,7 +144,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         HashMap<String, String> headers = ApiClient.getHeaders();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiService.doSignUpUserConfirm(headers, date, location, confirm);
+        Call<ResponseBody> call = apiService.signUpConfirm(headers, date, location, confirm);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
