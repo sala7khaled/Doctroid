@@ -48,15 +48,9 @@ public class HospitalActivity extends BaseActivity {
     
     private void setListeners() {
         
-        phone.setOnClickListener(View -> {
-            Navigator.callPhoneNumber(HospitalActivity.this, getString(R.string.hospital_phone));
-        });
-        facebook.setOnClickListener(View -> {
-            Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_facebook));
-        });
-        website.setOnClickListener(View -> {
-            Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_website));
-        });
+        phone.setOnClickListener(View -> Navigator.callPhoneNumber(HospitalActivity.this, getString(R.string.hospital_phone)));
+        facebook.setOnClickListener(View -> Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_facebook)));
+        website.setOnClickListener(View -> Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_website)));
         
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
