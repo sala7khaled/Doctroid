@@ -38,6 +38,7 @@ public class SignInActivity extends BaseActivity {
     TextView forgetPassword, createAccount, errorMessage;
     ImageView errorDialog;
     Button signIn;
+    ProgressViewDialog progressViewDialog;
 
     @Override
     protected void onStart() {
@@ -86,7 +87,7 @@ public class SignInActivity extends BaseActivity {
 //            });
 //            popupDialog.showMessageDialog("lol", "xd", this);
 
-            ProgressViewDialog progressViewDialog = new ProgressViewDialog(this);
+            progressViewDialog = new ProgressViewDialog(this);
             progressViewDialog.isShowing();
             progressViewDialog.setDialogCancelable(false);
             progressViewDialog.setCanceledOnTouchOutside(false);
@@ -97,6 +98,8 @@ public class SignInActivity extends BaseActivity {
                 String passSTR = password.getText().toString().trim();
 
                 SignInForm signInForm = new SignInForm(emailSTR, passSTR);
+
+                navigateToMain();
 
                 signIn(signInForm);
 
@@ -160,11 +163,13 @@ public class SignInActivity extends BaseActivity {
                     user.setFirstName(response.body().getFirstName());
                     Toast.makeText(SignInActivity.this, "Welcome "+user.getFirstName(), Toast.LENGTH_SHORT).show();
 
+                    progressViewDialog.hideDialog();
                     navigateToMain();
 
                 } else {
 
-                    Toast.makeText(SignInActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInActivity.this, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                    progressViewDialog.hideDialog();
                 }
 
             }

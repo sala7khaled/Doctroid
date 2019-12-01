@@ -16,6 +16,7 @@ import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import utilities.InternetUtilities;
+import utilities.PrefManager;
 
 public class ApiClient {
 
@@ -31,9 +32,10 @@ public class ApiClient {
         headers.put("Content-Type", "application/json");
         headers.put("time-zone", TimeZone.getDefault().getID());
 
-//        if token.isExit {
-//            headers.put("Authorization", token);
-//        }
+        if (PrefManager.getToken(App.getContext()) != null) {
+            headers.put("x-auth-token", PrefManager.getToken(App.getContext());
+        }
+
         return headers;
     }
 

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 
+import androidx.annotation.NonNull;
 import dialog.ProgressViewDialog;
 import helpers.Validator;
 import network.api.ApiClient;
@@ -167,7 +168,8 @@ public class SignUpActivity extends BaseActivity {
         Call<ResponseBody> call = apiService.signUp(headers, user);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call,
+                                   @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
                     progressViewDialog.hideDialog();
@@ -183,7 +185,8 @@ public class SignUpActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call,
+                                  @NonNull Throwable t) {
                 Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

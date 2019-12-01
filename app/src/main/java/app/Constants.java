@@ -10,6 +10,7 @@ public class Constants {
     public static final String BASE_URL = "https://lms-doctoroid.herokuapp.com/";
 
     /** GET */
+    public static final String SERVICES_GET_HOSPITAL = "hospitalinfo/";
     public static final String SERVICES_GET_MEDICAL = "medical/";
     public static final String SERVICES_GET_MEDICINE = "medicine/";
 

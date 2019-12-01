@@ -1,14 +1,17 @@
 package network.api;
 
+import java.util.List;
 import java.util.Map;
 
 import app.Constants;
+import network.model.Hospital;
 import network.model.SignInForm;
 import network.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 
@@ -27,4 +30,7 @@ public interface ApiInterface {
                                      @Body String date,
                                      @Body String location,
                                      @Body boolean confirm);
+
+    @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_HOSPITAL)
+    Call<List<Hospital>> getHospital(@HeaderMap Map<String, String> headers);
 }
