@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Hospital;
@@ -64,25 +65,27 @@ public class HospitalAboutFragment extends Fragment {
 
                     List<Hospital> hospital = response.body();
 
-                    for (Hospital hos : hospital) {
-                        String content = "";
+                    if (hospital != null) {
+                        for (Hospital hos : hospital) {
+                            String content = "";
 
-                        content += "Name: " + hos.getHospital_name() + "\n";
-                        content += "Location: " + hos.getHospital_location() + "\n";
-                        content += "Phone: " + hos.getHospital_phone() + "\n";
-                        content += "Website: " + hos.getHospital_website() + "\n";
-                        content += "Facebook: " + hos.getHospital_facebook() + "\n";
-                        content += "Email: " + hos.getHospital_email() + "\n";
-                        content += "General Manager: " + hos.getHospital_generalManager() + "\n";
-                        content += "Adminstraton Manager: " + hos.getHospital_adminstratonManager() + "\n";
-                        content += "IT Manager: " + hos.getHospital_itManager() + "\n";
-                        content += "MarketingManager: " + hos.getHospital_MarketingManage() + "\n";
-                        content += "Purchasing Manager: " + hos.getHospital_PurchasingManager()+ "\n";
+                            content += "Name: " + hos.getHospital_name() + "\n";
+                            content += "Location: " + hos.getHospital_location() + "\n";
+                            content += "Phone: " + hos.getHospital_phone() + "\n";
+                            content += "Website: " + hos.getHospital_website() + "\n";
+                            content += "Facebook: " + hos.getHospital_facebook() + "\n";
+                            content += "Email: " + hos.getHospital_email() + "\n";
+                            content += "General Manager: " + hos.getHospital_generalManager() + "\n";
+                            content += "Adminstraton Manager: " + hos.getHospital_adminstratonManager() + "\n";
+                            content += "IT Manager: " + hos.getHospital_itManager() + "\n";
+                            content += "MarketingManager: " + hos.getHospital_MarketingManage() + "\n";
+                            content += "Purchasing Manager: " + hos.getHospital_PurchasingManager() + "\n";
 
-                        hospitalInfo.append(content);
+                            hospitalInfo.append(content);
+                        }
+
+                        Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                     }
-
-                    Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
 
                 } else {
 

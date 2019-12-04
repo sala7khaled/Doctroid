@@ -1,7 +1,6 @@
 package view.activity;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,17 +11,13 @@ import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.s7k.doctroid.R;
 
-import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import network.api.ApiClient;
 import network.api.ApiInterface;
-import network.model.User;
 import network.operation.OperationsManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

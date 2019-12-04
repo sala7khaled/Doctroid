@@ -33,7 +33,7 @@ public class ApiClient {
         headers.put("time-zone", TimeZone.getDefault().getID());
 
         if (PrefManager.getToken(App.getContext()) != null) {
-            headers.put("x-auth-token", PrefManager.getToken(App.getContext());
+            headers.put("x-auth-token", PrefManager.getToken(App.getContext()));
         }
 
         return headers;
