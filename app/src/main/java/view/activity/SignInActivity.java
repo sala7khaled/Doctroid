@@ -3,6 +3,7 @@ package view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +23,6 @@ import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.SignInForm;
 import network.model.Token;
-import network.model.User;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -145,7 +144,8 @@ public class SignInActivity extends BaseActivity {
 
                 if (response.isSuccessful()) {
 
-                    PrefManager.saveToken(SignInActivity.this, response.body().toString());
+                    PrefManager.saveToken(SignInActivity.this, response.body().getAccessToken());
+                    Log.v("token", response.body().getAccessToken());
 
                     Toast.makeText(SignInActivity.this, "Token " + PrefManager.getToken(SignInActivity.this), Toast.LENGTH_SHORT).show();
 
@@ -153,6 +153,7 @@ public class SignInActivity extends BaseActivity {
                     navigateToMain();
 
                 } else {
+
                     errorDialog.setVisibility(View.VISIBLE);
                     errorMessage.setText(getString(R.string.try_again));
                     Toast.makeText(SignInActivity.this, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
