@@ -9,18 +9,18 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_next"
         app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.85"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
     <LinearLayout
         android:id="@+id/layoutDots"
@@ -40,10 +40,10 @@
         android:text="Don't show again"
         android:textColor="@color/colorPrimary"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@id/layoutDots"
         app:layout_constraintBottom_toBottomOf="@id/layoutDots"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layoutDots" />
 
     <Button
         android:id="@+id/btn_next"
@@ -53,9 +53,9 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/back_solid_primary"
+        android:fontFamily="@font/gotham_rounded_book"
         android:text="@string/next"
         android:textAllCaps="false"
-        android:fontFamily="@font/gotham_rounded_book"
         android:textColor="@android:color/white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

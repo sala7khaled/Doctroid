@@ -55,3 +55,18 @@ public class ErrorDialog {
         });
     }
 }
+
+//ErrorDialog.showMessageDialog(getString(R.string.no_internet_connection), "xd", SignInActivity.this);
+
+//            PopupDialog popupDialog = new PopupDialog(new PopupDialog.ErrorDialogListener() {
+//                @Override
+//                public void onOkClick() {
+//                    Toast.makeText(SignInActivity.this, "Hiii", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onCancelClick() {
+//
+//                }
+//            });
+//            popupDialog.showMessageDialog("lol", "xd", this);

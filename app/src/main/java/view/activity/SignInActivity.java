@@ -15,11 +15,13 @@ import com.s7k.doctroid.R;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
+
 import dialog.ProgressViewDialog;
 import helpers.Validator;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.SignInForm;
+import network.model.Token;
 import network.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -44,7 +46,10 @@ public class SignInActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        //TODO check the token if user already signed
+        if(PrefManager.getToken(SignInActivity.this)!= null)
+        {
+            //navigateToMain();
+        }
 
     }
 
@@ -72,21 +77,6 @@ public class SignInActivity extends BaseActivity {
     private void setListeners() {
         signIn.setOnClickListener(view -> {
 
-            //ErrorDialog.showMessageDialog(getString(R.string.no_internet_connection), "xd", SignInActivity.this);
-
-//            PopupDialog popupDialog = new PopupDialog(new PopupDialog.ErrorDialogListener() {
-//                @Override
-//                public void onOkClick() {
-//                    Toast.makeText(SignInActivity.this, "Hiii", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onCancelClick() {
-//
-//                }
-//            });
-//            popupDialog.showMessageDialog("lol", "xd", this);
-
             progressViewDialog = new ProgressViewDialog(this);
             progressViewDialog.isShowing();
             progressViewDialog.setDialogCancelable(false);
@@ -98,8 +88,6 @@ public class SignInActivity extends BaseActivity {
                 String passSTR = password.getText().toString().trim();
 
                 SignInForm signInForm = new SignInForm(emailSTR, passSTR);
-
-                navigateToMain();
 
                 signIn(signInForm);
 
@@ -146,35 +134,35 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void signIn(SignInForm signInForm) {
+
         HashMap<String, String> headers = ApiClient.getHeaders();
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<User> call = apiService.signIn(headers, signInForm);
-        call.enqueue(new Callback<User>() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        apiInterface.signIn(headers, signInForm).enqueue(new Callback<Token>() {
+
             @Override
-            public void onResponse(@NonNull Call<User> call,
-                                   @NonNull Response<User> response) {
+            public void onResponse(@NonNull Call<Token> call,
+                                   @NonNull Response<Token> response) {
 
                 if (response.isSuccessful()) {
 
-                    // TODO: Safe the token
-                    //PrefManager.saveToken(SignInActivity.this, response.headers().toString());
+                    PrefManager.saveToken(SignInActivity.this, response.body().toString());
 
-                    User user = new User();
-                    user.setFirstName(response.body().getFirstName());
-                    Toast.makeText(SignInActivity.this, "Welcome "+user.getFirstName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInActivity.this, "Token " + PrefManager.getToken(SignInActivity.this), Toast.LENGTH_SHORT).show();
 
                     progressViewDialog.hideDialog();
                     navigateToMain();
 
                 } else {
-
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setText(getString(R.string.try_again));
                     Toast.makeText(SignInActivity.this, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                     progressViewDialog.hideDialog();
                 }
 
             }
+
             @Override
-            public void onFailure(@NonNull Call<User> call,
+            public void onFailure(@NonNull Call<Token> call,
                                   @NonNull Throwable t) {
                 Toast.makeText(SignInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 

@@ -29,6 +29,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="loading">Loading&#8230;</string>
+    <string name="try_again">Please try again!</string>
     <string name="Forgot_Password">Forgot Password</string>
     <string name="reset_link">We just need your register e-mail ID to send reset link</string>
     <string name="E_mail">E-mail</string>
