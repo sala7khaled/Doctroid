@@ -116,7 +116,6 @@ public class HospitalAboutFragment extends Fragment {
                             facebook_layout.setVisibility(View.VISIBLE);
                             email_layout.setVisibility(View.VISIBLE);
 
-
                             String content = "";
                             content += "⦿ Email: " + hos.getHospital_email() + "\n";
                             content += "• General Manager: " + hos.getHospital_generalManager() + "\n";
