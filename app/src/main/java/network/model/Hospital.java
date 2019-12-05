@@ -35,9 +35,9 @@ public class Hospital {
     @SerializedName("hospital_itManager")
     @Expose
     private String hospital_itManager;
-    @SerializedName("hospital_MarketingManage")
+    @SerializedName("hospital_MarketingManager")
     @Expose
-    private String hospital_MarketingManage;
+    private String hospital_MarketingManager;
     @SerializedName("hospital_PurchasingManager")
     @Expose
     private String hospital_PurchasingManager;
@@ -57,7 +57,7 @@ public class Hospital {
         this.hospital_generalManager = hospital_generalManager;
         this.hospital_adminstratonManager = hospital_adminstratonManager;
         this.hospital_itManager = hospital_itManager;
-        this.hospital_MarketingManage = hospital_MarketingManage;
+        this.hospital_MarketingManager = hospital_MarketingManage;
         this.hospital_PurchasingManager = hospital_PurchasingManager;
     }
 
@@ -141,12 +141,12 @@ public class Hospital {
         this.hospital_itManager = hospital_itManager;
     }
 
-    public String getHospital_MarketingManage() {
-        return hospital_MarketingManage;
+    public String getHospital_MarketingManager() {
+        return hospital_MarketingManager;
     }
 
     public void setHospital_MarketingManage(String hospital_MarketingManage) {
-        this.hospital_MarketingManage = hospital_MarketingManage;
+        this.hospital_MarketingManager = hospital_MarketingManage;
     }
 
     public String getHospital_PurchasingManager() {

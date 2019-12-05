@@ -25,11 +25,12 @@
     <string name="confirm_password_required">Confirm password</string>
     <string name="password_not_matched">Passwords don\'t matched</string>
     <string name="request_error">Request error, please try again.</string>
+    <string name="something_wrong">Something went wrong, please try again.</string>
     <string name="no_internet_connection">No internet connection!</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="loading">Loading&#8230;</string>
-    <string name="try_again">Please try again!</string>
+    <string name="email">&#8230; Email: </string>
     <string name="Forgot_Password">Forgot Password</string>
     <string name="reset_link">We just need your register e-mail ID to send reset link</string>
     <string name="E_mail">E-mail</string>

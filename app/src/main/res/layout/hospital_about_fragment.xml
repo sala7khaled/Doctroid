@@ -3,20 +3,190 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrayBackground"
-    >
+    android:background="@color/colorBrown">
 
-    <TextView
-        android:id="@+id/hospitalAboutFragment_hospital_info"
+    <ProgressBar
+        android:id="@+id/hospitalAboutFragment_progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_gravity="center"
-        android:text="@string/loading"
-        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hospitalAboutFragment_hospitalName_TV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/gotham_rounded_medium"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/hospitalAboutFragment_view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:background="@color/colorBlack"
+        app:layout_constraintBottom_toTopOf="@+id/location_layout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/hospitalAboutFragment_hospitalName_TV" />
+
+    <LinearLayout
+        android:id="@+id/location_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/guideline_4"
+        app:layout_constraintStart_toStartOf="@id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/hospitalAboutFragment_view">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/image_icon"
+            app:srcCompat="@drawable/icon_location_black" />
+
+        <TextView
+            android:id="@+id/hospitalAboutFragment_hospitalLocation_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/gotham_rounded_book"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/phone_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/guideline_4"
+        app:layout_constraintStart_toStartOf="@id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@id/location_layout">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/image_icon"
+            app:srcCompat="@drawable/icon_hospital_phone" />
+
+        <TextView
+            android:id="@+id/hospitalAboutFragment_hospitalPhone_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/gotham_rounded_book"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/website_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/guideline_4"
+        app:layout_constraintStart_toStartOf="@id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/phone_layout">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/image_icon"
+            app:srcCompat="@drawable/icon_hospital_website" />
+
+        <TextView
+            android:id="@+id/hospitalAboutFragment_hospitalWebsite_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/gotham_rounded_book"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/facebook_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/guideline_4"
+        app:layout_constraintStart_toStartOf="@id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/website_layout">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/image_icon"
+            app:srcCompat="@drawable/icon_hospital_facebook" />
+
+        <TextView
+            android:id="@+id/hospitalAboutFragment_hospitalFacebook_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/gotham_rounded_book"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emails_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/guideline_4"
+        app:layout_constraintStart_toStartOf="@id/guideline_1"
+        app:layout_constraintTop_toBottomOf="@+id/facebook_layout">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/image_icon"
+            app:srcCompat="@drawable/icon_email" />
+
+        <TextView
+            android:id="@+id/hospitalAboutFragment_hospitalEmail_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/gotham_rounded_book"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

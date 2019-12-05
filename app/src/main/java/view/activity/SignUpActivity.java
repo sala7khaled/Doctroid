@@ -137,17 +137,17 @@ public class SignUpActivity extends BaseActivity {
 
         String firstNameSTR = firstName.getText().toString().trim();
         String lastNameSTR = lastName.getText().toString().trim();
-        String emailSTR = email.getText().toString().trim();
+        String emailSTR = email.getText().toString().toLowerCase().trim();
         String phoneSTR = phone.getText().toString().trim();
         String passwordSTR = password.getText().toString().trim();
         String genderSTR;
 
         if (maleSelected) {
-            genderSTR = "male";
+            genderSTR = "Male";
         } else if (femaleSelected) {
-            genderSTR = "female";
+            genderSTR = "Female";
         } else {
-            genderSTR = "empty";
+            genderSTR = "Not assigned";
         }
 
         progressViewDialog = new ProgressViewDialog(this);

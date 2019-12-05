@@ -47,7 +47,7 @@ public class SignInActivity extends BaseActivity {
 
         if(PrefManager.getToken(SignInActivity.this)!= null)
         {
-            //navigateToMain();
+            navigateToMain();
         }
 
     }
@@ -62,7 +62,7 @@ public class SignInActivity extends BaseActivity {
 
     private void initializeComponents() {
         email = findViewById(R.id.signIn_email_editText);
-        email.setText("Sala7KhaledSK@gmail.com");
+        email.setText("Sala7Khaled.S7K@gmail.com");
         password = findViewById(R.id.signIn_password_editText);
         errorMessage = findViewById(R.id.signIn_errorMessage_textView);
         errorDialog = findViewById(R.id.signIn_errorDialog_imageView);
@@ -83,7 +83,7 @@ public class SignInActivity extends BaseActivity {
             progressViewDialog.showProgressDialog("Checking information");
 
             if (validate()) {
-                String emailSTR = email.getText().toString().trim();
+                String emailSTR = email.getText().toString().toLowerCase().trim();
                 String passSTR = password.getText().toString().trim();
 
                 SignInForm signInForm = new SignInForm(emailSTR, passSTR);
@@ -147,16 +147,14 @@ public class SignInActivity extends BaseActivity {
                     PrefManager.saveToken(SignInActivity.this, response.body().getAccessToken());
                     Log.v("token", response.body().getAccessToken());
 
-                    Toast.makeText(SignInActivity.this, "Token " + PrefManager.getToken(SignInActivity.this), Toast.LENGTH_SHORT).show();
-
                     progressViewDialog.hideDialog();
                     navigateToMain();
 
                 } else {
 
-                    errorDialog.setVisibility(View.VISIBLE);
-                    errorMessage.setText(getString(R.string.try_again));
-                    Toast.makeText(SignInActivity.this, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                    errorDialog.setVisibility(View.GONE);
+                    errorMessage.setVisibility(View.GONE);
+                    Toast.makeText(SignInActivity.this, R.string.email_and_password_not_valid, Toast.LENGTH_SHORT).show();
                     progressViewDialog.hideDialog();
                 }
 
@@ -165,7 +163,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<Token> call,
                                   @NonNull Throwable t) {
-                Toast.makeText(SignInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignInActivity.this, R.string.request_error, Toast.LENGTH_SHORT).show();
 
             }
         });

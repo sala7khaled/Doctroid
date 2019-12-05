@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,15 @@ import java.util.List;
 public class HospitalAboutFragment extends Fragment {
 
     public Context context;
-    public TextView hospitalInfo;
+    private TextView hospitalName, hospitalLocation,
+            hospitalPhone, hospitalWebsite, hospitalFacebook, hospitalEmail;
+
+    private ProgressBar progressBar;
+
+    private LinearLayout location_layout, phone_layout, website_layout, facebook_layout, email_layout;
+
+    private View lineView;
+
 
     public HospitalAboutFragment() {
 
@@ -48,7 +58,29 @@ public class HospitalAboutFragment extends Fragment {
     }
 
     private void initUI(View view) {
-        hospitalInfo = view.findViewById(R.id.hospitalAboutFragment_hospital_info);
+        lineView = view.findViewById(R.id.hospitalAboutFragment_view);
+        progressBar = view.findViewById(R.id.hospitalAboutFragment_progressBar);
+
+        hospitalName = view.findViewById(R.id.hospitalAboutFragment_hospitalName_TV);
+        hospitalLocation = view.findViewById(R.id.hospitalAboutFragment_hospitalLocation_TV);
+        hospitalPhone = view.findViewById(R.id.hospitalAboutFragment_hospitalPhone_TV);
+        hospitalWebsite = view.findViewById(R.id.hospitalAboutFragment_hospitalWebsite_TV);
+        hospitalFacebook = view.findViewById(R.id.hospitalAboutFragment_hospitalFacebook_TV);
+        hospitalEmail = view.findViewById(R.id.hospitalAboutFragment_hospitalEmail_TV);
+
+        location_layout = view.findViewById(R.id.location_layout);
+        phone_layout = view.findViewById(R.id.phone_layout);
+        website_layout = view.findViewById(R.id.website_layout);
+        facebook_layout = view.findViewById(R.id.facebook_layout);
+        email_layout = view.findViewById(R.id.emails_layout);
+
+        lineView.setVisibility(View.INVISIBLE);
+
+        location_layout.setVisibility(View.INVISIBLE);
+        phone_layout.setVisibility(View.INVISIBLE);
+        website_layout.setVisibility(View.INVISIBLE);
+        facebook_layout.setVisibility(View.INVISIBLE);
+        email_layout.setVisibility(View.INVISIBLE);
     }
 
     private void getHospital() {
@@ -67,29 +99,40 @@ public class HospitalAboutFragment extends Fragment {
 
                     if (hospital != null) {
                         for (Hospital hos : hospital) {
+
+                            hospitalName.setText(hos.getHospital_name());
+                            hospitalLocation.setText(hos.getHospital_location());
+                            hospitalPhone.setText(hos.getHospital_phone());
+                            hospitalWebsite.setText(hos.getHospital_website());
+                            hospitalFacebook.setText(hos.getHospital_facebook());
+
+                            progressBar.setVisibility(View.GONE);
+
+                            lineView.setVisibility(View.VISIBLE);
+
+                            location_layout.setVisibility(View.VISIBLE);
+                            phone_layout.setVisibility(View.VISIBLE);
+                            website_layout.setVisibility(View.VISIBLE);
+                            facebook_layout.setVisibility(View.VISIBLE);
+                            email_layout.setVisibility(View.VISIBLE);
+
+
                             String content = "";
+                            content += "⦿ Email: " + hos.getHospital_email() + "\n";
+                            content += "• General Manager: " + hos.getHospital_generalManager() + "\n";
+                            content += "• Administration Manager: " + hos.getHospital_adminstratonManager() + "\n";
+                            content += "• IT Manager: " + hos.getHospital_itManager() + "\n";
+                            content += "• Marketing Manager: " + hos.getHospital_MarketingManager() + "\n";
+                            content += "• Purchasing Manager: " + hos.getHospital_PurchasingManager() + "\n";
 
-                            content += "Name: " + hos.getHospital_name() + "\n";
-                            content += "Location: " + hos.getHospital_location() + "\n";
-                            content += "Phone: " + hos.getHospital_phone() + "\n";
-                            content += "Website: " + hos.getHospital_website() + "\n";
-                            content += "Facebook: " + hos.getHospital_facebook() + "\n";
-                            content += "Email: " + hos.getHospital_email() + "\n";
-                            content += "General Manager: " + hos.getHospital_generalManager() + "\n";
-                            content += "Adminstraton Manager: " + hos.getHospital_adminstratonManager() + "\n";
-                            content += "IT Manager: " + hos.getHospital_itManager() + "\n";
-                            content += "MarketingManager: " + hos.getHospital_MarketingManage() + "\n";
-                            content += "Purchasing Manager: " + hos.getHospital_PurchasingManager() + "\n";
-
-                            hospitalInfo.append(content);
+                            hospitalEmail.append(content);
                         }
 
-                        Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
 
-                    Toast.makeText(context, response.body() + " " + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.something_wrong, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -97,7 +140,7 @@ public class HospitalAboutFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<List<Hospital>> call,
                                   @NonNull Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.request_error, Toast.LENGTH_SHORT).show();
 
             }
         });

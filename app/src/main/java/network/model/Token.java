@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class Token implements Serializable {
 
-    @SerializedName("x-auth-token")
+    @SerializedName("token")
     @Expose
     private String accessToken;
 
