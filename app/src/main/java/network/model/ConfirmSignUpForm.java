@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ConfirmSignUpForm {
 
+    @SerializedName("snn")
+    @Expose
+    private String snn;
     @SerializedName("date")
     @Expose
     private String date;
@@ -19,10 +22,19 @@ public class ConfirmSignUpForm {
 
     }
 
-    public ConfirmSignUpForm(String date, String location, String confirm) {
+    public ConfirmSignUpForm(String snn, String date, String location, String confirm) {
+        this.snn = snn;
         this.date = date;
         this.location = location;
         this.confirm = confirm;
+    }
+
+    public String getSnn() {
+        return snn;
+    }
+
+    public void setSnn(String snn) {
+        this.snn = snn;
     }
 
     public String getDate() {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import app.Constants;
 import network.model.Hospital;
+import network.model.Medicine;
 import network.model.SignInForm;
 import network.model.Token;
 import network.model.User;
@@ -34,4 +35,8 @@ public interface ApiInterface {
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_HOSPITAL)
     Call<List<Hospital>> getHospital(@HeaderMap Map<String, String> headers);
+
+
+    @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICINE)
+    Call<List<Medicine>> getMedicine(@HeaderMap Map<String, String> headers);
 }

@@ -10,8 +10,15 @@ public class Token implements Serializable {
     @SerializedName("token")
     @Expose
     private String accessToken;
+    @SerializedName("confirm")
+    @Expose
+    private String confirm;
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public String getConfirm() {
+        return confirm;
     }
 }

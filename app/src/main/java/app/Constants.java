@@ -12,7 +12,7 @@ public class Constants {
     /** GET */
     public static final String SERVICES_GET_HOSPITAL = "hospitalinfo";
     public static final String SERVICES_GET_MEDICAL = "medical";
-    public static final String SERVICES_GET_MEDICINE = "medicine";
+    public static final String SERVICES_GET_MEDICINE = "getmedicines";
 
     /** POST */
     public static final String SERVICES_POST_SIGNIN = "signin";
@@ -25,6 +25,7 @@ public class Constants {
      * -
      */
     public static final String KEY_TOKEN = "keyToken";
+    public static final String KEY_CONFIRM = "keyConfirm";
 
     public static final String INTENT_ID = "intentId";
     public static final String INTENT_KEY = "intentKey";
@@ -49,6 +50,6 @@ public class Constants {
      * - TIMING
      * -
      */
-    public static final int SPLASH_TIME_OUT = 3000;
+    public static final int SPLASH_TIME_OUT = 0000;
 
 }

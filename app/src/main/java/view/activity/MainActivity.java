@@ -55,10 +55,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
 
-        showDialog();
+        showExitDialog();
     }
 
-    public void showDialog() {
+    public void showExitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.app_name));
         builder.setMessage("Are you sure to exist?");

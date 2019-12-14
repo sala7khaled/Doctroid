@@ -2,6 +2,7 @@ package view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import dialog.ProgressViewDialog;
 import helpers.Validator;
 import network.api.ApiClient;
 import network.api.ApiInterface;
+import network.model.Token;
 import network.model.User;
 import network.observer.CTHttpError;
 import network.observer.CTOperationResponse;
@@ -28,6 +30,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.PrefManager;
 import view.base.BaseActivity;
 
 public class SignUpActivity extends BaseActivity {
@@ -43,8 +46,6 @@ public class SignUpActivity extends BaseActivity {
     ProgressViewDialog progressViewDialog;
     boolean maleSelected = false;
     boolean femaleSelected = false;
-
-    ApiInterface apiInterface;
 
     @Override
     protected void doOnCreate(Bundle bundle) {
@@ -172,22 +173,22 @@ public class SignUpActivity extends BaseActivity {
                                    @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
-                    progressViewDialog.hideDialog();
                     Toast.makeText(SignUpActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignUpActivity.this, AddMedicineActivity.class));
+                    progressViewDialog.hideDialog();
+                    startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                     finish();
 
                 } else {
 
                     Toast.makeText(SignUpActivity.this, response.code(), Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call,
                                   @NonNull Throwable t) {
                 Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
 

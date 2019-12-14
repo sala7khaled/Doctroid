@@ -45,9 +45,14 @@ public class SignInActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        if(PrefManager.getToken(SignInActivity.this)!= null)
-        {
+        if (PrefManager.getToken(SignInActivity.this) != null
+                && PrefManager.getConfirm(SignInActivity.this).equals("true")) {
             navigateToMain();
+        } else if (PrefManager.getToken(SignInActivity.this) != null
+                && PrefManager.getConfirm(SignInActivity.this).equals("false")) {
+            Intent intent = new Intent(this, AddMedicineActivity.class);
+            startActivity(intent);
+            finish();
         }
 
     }
@@ -144,11 +149,26 @@ public class SignInActivity extends BaseActivity {
 
                 if (response.isSuccessful()) {
 
+                    progressViewDialog.hideDialog();
+
                     PrefManager.saveToken(SignInActivity.this, response.body().getAccessToken());
                     Log.v("token", response.body().getAccessToken());
 
-                    progressViewDialog.hideDialog();
-                    navigateToMain();
+                    PrefManager.saveConfirm(SignInActivity.this, response.body().getConfirm());
+                    Log.v("confirm", response.body().getConfirm());
+
+                    if (response.body().getConfirm().equals("true")) {
+
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response.body().getConfirm().equals("false")) {
+
+                        Intent intent = new Intent(SignInActivity.this, AddMedicineActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
 
                 } else {
 
