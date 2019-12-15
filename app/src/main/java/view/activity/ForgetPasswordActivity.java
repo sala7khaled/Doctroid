@@ -19,7 +19,6 @@ public class ForgetPasswordActivity extends BaseActivity {
     protected void doOnCreate(Bundle bundle) {
         toolbarBackImageView.setVisibility(View.VISIBLE);
         toolbarTextView.setText("Forget Password");
-        toolbarTextView.setTextSize(23);
 
     }
 }

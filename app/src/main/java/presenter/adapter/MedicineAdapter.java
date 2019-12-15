@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.s7k.doctroid.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import network.model.Category;
 import network.model.Medicine;
@@ -19,11 +20,11 @@ import presenter.holder.MedicineHolder;
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
 
-    private ArrayList<Medicine> medicineList;
+    private List<Medicine> medicineList;
     private Context context;
     private ItemClick itemClick;
 
-    public MedicineAdapter(ArrayList<Medicine> items, Context context, ItemClick itemClick) {
+    public MedicineAdapter(List<Medicine> items, Context context, ItemClick itemClick) {
         this.medicineList = items;
         this.context = context;
         this.itemClick = itemClick;

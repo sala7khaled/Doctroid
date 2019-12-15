@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +60,8 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
     public RecyclerView recyclerView;
     public MedicineAdapter medicineAdapter;
-    public ArrayList<Medicine> medicineArrayList;
+    public List<Medicine> medicineArrayList = new ArrayList<>();
+    public List<Medicine> medicinesAPI = new ArrayList<>();
 
     String citySTR = "Empty", dateSTR = "Empty";
 
@@ -69,9 +71,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarTextView.setText("Add Medicine");
-        toolbarTextView.setTextSize(20);
-        toolbarBackImageView.setVisibility(View.VISIBLE);
+        toolbarTextView.setText("Confirm Information");
 
         initializeComponents();
         setListeners();
@@ -87,12 +87,25 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         addImageView = findViewById(R.id.addMedicine_addMedicine);
 
         recyclerView = findViewById(R.id.addMedicine_medicineRecyclerView);
-        medicineArrayList = new ArrayList<Medicine>();
         recyclerView.setLayoutManager(new GridLayoutManager(AddMedicineActivity.this, 2));
         recyclerView.setHasFixedSize(true);
 
         medicineAdapter = new MedicineAdapter(medicineArrayList, AddMedicineActivity.this,
-                position -> medicineAdapter.deleteItem(position));
+                position -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(medicineArrayList.get(position).toString());
+                    builder.setMessage("Are you sure to delete this medicine?");
+
+                    builder.setPositiveButton("Yes",
+                            (dialogInterface, i) -> medicineAdapter.deleteItem(position));
+
+                    builder.setNegativeButton("No",
+                            (dialogInterface, i) -> {
+                            });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                });
         recyclerView.setAdapter(medicineAdapter);
 
         citySpinner.setItems("Select City",
@@ -139,22 +152,34 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         citySpinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) ->
                 citySTR = item);
 
-        addImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!medicineAutoComplete.getText().toString().trim().isEmpty())
-                {
-                    Medicine medicine = new Medicine(medicineAutoComplete.getText().toString().trim());
-                    medicineAdapter.addItem(medicine);
-                    medicineAutoComplete.setText("");
-                }
-            }
-        });
+        addImageView.setOnClickListener(v -> {
 
-        medicineAutoComplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(AddMedicineActivity.this, medicineAutoComplete.getText(), Toast.LENGTH_SHORT).show();
+            if (!medicineAutoComplete.getText().toString().trim().isEmpty()) {
+
+                Medicine medicine = new Medicine(medicineAutoComplete.getText().toString().trim());
+
+                for (Medicine med : medicinesAPI) {
+
+                    if (medicine.getName().equals(med.getName())) {
+
+                        if (medicineArrayList.size() != 0) {
+                            for (Medicine med2 : medicineArrayList)
+                                if (medicine.getName().equals(med2.getName())) {
+                                    Toast.makeText(AddMedicineActivity.this, "This medicine already selected", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    medicineAdapter.addItem(medicine);
+                                    medicineAutoComplete.setText("");
+                                }
+
+                        }
+                        else
+                        {
+                            medicineAdapter.addItem(medicine);
+                            medicineAutoComplete.setText("");
+                        }
+                    }
+                }
+
             }
         });
 
@@ -162,23 +187,16 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
             String snnSTR = snn.getText().toString().toLowerCase().trim();
 
-            if (snnSTR.isEmpty()) {
-                Toast.makeText(this, "Please Enter your SNN", Toast.LENGTH_SHORT).show();
-            } else if (dateSTR.equals("Empty")) {
+            if (dateSTR.equals("Empty")) {
                 Toast.makeText(this, "Please select your Birthday", Toast.LENGTH_SHORT).show();
             } else if (citySTR.equals("Empty")) {
                 Toast.makeText(this, "Please select your City", Toast.LENGTH_SHORT).show();
+            } else if (snnSTR.isEmpty()) {
+                Toast.makeText(this, "Please Enter your SNN", Toast.LENGTH_SHORT).show();
             } else if (true) {
                 Toast.makeText(this, "Please add your Medicine", Toast.LENGTH_SHORT).show();
-            }
-            if (!dateSTR.equals("Empty") && !citySTR.equals("Empty")) {
-                Toast.makeText(this, dateSTR + " " + citySTR, Toast.LENGTH_SHORT).show();
-
-                Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
-//                dateSTR ="xxxx";
-//                citySTR = "zzzzzz";
-//                boolean confirm = true;
-//                callAPI(dateSTR, citySTR, confirm);
+            } else {
+                // TODO: Send shit to API
             }
         });
 
@@ -210,11 +228,11 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
                 if (response.isSuccessful()) {
 
-                    List<Medicine> medicines = response.body();
-                    if (medicines != null) {
+                    medicinesAPI = response.body();
+                    if (medicinesAPI != null) {
 
                         ArrayAdapter<Medicine> adapter = new ArrayAdapter<Medicine>(AddMedicineActivity.this,
-                                android.R.layout.simple_list_item_1, medicines);
+                                android.R.layout.simple_list_item_1, medicinesAPI);
                         medicineAutoComplete.setAdapter(adapter);
                     }
                     progressViewDialog.hideDialog();
