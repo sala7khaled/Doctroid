@@ -38,6 +38,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
         notifyDataSetChanged();
     }
 
+    public boolean checkExistMedicine(Medicine medicine) {
+        return medicineList.contains(medicine);
+    }
+
     public void deleteItem(int position) {
         medicineList.remove(position);
         notifyDataSetChanged();
@@ -46,6 +50,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
     private Context getContext() {
         return context;
     }
+
     @NonNull
     @Override
     public MedicineHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -35,6 +35,12 @@ public class Medicine {
         this.name = name;
     }
 
+    public Medicine(String id, String s) {
+        this.id = id;
+    }
+
+
+
     public Medicine(String id, String name, String price, String description, String quantity) {
         this.id = id;
         this.name = name;

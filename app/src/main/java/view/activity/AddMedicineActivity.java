@@ -3,7 +3,9 @@ package view.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +60,10 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     ProgressViewDialog progressViewDialog;
     EditText snn;
     AutoCompleteTextView medicineAutoComplete;
-    ImageView addImageView;
+    CardView medicineCardView;
+
+    ImageView errorDialog;
+    TextView errorMessage;
 
     public RecyclerView recyclerView;
     public MedicineAdapter medicineAdapter;
@@ -64,6 +71,12 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     public List<Medicine> medicinesAPI = new ArrayList<>();
 
     String citySTR = "Empty", dateSTR = "Empty";
+
+    @Override
+    public void onBackPressed() {
+
+        Toast.makeText(this, "Please confirm your information", Toast.LENGTH_SHORT).show();
+    }
 
     public AddMedicineActivity() {
         super(R.layout.activity_add_medicine, true);
@@ -84,7 +97,10 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         signUp = findViewById(R.id.addMedicine_SignUp_button);
         snn = findViewById(R.id.addMedicine_SNN_ET);
         medicineAutoComplete = findViewById(R.id.addMedicine_medicineAutoComplete);
-        addImageView = findViewById(R.id.addMedicine_addMedicine);
+        medicineCardView = findViewById(R.id.addMedicine_medicineCardView);
+
+        errorDialog = findViewById(R.id.addMedicine_errorDialog_imageView);
+        errorMessage = findViewById(R.id.addMedicine_errorMessage_textView);
 
         recyclerView = findViewById(R.id.addMedicine_medicineRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(AddMedicineActivity.this, 2));
@@ -97,7 +113,13 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
                     builder.setMessage("Are you sure to delete this medicine?");
 
                     builder.setPositiveButton("Yes",
-                            (dialogInterface, i) -> medicineAdapter.deleteItem(position));
+                            (dialogInterface, i) ->
+                            {
+                                medicineAdapter.deleteItem(position);
+                                if (medicineAdapter.getItemCount() == 0) {
+                                    medicineCardView.setVisibility(View.INVISIBLE);
+                                }
+                            });
 
                     builder.setNegativeButton("No",
                             (dialogInterface, i) -> {
@@ -152,35 +174,15 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         citySpinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) ->
                 citySTR = item);
 
-        addImageView.setOnClickListener(v -> {
-
-            if (!medicineAutoComplete.getText().toString().trim().isEmpty()) {
-
-                Medicine medicine = new Medicine(medicineAutoComplete.getText().toString().trim());
-
-                for (Medicine med : medicinesAPI) {
-
-                    if (medicine.getName().equals(med.getName())) {
-
-                        if (medicineArrayList.size() != 0) {
-                            for (Medicine med2 : medicineArrayList)
-                                if (medicine.getName().equals(med2.getName())) {
-                                    Toast.makeText(AddMedicineActivity.this, "This medicine already selected", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    medicineAdapter.addItem(medicine);
-                                    medicineAutoComplete.setText("");
-                                }
-
-                        }
-                        else
-                        {
-                            medicineAdapter.addItem(medicine);
-                            medicineAutoComplete.setText("");
-                        }
-                    }
-                }
-
+        medicineAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
+            Medicine medicine = (Medicine) medicineAutoComplete.getAdapter().getItem(position);
+            if (medicineAdapter.checkExistMedicine(medicine)) {
+                Toast.makeText(AddMedicineActivity.this, "This medicine already selected", Toast.LENGTH_SHORT).show();
+            } else {
+                medicineCardView.setVisibility(View.VISIBLE);
+                medicineAdapter.addItem(medicine);
             }
+            medicineAutoComplete.setText("");
         });
 
         signUp.setOnClickListener(View -> {
@@ -188,20 +190,29 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             String snnSTR = snn.getText().toString().toLowerCase().trim();
 
             if (dateSTR.equals("Empty")) {
-                Toast.makeText(this, "Please select your Birthday", Toast.LENGTH_SHORT).show();
-            } else if (citySTR.equals("Empty")) {
-                Toast.makeText(this, "Please select your City", Toast.LENGTH_SHORT).show();
+                errorDialog.setVisibility(android.view.View.VISIBLE);
+                errorMessage.setText("Please select your Birthday");
+            } else if (citySTR.equals("Empty") || citySTR.equals("Select City")) {
+                errorDialog.setVisibility(android.view.View.VISIBLE);
+                errorMessage.setText("Please select your City");
             } else if (snnSTR.isEmpty()) {
-                Toast.makeText(this, "Please Enter your SNN", Toast.LENGTH_SHORT).show();
-            } else if (true) {
-                Toast.makeText(this, "Please add your Medicine", Toast.LENGTH_SHORT).show();
+                errorDialog.setVisibility(android.view.View.VISIBLE);
+                errorMessage.setText("Please Enter your SNN");
+            } else if (medicineAdapter.getItemCount() == 0) {
+                errorDialog.setVisibility(android.view.View.VISIBLE);
+                errorMessage.setText("Please add your Medicines");
             } else {
-                // TODO: Send shit to API
+                errorDialog.setVisibility(android.view.View.INVISIBLE);
+                errorMessage.setVisibility(android.view.View.INVISIBLE);
+
+                signUpAPI(dateSTR, citySTR, snnSTR);
+
             }
         });
 
 
     }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -231,7 +242,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
                     medicinesAPI = response.body();
                     if (medicinesAPI != null) {
 
-                        ArrayAdapter<Medicine> adapter = new ArrayAdapter<Medicine>(AddMedicineActivity.this,
+                        ArrayAdapter<Medicine> adapter = new ArrayAdapter<>(AddMedicineActivity.this,
                                 android.R.layout.simple_list_item_1, medicinesAPI);
                         medicineAutoComplete.setAdapter(adapter);
                     }
@@ -246,6 +257,23 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
             }
         });
+    }
+
+    private void signUpAPI(String dateSTR, String citySTR, String snnSTR) {
+
+        progressViewDialog = new ProgressViewDialog(this);
+        progressViewDialog.isShowing();
+        progressViewDialog.setDialogCancelable(false);
+        progressViewDialog.setCanceledOnTouchOutside(false);
+        progressViewDialog.showProgressDialog("Finishing sign up");
+
+        String[] ids = new String[medicineArrayList.size()];
+        for (int i = 0; i < medicineArrayList.size(); i++) {
+            ids[i] = medicineArrayList.get(i).getId();
+            Log.v("LIST: " + i, "ID:" + ids[i]);
+        }
+        progressViewDialog.hideDialog();
+
     }
 
 }
