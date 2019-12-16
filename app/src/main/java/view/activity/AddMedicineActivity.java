@@ -267,10 +267,10 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         progressViewDialog.setCanceledOnTouchOutside(false);
         progressViewDialog.showProgressDialog("Finishing sign up");
 
-        String[] ids = new String[medicineArrayList.size()];
+        String[] medicineIDs = new String[medicineArrayList.size()];
         for (int i = 0; i < medicineArrayList.size(); i++) {
-            ids[i] = medicineArrayList.get(i).getId();
-            Log.v("LIST: " + i, "ID:" + ids[i]);
+            medicineIDs[i] = medicineArrayList.get(i).getId();
+            Log.v("ITEM: " + i, "ID:" + medicineIDs[i]);
         }
         progressViewDialog.hideDialog();
 

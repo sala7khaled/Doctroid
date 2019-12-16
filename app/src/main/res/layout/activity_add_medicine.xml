@@ -143,10 +143,8 @@
             android:layout_height="wrap_content"
             android:completionHint="@string/down_arrow"
             android:completionThreshold="1"
-
             android:dropDownVerticalOffset="-200dp"
             android:dropDownHeight="147dp"
-            android:dropDownSelector="@drawable/back_drop_medicine"
             android:fontFamily="@font/gotham_rounded_medium"
             android:textColorHint="@color/colorPrimary"
             android:textSize="16sp" />
