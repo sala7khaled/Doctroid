@@ -46,20 +46,6 @@ public class OperationsManager {
         return response.body();
     }
 
-    public ResponseBody doSignUpUserConfirm(String date, String location, boolean confirm) throws IOException {
-
-        Log.v(TAG, "doSignUpUserConfirm");
-
-        HashMap<String, String> headers = ApiClient.getHeaders();
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiService.signUpConfirm(headers, date, location, confirm);
-        Response<ResponseBody> response = call.execute();
-
-        ensureHttpSuccess(response);
-
-        return response.body();
-    }
-
     private void ensureHttpSuccess(Response response) throws IOException {
         if (!response.isSuccessful() && response.errorBody() != null) {
             ResponseBody errorBody = response.errorBody();

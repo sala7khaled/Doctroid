@@ -52,7 +52,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/back_solid_primary"
+        android:background="@drawable/back_solid_primary_dark"
         android:fontFamily="@font/gotham_rounded_book"
         android:text="@string/next"
         android:textAllCaps="false"

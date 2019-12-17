@@ -157,6 +157,9 @@ public class SignInActivity extends BaseActivity {
                     PrefManager.saveConfirm(SignInActivity.this, response.body().getConfirm());
                     Log.v("confirm", response.body().getConfirm());
 
+                    PrefManager.saveP_id(SignInActivity.this, response.body().getP_id());
+                    Log.v("p_id", response.body().getP_id());
+
                     if (response.body().getConfirm().equals("true")) {
 
                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);

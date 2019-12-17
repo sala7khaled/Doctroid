@@ -23,8 +23,6 @@ public class User {
     @SerializedName("gender")
     @Expose
     private String gender;
-
-
     @SerializedName("confirm")
     @Expose
     private boolean confirm;

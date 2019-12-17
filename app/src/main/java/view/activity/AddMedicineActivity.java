@@ -34,6 +34,7 @@ import dialog.ProgressViewDialog;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Category;
+import network.model.ConfirmSignUpForm;
 import network.model.Hospital;
 import network.model.Medicine;
 import network.operation.OperationsManager;
@@ -210,14 +211,12 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             }
         });
 
-
     }
-
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        dateSTR = dayOfMonth + "-" + month + "-" + year;
+        dateSTR = dayOfMonth + "/" + ++month + "/" + year;
         date.setText("Date: " + dateSTR);
 
     }
@@ -272,7 +271,32 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             medicineIDs[i] = medicineArrayList.get(i).getId();
             Log.v("ITEM: " + i, "ID:" + medicineIDs[i]);
         }
-        progressViewDialog.hideDialog();
+
+        String p_id = PrefManager.getP_id(AddMedicineActivity.this);
+
+        ConfirmSignUpForm confirmSignUpForm = new ConfirmSignUpForm(p_id, citySTR, dateSTR, "true", snnSTR, medicineIDs);
+
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        apiInterface.signUpConfirm(headers, confirmSignUpForm).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call,
+                                   @NonNull Response<ResponseBody> response) {
+
+                Toast.makeText(AddMedicineActivity.this, "here we go", Toast.LENGTH_SHORT).show();
+                PrefManager.saveConfirm(AddMedicineActivity.this, "true");
+                startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call,
+                                  @NonNull Throwable t) {
+                Toast.makeText(AddMedicineActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 

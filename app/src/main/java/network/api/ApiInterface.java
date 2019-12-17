@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import app.Constants;
+import network.model.ConfirmSignUpForm;
 import network.model.Hospital;
 import network.model.Medicine;
 import network.model.SignInForm;
@@ -29,9 +30,7 @@ public interface ApiInterface {
 
     @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_SIGNUP_CONFIRM)
     Call<ResponseBody> signUpConfirm(@HeaderMap Map<String, String> headers,
-                                     @Body String date,
-                                     @Body String location,
-                                     @Body boolean confirm);
+                                     @Body ConfirmSignUpForm confirmSignUpForm);
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_HOSPITAL)
     Call<List<Hospital>> getHospital(@HeaderMap Map<String, String> headers);

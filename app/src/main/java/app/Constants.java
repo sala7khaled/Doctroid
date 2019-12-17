@@ -17,7 +17,7 @@ public class Constants {
     /** POST */
     public static final String SERVICES_POST_SIGNIN = "signin";
     public static final String SERVICES_POST_SIGNUP = "signup";
-    public static final String SERVICES_POST_SIGNUP_CONFIRM = "signupconfirm";
+    public static final String SERVICES_POST_SIGNUP_CONFIRM = "confirmsignup";
 
     /**
      * -
@@ -26,6 +26,7 @@ public class Constants {
      */
     public static final String KEY_TOKEN = "keyToken";
     public static final String KEY_CONFIRM = "keyConfirm";
+    public static final String KEY_P_ID = "keyP_id";
 
     public static final String INTENT_ID = "intentId";
     public static final String INTENT_KEY = "intentKey";

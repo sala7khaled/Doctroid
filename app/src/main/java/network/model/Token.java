@@ -13,6 +13,9 @@ public class Token implements Serializable {
     @SerializedName("confirm")
     @Expose
     private String confirm;
+    @SerializedName("p_id")
+    @Expose
+    private String p_id;
 
     public String getAccessToken() {
         return accessToken;
@@ -20,5 +23,9 @@ public class Token implements Serializable {
 
     public String getConfirm() {
         return confirm;
+    }
+
+    public String getP_id() {
+        return p_id;
     }
 }

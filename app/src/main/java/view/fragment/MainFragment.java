@@ -68,7 +68,7 @@ public class MainFragment extends Fragment {
                     case "Result":
                         startActivity(new Intent(getActivity(), ResultActivity.class));
                         break;
-                    case "Medicine Shop":
+                    case "Medicine":
                         startActivity(new Intent(getActivity(), MedicineActivity.class));
                         break;
                     case "Emergency":
@@ -84,7 +84,7 @@ public class MainFragment extends Fragment {
         categoryList.add(new Category("Medical Analysis", R.drawable.icon_2_medical_analysis));
         categoryList.add(new Category("Appointment", R.drawable.icon_3_appointment));
         categoryList.add(new Category("Result", R.drawable.icon_4_result));
-        categoryList.add(new Category("Medicine Shop", R.drawable.icon_5_medicine_shop));
+        categoryList.add(new Category("Medicine", R.drawable.icon_5_medicine_shop));
         categoryList.add(new Category("Emergency", R.drawable.icon_6_emergency));
     }
 }

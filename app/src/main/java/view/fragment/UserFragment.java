@@ -20,7 +20,6 @@ import view.activity.SignInActivity;
 public class UserFragment extends Fragment {
 
     public Context context;
-    private Button logout;
 
     @Nullable
     @Override
@@ -30,20 +29,12 @@ public class UserFragment extends Fragment {
         context = getActivity().getApplicationContext();
 
         initializeComponents(view);
-        setListeners();
 
         return view;
     }
 
     private void initializeComponents(View view) {
-        logout = view.findViewById(R.id.userFragment_Logout_Button);
     }
 
-    private void setListeners() {
-        logout.setOnClickListener(v -> {
-            PrefManager.deleteToken(context);
-            startActivity(new Intent(context, SignInActivity.class));
-        });
-    }
 
 }
