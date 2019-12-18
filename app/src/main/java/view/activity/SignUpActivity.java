@@ -2,7 +2,6 @@ package view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 
 import com.s7k.doctroid.R;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
@@ -21,16 +18,11 @@ import dialog.ProgressViewDialog;
 import helpers.Validator;
 import network.api.ApiClient;
 import network.api.ApiInterface;
-import network.model.Token;
 import network.model.User;
-import network.observer.CTHttpError;
-import network.observer.CTOperationResponse;
-import network.operation.OperationsManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import utilities.PrefManager;
 import view.base.BaseActivity;
 
 public class SignUpActivity extends BaseActivity {

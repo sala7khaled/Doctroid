@@ -18,6 +18,7 @@ public class Constants {
     public static final String SERVICES_POST_SIGNIN = "signin";
     public static final String SERVICES_POST_SIGNUP = "signup";
     public static final String SERVICES_POST_SIGNUP_CONFIRM = "confirmsignup";
+    public static final String SERVICES_POST_USER_PROFILE = "getpatient";
 
     /**
      * -

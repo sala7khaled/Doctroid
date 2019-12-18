@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,25 +31,15 @@ import java.util.List;
 import dialog.ProgressViewDialog;
 import network.api.ApiClient;
 import network.api.ApiInterface;
-import network.model.Category;
 import network.model.ConfirmSignUpForm;
-import network.model.Hospital;
 import network.model.Medicine;
-import network.operation.OperationsManager;
 import okhttp3.ResponseBody;
-import presenter.adapter.MainAdapter;
 import presenter.adapter.MedicineAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import utilities.PrefManager;
 import view.base.BaseActivity;
-import view.category.AppointmentActivity;
-import view.category.EmergencyActivity;
-import view.category.HospitalActivity;
-import view.category.MedicalActivity;
-import view.category.MedicineActivity;
-import view.category.ResultActivity;
 import view.fragment.DatePickerFragment;
 
 public class AddMedicineActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
@@ -283,10 +271,14 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             public void onResponse(@NonNull Call<ResponseBody> call,
                                    @NonNull Response<ResponseBody> response) {
 
-                Toast.makeText(AddMedicineActivity.this, "here we go", Toast.LENGTH_SHORT).show();
-                PrefManager.saveConfirm(AddMedicineActivity.this, "true");
-                startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
-                finish();
+                if (response.isSuccessful())
+                {
+                    Toast.makeText(AddMedicineActivity.this, "here we go", Toast.LENGTH_SHORT).show();
+                    PrefManager.saveConfirm(AddMedicineActivity.this, "true");
+                    startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
+                    progressViewDialog.hideDialog();
+                    finish();
+                }
 
             }
 

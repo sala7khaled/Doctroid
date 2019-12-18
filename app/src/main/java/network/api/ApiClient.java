@@ -20,7 +20,7 @@ import utilities.PrefManager;
 
 public class ApiClient {
 
-    public static final String BASE_URL = Constants.BASE_URL;
+    static final String BASE_URL = Constants.BASE_URL;
     private static Retrofit retrofit = null;
 
     private static final long CACHE_SIZE = 20 * 1024 * 1024; // 10 MB

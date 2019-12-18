@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.s7k.doctroid.BuildConfig;
 import com.s7k.doctroid.R;
 
 import utilities.PrefManager;
@@ -21,6 +23,7 @@ public class SettingsFragment extends Fragment {
 
     public Context context;
     private Button logout;
+    private TextView version;
 
     @Nullable
     @Override
@@ -36,9 +39,11 @@ public class SettingsFragment extends Fragment {
 
     private void initializeComponents(View view) {
         logout = view.findViewById(R.id.settingsFragment_Logout_Button);
+        version = view.findViewById(R.id.settingsFragment_version_TV);
     }
 
     private void setListeners() {
+        version.setText("Version: " + BuildConfig.VERSION_NAME);
         logout.setOnClickListener(v -> {
             PrefManager.deleteToken(context);
             PrefManager.deleteConfirm(context);

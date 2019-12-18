@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="193dp"
             android:layout_height="104dp"
             android:layout_gravity="center"
@@ -37,7 +38,20 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="14dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+            app:layout_constraintStart_toStartOf="@+id/guideline_1" />
+
+        <TextView
+            android:id="@+id/settingsFragment_version_TV"
+            android:layout_width="0dp"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/gotham_rounded_book_italic"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/settingsFragment_Logout_Button"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1" />
 

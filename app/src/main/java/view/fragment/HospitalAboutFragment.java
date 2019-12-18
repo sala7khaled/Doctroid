@@ -11,17 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Hospital;
-import network.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import view.activity.SignInActivity;
 
 import com.s7k.doctroid.R;
 
