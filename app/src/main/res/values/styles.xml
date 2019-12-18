@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="stToast">
+        <item name="stIconStart">@drawable/icon_noback</item>
+        <item name="stColorBackground">@color/colorPrimaryDark</item>
+        <item name="stTextColor">@color/colorWhite</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stFont">@font/gotham_rounded_medium</item>
+        <item name="stStrokeColor">@color/colorPrimaryDark</item>
+        <item name="stStrokeWidth">0dp</item>
+        <item name="stLength">LONG</item>
+        <item name="stRadius">30dp</item>
+    </style>
+
 </resources>

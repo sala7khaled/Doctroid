@@ -49,6 +49,7 @@ public class SettingsFragment extends Fragment {
             PrefManager.deleteConfirm(context);
             PrefManager.deleteP_id(context);
             startActivity(new Intent(context, SignInActivity.class));
+            getActivity().finish();
         });
     }
 

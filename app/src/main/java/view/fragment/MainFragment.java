@@ -51,30 +51,27 @@ public class MainFragment extends Fragment {
     }
 
     private void initializeComponents() {
-        mainAdapter = new MainAdapter(categoryList, getContext(), new MainAdapter.ItemClick() {
-            @Override
-            public void onClick(int position) {
-                String categoryName = categoryList.get(position).getName();
-                switch (categoryName) {
-                    case "O6U Hospital":
-                        startActivity(new Intent(getActivity(), HospitalActivity.class));
-                        break;
-                    case "Medical Analysis":
-                        startActivity(new Intent(getActivity(), MedicalActivity.class));
-                        break;
-                    case "Appointment":
-                        startActivity(new Intent(getActivity(), AppointmentActivity.class));
-                        break;
-                    case "Result":
-                        startActivity(new Intent(getActivity(), ResultActivity.class));
-                        break;
-                    case "Medicine":
-                        startActivity(new Intent(getActivity(), MedicineActivity.class));
-                        break;
-                    case "Emergency":
-                        startActivity(new Intent(getActivity(), EmergencyActivity.class));
-                        break;
-                }
+        mainAdapter = new MainAdapter(categoryList, getContext(), position -> {
+            String categoryName = categoryList.get(position).getName();
+            switch (categoryName) {
+                case "O6U Hospital":
+                    startActivity(new Intent(getActivity(), HospitalActivity.class));
+                    break;
+                case "Medical Analysis":
+                    startActivity(new Intent(getActivity(), MedicalActivity.class));
+                    break;
+                case "Appointment":
+                    startActivity(new Intent(getActivity(), AppointmentActivity.class));
+                    break;
+                case "Result":
+                    startActivity(new Intent(getActivity(), ResultActivity.class));
+                    break;
+                case "Medicine":
+                    startActivity(new Intent(getActivity(), MedicineActivity.class));
+                    break;
+                case "Emergency":
+                    startActivity(new Intent(getActivity(), EmergencyActivity.class));
+                    break;
             }
         });
         recyclerView.setAdapter(mainAdapter);

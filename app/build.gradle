@@ -60,6 +60,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
+    // Custom Toast
+    implementation 'com.muddzdev:styleabletoast:2.2.3'
+    implementation 'com.github.GrenderG:Toasty:1.4.2'
+
     // Others
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
@@ -70,4 +74,6 @@ dependencies {
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.jaredrummler:material-spinner:1.3.1'
+
+
 }

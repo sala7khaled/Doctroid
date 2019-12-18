@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import dialog.ProgressViewDialog;
+import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.ConfirmSignUpForm;
@@ -41,6 +42,8 @@ import retrofit2.Response;
 import utilities.PrefManager;
 import view.base.BaseActivity;
 import view.fragment.DatePickerFragment;
+
+import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class AddMedicineActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -240,8 +243,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             @Override
             public void onFailure(@NonNull Call<List<Medicine>> call,
                                   @NonNull Throwable t) {
-                Toast.makeText(AddMedicineActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-
+                Toasty.error(AddMedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
             }
         });
     }
@@ -273,10 +275,10 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
                 if (response.isSuccessful())
                 {
-                    Toast.makeText(AddMedicineActivity.this, "here we go", Toast.LENGTH_SHORT).show();
                     PrefManager.saveConfirm(AddMedicineActivity.this, "true");
                     startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
                     progressViewDialog.hideDialog();
+                    Toasty.success(AddMedicineActivity.this, "Account Created", LENGTH_LONG).show();
                     finish();
                 }
 
@@ -285,7 +287,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call,
                                   @NonNull Throwable t) {
-                Toast.makeText(AddMedicineActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toasty.error(AddMedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
 
             }
         });

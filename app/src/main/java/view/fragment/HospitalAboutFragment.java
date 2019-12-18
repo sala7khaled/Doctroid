@@ -13,17 +13,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Hospital;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import view.activity.AddMedicineActivity;
 
 import com.s7k.doctroid.R;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class HospitalAboutFragment extends Fragment {
 
@@ -37,10 +41,6 @@ public class HospitalAboutFragment extends Fragment {
 
     private View lineView;
 
-
-    public HospitalAboutFragment() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,8 +127,7 @@ public class HospitalAboutFragment extends Fragment {
                     }
 
                 } else {
-
-                    Toast.makeText(context, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+                    Toasty.error(context, R.string.something_wrong, LENGTH_LONG).show();
                 }
 
             }
@@ -136,8 +135,7 @@ public class HospitalAboutFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<List<Hospital>> call,
                                   @NonNull Throwable t) {
-                Toast.makeText(context, R.string.request_error, Toast.LENGTH_SHORT).show();
-
+                Toasty.error(context, t.getMessage(), LENGTH_LONG).show();
             }
         });
     }

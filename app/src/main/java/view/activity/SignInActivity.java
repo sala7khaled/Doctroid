@@ -18,6 +18,7 @@ import java.util.HashMap;
 import androidx.annotation.NonNull;
 
 import dialog.ProgressViewDialog;
+import es.dmoral.toasty.Toasty;
 import helpers.Validator;
 import network.api.ApiClient;
 import network.api.ApiInterface;
@@ -28,6 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import utilities.PrefManager;
 import view.base.BaseActivity;
+
+import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class SignInActivity extends BaseActivity {
 
@@ -186,8 +189,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<Token> call,
                                   @NonNull Throwable t) {
-                Toast.makeText(SignInActivity.this, R.string.request_error, Toast.LENGTH_SHORT).show();
-
+                Toasty.error(SignInActivity.this, t.getMessage(), LENGTH_LONG).show();
             }
         });
     }

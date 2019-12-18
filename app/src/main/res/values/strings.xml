@@ -40,4 +40,5 @@
     <string name="hospital_phone">"02–38362487"</string>
     <string name="hospital_website">"http://www.o6u.edu.eg/"</string>
     <string name="hospital_facebook">"https://web.facebook.com/o6u.eg/"</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

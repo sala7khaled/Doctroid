@@ -3,16 +3,16 @@ package network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class P_ID {
+public class PatientID {
 
     @SerializedName("p_id")
     @Expose
     private String p_id;
 
-    public P_ID() {
+    public PatientID() {
     }
 
-    public P_ID(String p_id) {
+    public PatientID(String p_id) {
         this.p_id = p_id;
     }
 
