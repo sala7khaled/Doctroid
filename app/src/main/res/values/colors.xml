@@ -4,6 +4,8 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#FF7474</color>
+    <color name="colorOrange">#fb7f00</color>
+    <color name="colorBabyBlue">#00c2ff</color>
     <color name="colorBrown">#CAB89D</color>
     <color name="colorPrimary">#5FE5BC</color>
     <color name="colorPrimaryDark">#19769F</color>

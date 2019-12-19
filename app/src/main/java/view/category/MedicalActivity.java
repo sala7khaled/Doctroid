@@ -2,6 +2,7 @@ package view.category;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.s7k.doctroid.R;
 
@@ -17,6 +18,5 @@ public class MedicalActivity extends BaseActivity {
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("Medical Analysis");
         toolbarBackImageView.setVisibility(View.VISIBLE);
-        toolbarTextView.setTextSize(23);
     }
 }

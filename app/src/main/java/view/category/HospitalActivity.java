@@ -33,8 +33,8 @@ public class HospitalActivity extends BaseActivity {
 
         bottomNav = findViewById(R.id.hospital_bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        setFragment(new HospitalAboutFragment());
-        bottomNav.getMenu().findItem(R.id.hospital_nav_about).setChecked(true);
+        setFragment(new HospitalLocationFragment());
+        bottomNav.getMenu().findItem(R.id.hospital_nav_location).setChecked(true);
 
         initializeComponents();
         setListeners();

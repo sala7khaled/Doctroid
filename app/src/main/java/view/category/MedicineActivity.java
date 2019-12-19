@@ -17,6 +17,5 @@ public class MedicineActivity extends BaseActivity {
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("Medicine Shop");
         toolbarBackImageView.setVisibility(View.VISIBLE);
-        toolbarTextView.setTextSize(23);
     }
 }
