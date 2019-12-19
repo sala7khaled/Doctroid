@@ -1,19 +1,26 @@
 package view.fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -24,13 +31,23 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.s7k.doctroid.R;
 
-public class HospitalLocationFragment extends Fragment implements OnMapReadyCallback{
+import app.Constants;
+import es.dmoral.toasty.Toasty;
+
+import static app.Constants.LOCATION_PERMISSION_REQUEST_CODE;
+
+public class HospitalLocationFragment extends Fragment implements OnMapReadyCallback {
 
     public Context context;
     public GoogleMap mMap;
     MapView mMapView;
+
+    private Boolean mLocationPermissionsGranted = false;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     public HospitalLocationFragment() {
         // Required empty public constructor
@@ -57,14 +74,38 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
 
     private void initializeComponents(View view) {
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.hospitalLocationFragment_map);
+        getLocationPermission();
 
-        mapFragment.getMapAsync(this);
+        if (mLocationPermissionsGranted) {
+            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.hospitalLocationFragment_map);
+
+            mapFragment.getMapAsync(this);
+        }
 
     }
 
     private void setListeners() {
+
+    }
+
+    private void getLocationPermission() {
+        Log.v("LocationPermission", "getLocationPermission: getting location permissions");
+
+        String[] permissions = {Constants.FINE_LOCATION, Constants.COURSE_LOCATION};
+
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Constants.FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getContext(),
+                Constants.COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            mLocationPermissionsGranted = true;
+
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    permissions,
+                    Constants.LOCATION_PERMISSION_REQUEST_CODE);
+        }
 
     }
 
@@ -78,8 +119,8 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         mMap.clear();
 
         CameraPosition googlePlex = CameraPosition.builder()
-                .target(new LatLng(37.4219999, -122.0862462))
-                .zoom(10)
+                .target(new LatLng(29.978204, 30.949905))
+                .zoom(14f)
                 .bearing(0)
                 .tilt(45)
                 .build();
@@ -87,18 +128,39 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
 
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(37.4219999, -122.0862462))
-                .title("text1")
-                .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.icon_hospital)));
+                .position(new LatLng(29.978204, 30.949905))
+                .title("O6U")
+                .snippet("6th of October University Hospital")
+                .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.icon_hospital_map)));
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(37.4629101, -122.2449094))
-                .title("text2")
-                .snippet("desc 2"));
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(37.3092293, -122.1136845))
-                .title("text 3"));
+        try {
+            if (mLocationPermissionsGranted) {
+
+                final Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            Location currentLocation = (Location) task.getResult();
+
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                                    .title("YOU")
+                                    .snippet("Your Location")
+                                    .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.icon_user_map)));
+
+                        } else {
+                            Toasty.error(getContext(), "Enable to get your location").show();
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.v("getDeviceLocation", "getDeviceLocation: SecurityException: " + e.getMessage());
+        }
+
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {

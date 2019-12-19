@@ -1,5 +1,7 @@
 package app;
 
+import android.Manifest;
+
 public class Constants {
 
     /**
@@ -22,7 +24,7 @@ public class Constants {
 
     /**
      * -
-     * - KEYS
+     * - KEY
      * -
      */
     public static final String KEY_TOKEN = "keyToken";
@@ -37,7 +39,17 @@ public class Constants {
 
     /**
      * -
-     * - FONTS
+     * - PERMISSION
+     * -
+     */
+    public static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    public static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
+
+    /**
+     * -
+     * - FONT
      * -
      */
     public static final String FONT_GOTHAM_BOOK = "gotham_rounded_book.otf";

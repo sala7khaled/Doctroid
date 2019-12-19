@@ -33,6 +33,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation "com.google.android.gms:play-services-location:17.0.0"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
@@ -47,6 +49,7 @@ dependencies {
     implementation 'com.romandanylyk:pageindicatorview:1.0.3@aar'
     implementation 'com.jaredrummler:material-spinner:1.3.1'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'com.race604.waveloading:library:1.1.1'
 
     // RV
     implementation 'com.getbase:floatingactionbutton:1.10.1'
@@ -60,20 +63,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
-    // Custom Toast
-    implementation 'com.muddzdev:styleabletoast:2.2.3'
+    // Custom Toast // maven { url "https://jitpack.io" } for Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.2'
+    implementation 'com.muddzdev:styleabletoast:2.2.3'
 
     // Others
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
-
-    implementation 'com.race604.waveloading:library:1.1.1'
-    implementation 'me.itangqi.waveloadingview:library:0.3.5'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.jaredrummler:material-spinner:1.3.1'
 
 
 }
