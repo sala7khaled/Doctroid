@@ -35,8 +35,8 @@
       android:fillColor="#eebda4"/>
   <path
       android:pathData="M27.772,32.672l-1.241,1.294a8.625,8.625 0,0 1,-12.423 0l-1.181,-1.262 -10.713,3.868a8.474,8.474 0,0 0,-2.215 1.44,27.585 27.585,0 0,0 40.867,0 8.487,8.487 0,0 0,-2.215 -1.44ZM27.914,32.847"
-      android:fillColor="#00c3ff"/>
+      android:fillColor="@color/colorPrimaryDark"/>
   <path
       android:pathData="M5.739,38.173l2.982,-3.946 -6.365,2.266a9.269,9.269 0,0 0,-2.33 1.532,30 30,0 0,0 4,3.644 18.377,18.377 0,0 1,1.718 -3.5ZM5.739,38.173"
-      android:fillColor="#00aaf0"/>
+      android:fillColor="@color/colorPrimaryDark"/>
 </vector>

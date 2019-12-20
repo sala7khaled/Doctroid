@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "41686354219",
+    "firebase_url": "https://doctroid-be47d.firebaseio.com",
+    "project_id": "doctroid-be47d",
+    "storage_bucket": "doctroid-be47d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41686354219:android:e037d4dbde0a150a3b1d6e",
+        "android_client_info": {
+          "package_name": "com.s7k.doctroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41686354219-l44u0k1acfqp91b2dblumtt699gm7a9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.s7k.doctroid",
+            "certificate_hash": "be221309a0ed6b0e8be04132f52a5b2f1d8927de"
+          }
+        },
+        {
+          "client_id": "41686354219-1dec0vo78t3q5vmvqmga52ubsdve05o8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa5EIUZpqOZaNGdARpSODlCZOo5WuC4iY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41686354219-1dec0vo78t3q5vmvqmga52ubsdve05o8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

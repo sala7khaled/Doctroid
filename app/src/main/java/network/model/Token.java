@@ -17,6 +17,15 @@ public class Token implements Serializable {
     @Expose
     private String p_id;
 
+    public Token() {
+    }
+
+    public Token(String accessToken, String confirm, String p_id) {
+        this.accessToken = accessToken;
+        this.confirm = confirm;
+        this.p_id = p_id;
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

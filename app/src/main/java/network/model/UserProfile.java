@@ -25,28 +25,28 @@ public class UserProfile {
     private String email;
     @SerializedName("password")
     @Expose
-    private boolean password;
+    private String password;
     @SerializedName("phone")
     @Expose
-    private boolean phone;
+    private String phone;
     @SerializedName("gender")
     @Expose
-    private boolean gender;
+    private String gender;
     @SerializedName("date")
     @Expose
-    private boolean date;
+    private String date;
     @SerializedName("location")
     @Expose
-    private boolean location;
+    private String location;
     @SerializedName("snn")
     @Expose
-    private boolean snn;
+    private String snn;
 
     public UserProfile() {
 
     }
 
-    public UserProfile(String confirm, String[] medicines, String _id, String firstName, String lastName, String email, boolean password, boolean phone, boolean gender, boolean date, boolean location, boolean snn) {
+    public UserProfile(String confirm, String[] medicines, String _id, String firstName, String lastName, String email, String password, String phone, String gender, String date, String location, String snn) {
         this.confirm = confirm;
         this.medicines = medicines;
         this._id = _id;
@@ -109,51 +109,51 @@ public class UserProfile {
         this.email = email;
     }
 
-    public boolean isPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(boolean password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public boolean isPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(boolean phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public boolean isDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(boolean date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public boolean isLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(boolean location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
-    public boolean isSnn() {
+    public String getSnn() {
         return snn;
     }
 
-    public void setSnn(boolean snn) {
+    public void setSnn(String snn) {
         this.snn = snn;
     }
 }

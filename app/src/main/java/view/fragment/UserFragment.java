@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,9 @@ import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 public class UserFragment extends Fragment {
 
     public Context context;
-    private TextView tv;
+    private TextView username, email, location;
+    ImageView locationIcon;
+
     private ProgressViewDialog progressViewDialog;
 
     @Nullable
@@ -54,7 +57,11 @@ public class UserFragment extends Fragment {
     }
 
     private void initializeComponents(View view) {
-        tv = view.findViewById(R.id.userFragment_tv);
+        username = view.findViewById(R.id.userFragment_userName);
+        email = view.findViewById(R.id.userFragment_email);
+        location = view.findViewById(R.id.userFragment_location);
+
+        locationIcon = view.findViewById(R.id.userFragment_location_imageView);
     }
 
     private void setListeners() {
@@ -68,8 +75,7 @@ public class UserFragment extends Fragment {
         progressViewDialog.setCanceledOnTouchOutside(false);
         progressViewDialog.showProgressDialog("Getting user information");
 
-        if(PrefManager.getP_id(getContext()) != null)
-        {
+        if (PrefManager.getP_id(getContext()) != null) {
             PatientID patientID = new PatientID(PrefManager.getP_id(getContext()));
 
             HashMap<String, String> headers = ApiClient.getHeaders();
@@ -86,7 +92,12 @@ public class UserFragment extends Fragment {
 
                         if (users != null) {
                             for (UserProfile user : users) {
-                                tv.setText(user.getFirstName());
+                                username.setText(user.getFirstName() + " " + user.getLastName());
+                                email.setText(user.getEmail());
+                                location.setText(user.getLocation());
+
+                                locationIcon.setVisibility(View.VISIBLE);
+
                                 progressViewDialog.hideDialog();
                             }
                         }
@@ -100,9 +111,7 @@ public class UserFragment extends Fragment {
                     Toasty.error(context, t.getMessage(), LENGTH_LONG).show();
                 }
             });
-        }
-        else
-        {
+        } else {
             StyleableToast.makeText(context, "Something went wrong, Please Login again!", Toast.LENGTH_LONG, R.style.stToast).show();
             PrefManager.deleteToken(context);
             PrefManager.deleteConfirm(context);

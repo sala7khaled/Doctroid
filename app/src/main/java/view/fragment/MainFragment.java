@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.s7k.doctroid.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import network.model.Category;
 import presenter.adapter.MainAdapter;
 import view.category.AppointmentActivity;
@@ -81,7 +75,7 @@ public class MainFragment extends Fragment {
         categoryList.add(new Category("Medical Analysis", R.drawable.icon_2_medical_analysis));
         categoryList.add(new Category("Appointment", R.drawable.icon_3_appointment));
         categoryList.add(new Category("Result", R.drawable.icon_4_result));
-        categoryList.add(new Category("Medicine", R.drawable.icon_5_medicine_shop));
+        categoryList.add(new Category("Medicine", R.drawable.icon_5_medicine));
         categoryList.add(new Category("Emergency", R.drawable.icon_6_emergency));
     }
 }

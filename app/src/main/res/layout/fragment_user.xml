@@ -15,6 +15,92 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back_top_corner"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/icon_user"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+                    <TextView
+                        android:id="@+id/userFragment_userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBabyBlue"
+                        android:fontFamily="@font/gotham_rounded_medium"
+                        android:gravity="center"
+                        android:textSize="24dp"
+                        />
+                    <TextView
+                        android:id="@+id/userFragment_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:fontFamily="@font/gotham_rounded_book"
+                        android:gravity="center"
+                        android:textSize="18dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:id="@+id/userFragment_location_imageView"
+                            android:visibility="invisible"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_location_black"
+                            />
+                        <TextView
+                            android:id="@+id/userFragment_location"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/gotham_rounded_book"
+                            android:textSize="18dp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/userFragment_tv"
             android:layout_width="193dp"
@@ -25,7 +111,29 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
