@@ -43,7 +43,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setListeners() {
-        version.setText("Version: " + BuildConfig.VERSION_NAME);
+        version.setText("Version: "+ BuildConfig.VERSION_NAME);
         logout.setOnClickListener(v -> {
             PrefManager.deleteToken(context);
             PrefManager.deleteConfirm(context);

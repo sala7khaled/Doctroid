@@ -16,6 +16,7 @@ import com.s7k.doctroid.R;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
@@ -200,4 +201,26 @@ public class SignInActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        showExitDialog();
+    }
+
+    public void showExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.app_name));
+        builder.setMessage("Are you sure to exist?");
+
+        builder.setPositiveButton("Yes",
+                (dialogInterface, i) -> super.onBackPressed());
+
+        builder.setNegativeButton("No",
+                (dialogInterface, i) -> {
+
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }

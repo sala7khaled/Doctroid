@@ -40,6 +40,8 @@ import es.dmoral.toasty.Toasty;
 public class HospitalLocationFragment extends Fragment implements OnMapReadyCallback {
 
     public Context context;
+
+    private LatLng hospitalLatLng = new LatLng(29.9787019,30.9501475);
     private GoogleMap map;
     private CameraPosition googlePlex;
     private Location userCurrentLocation;
@@ -99,7 +101,7 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         hospitalMarker.setOnClickListener(v -> {
 
             googlePlex = CameraPosition.builder()
-                    .target(new LatLng(29.978204, 30.949905))
+                    .target(hospitalLatLng)
                     .zoom(16f)
                     .bearing(0)
                     .tilt(45)
@@ -151,7 +153,7 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
 
         // Camera Position
         googlePlex = CameraPosition.builder()
-                .target(new LatLng(29.978204, 30.949905))
+                .target(hospitalLatLng)
                 .zoom(13f)
                 .bearing(0)
                 .tilt(45)
@@ -160,7 +162,7 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
 
         // O6U Marker
         map.addMarker(new MarkerOptions()
-                .position(new LatLng(29.978204, 30.949905))
+                .position(hospitalLatLng)
                 .title("O6U")
                 .snippet("October 6 University Hospital")
                 .draggable(false)

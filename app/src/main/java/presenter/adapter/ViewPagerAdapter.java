@@ -11,20 +11,24 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.s7k.doctroid.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import network.model.Image;
+
 
 public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
-    private String[] imageUrls;
+    private List<Image> imageUrls;
 
-    public ViewPagerAdapter(Context context, String[] imageUrls) {
+    public ViewPagerAdapter(Context context, List<Image> imageUrls) {
         this.context = context;
         this.imageUrls = imageUrls;
     }
 
     @Override
     public int getCount() {
-        return imageUrls.length;
+        return imageUrls.size();
     }
 
     @Override
@@ -35,23 +39,19 @@ public class ViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-
         ImageView imageView = new ImageView(context);
         Picasso.get()
-                .load(imageUrls[position])
+                .load(imageUrls.get(position).getImg())
                 .fit()
                 .centerCrop()
                 .error(R.drawable.icon_no_connection)
                 .into(imageView);
-
         container.addView(imageView);
         return imageView;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-
         container.removeView((View) object);
-
     }
 }

@@ -6,34 +6,52 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.s7k.doctroid.R;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
+import network.model.Image;
 import presenter.adapter.ViewPagerAdapter;
 
 public class HospitalPhotosFragment extends Fragment {
 
     public Context context;
+    private DatabaseReference database;
 
-    ViewPager viewPager;
-    private String[] imageUrls = new String[]{
-            "https://cdn.pixabay.com/photo/2016/11/11/23/34/cat-1817970_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2017/12/21/12/26/glowworm-3031704_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2017/12/24/09/09/road-3036620_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2017/11/07/00/07/fantasy-2925250_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2017/10/10/15/28/butterfly-2837589_960_720.jpg"
-    };
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
+    private List<Image> imageUrls = new ArrayList<>();
+
+    private ProgressBar progressBar;
+    private ImageView leftArrow, rightArrow;
+    private TextView positionTV, countTV;
+    private CardView index;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.hospital_photos_fragment, container, false);
-        context = getActivity().getApplicationContext();
+        context = Objects.requireNonNull(getActivity()).getApplicationContext();
 
         initializeComponents(view);
         setListeners();
@@ -42,14 +60,66 @@ public class HospitalPhotosFragment extends Fragment {
     }
 
     private void initializeComponents(View view) {
+        leftArrow = view.findViewById(R.id.hospitalPhotosFragment_leftArrow);
+        rightArrow = view.findViewById(R.id.hospitalPhotosFragment_rightArrow);
+        progressBar = view.findViewById(R.id.hospitalPhotosFragment_progressBar);
+        positionTV = view.findViewById(R.id.hospitalPhotosFragment_position);
+        countTV = view.findViewById(R.id.hospitalPhotosFragment_count);
+        index = view.findViewById(R.id.hospitalPhotosFragment_index);
+
+        positionTV.setText("1");
 
         viewPager = view.findViewById(R.id.hospitalPhotosFragment_viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(context, imageUrls);
+        viewPagerAdapter = new ViewPagerAdapter(context, imageUrls);
         viewPager.setAdapter(viewPagerAdapter);
 
+        database = FirebaseDatabase.getInstance().getReference().child("O6U").child("images");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Image image = snapshot.getValue(Image.class);
+                    if (image != null) {
+                        imageUrls.add(image);
+                        viewPagerAdapter.notifyDataSetChanged();
+                    } else {
+                        Toasty.error(context, "No photos added yet!").show();
+                    }
+                }
+
+                countTV.setText(String.valueOf(imageUrls.size()));
+                progressBar.setVisibility(View.INVISIBLE);
+                leftArrow.setVisibility(View.VISIBLE);
+                rightArrow.setVisibility(View.VISIBLE);
+                index.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(@NotNull DatabaseError databaseError) {
+                Toasty.error(context, databaseError.getMessage()).show();
+            }
+        });
     }
 
     private void setListeners() {
+        leftArrow.setOnClickListener(v -> {
+            int position = viewPager.getCurrentItem();
+            changePosition(--position);
+        });
 
+        rightArrow.setOnClickListener(v -> {
+            int position = viewPager.getCurrentItem();
+            changePosition(++position);
+        });
+    }
+
+    private void changePosition(int position) {
+        if (position < 0) {
+            position = viewPagerAdapter.getCount() - 1;
+        } else if (position == viewPagerAdapter.getCount()) {
+            position = 0;
+        }
+        viewPager.setCurrentItem(position, true);
+        positionTV.setText(String.valueOf(position + 1));
     }
 }
