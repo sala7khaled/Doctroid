@@ -9,14 +9,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.s7k.doctroid.R;
 
+import presenter.adapter.MedicineType;
+
 public class MedicineHolder extends RecyclerView.ViewHolder {
 
     public ImageView deleteMedicineImageView;
     public TextView nameMedicineTextView;
 
-    public MedicineHolder(View view) {
+    public ImageView medicineImageView;
+    public TextView medicineName;
+    public TextView medicinePrice;
+
+
+    public MedicineHolder(View view, MedicineType medicineType) {
         super(view);
-        deleteMedicineImageView = view.findViewById(R.id.medicine_delete_imageView);
-        nameMedicineTextView = view.findViewById(R.id.medicine_name_textView);
+
+        switch (medicineType) {
+            case LIST:
+                medicineImageView = view.findViewById(R.id.item_medicine_imageView);
+                medicineName = view.findViewById(R.id.item_medicine_name);
+                medicinePrice = view.findViewById(R.id.item_medicine_price);
+                break;
+            case AUTO_COMPELETE:
+                deleteMedicineImageView = view.findViewById(R.id.item_medicineList_delete_imageView);
+                nameMedicineTextView = view.findViewById(R.id.item_medicineList_name_textView);
+                break;
+        }
     }
 }

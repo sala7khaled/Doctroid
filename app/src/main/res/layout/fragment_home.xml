@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/main_news_cardView"
+            android:id="@+id/mainFragment_newsCardView"
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:layout_marginStart="16dp"
@@ -31,16 +31,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/mainFragment_dots"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/mainFragment_progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/mainFragment_viewPager"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/mainFragment_dots"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/icon_news" />
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/mainFragment_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -48,7 +83,7 @@
             android:layout_marginEnd="16dp"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_news_cardView"
+            app:layout_constraintTop_toBottomOf="@+id/mainFragment_newsCardView"
             tools:layout_editor_absoluteX="5dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

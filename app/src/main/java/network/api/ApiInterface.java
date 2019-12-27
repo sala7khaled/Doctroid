@@ -43,4 +43,5 @@ public interface ApiInterface {
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICINE)
     Call<List<Medicine>> getMedicine(@HeaderMap Map<String, String> headers);
+
 }

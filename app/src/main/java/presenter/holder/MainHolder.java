@@ -17,8 +17,8 @@ public class MainHolder extends RecyclerView.ViewHolder {
 
     public MainHolder(View view) {
         super(view);
-        categoryImageView = view.findViewById(R.id.category_imageView);
-        categoryTextView = view.findViewById(R.id.category_textView);
-        categoryCardView = view.findViewById(R.id.category_cardView);
+        categoryImageView = view.findViewById(R.id.item_category_imageView);
+        categoryTextView = view.findViewById(R.id.item_category_textView);
+        categoryCardView = view.findViewById(R.id.item_category_cardView);
     }
 }

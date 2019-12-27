@@ -36,6 +36,7 @@ import network.model.ConfirmSignUpForm;
 import network.model.Medicine;
 import okhttp3.ResponseBody;
 import presenter.adapter.MedicineAdapter;
+import presenter.adapter.MedicineType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -119,7 +120,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                });
+                }, MedicineType.AUTO_COMPELETE);
         recyclerView.setAdapter(medicineAdapter);
 
         citySpinner.setItems("Select City",

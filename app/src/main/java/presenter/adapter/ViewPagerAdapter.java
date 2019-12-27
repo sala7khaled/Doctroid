@@ -13,6 +13,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import app.App;
+import es.dmoral.toasty.Toasty;
+import helpers.Navigator;
 import network.model.Image;
 
 
@@ -43,9 +46,9 @@ public class ViewPagerAdapter extends PagerAdapter {
         Picasso.get()
                 .load(imageUrls.get(position).getImg())
                 .fit()
-                .centerCrop()
                 .error(R.drawable.icon_no_connection)
                 .into(imageView);
+
         container.addView(imageView);
         return imageView;
     }
@@ -54,4 +57,5 @@ public class ViewPagerAdapter extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
+
 }

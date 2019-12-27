@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
+import helpers.Navigator;
 import network.model.Image;
 import presenter.adapter.ViewPagerAdapter;
 
