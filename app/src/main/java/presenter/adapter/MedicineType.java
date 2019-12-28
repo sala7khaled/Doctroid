@@ -2,6 +2,6 @@ package presenter.adapter;
 
 public enum MedicineType {
 
-    AUTO_COMPELETE,
-    LIST
+    LIST,
+    AUTO_COMPLETE
 }

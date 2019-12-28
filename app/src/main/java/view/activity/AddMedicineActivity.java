@@ -120,7 +120,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
 
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                }, MedicineType.AUTO_COMPELETE);
+                }, MedicineType.AUTO_COMPLETE);
         recyclerView.setAdapter(medicineAdapter);
 
         citySpinner.setItems("Select City",

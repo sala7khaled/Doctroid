@@ -1,10 +1,14 @@
 package view.category;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import view.activity.AddMedicineActivity;
+import view.activity.MedicineInfoActivity;
 import view.base.BaseActivity;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
@@ -81,14 +86,41 @@ public class MedicineActivity extends BaseActivity {
                 if (response.isSuccessful()) {
 
                     medicinesAPI = response.body();
-                    medicineAdapter = new MedicineAdapter(medicinesAPI, MedicineActivity.this,
-                            position ->
-                            {
-                                Toasty.warning(MedicineActivity.this, "clicked "+ position).show();
-                            }
-                            , MedicineType.LIST);
 
-                    medicineRecyclerView.setAdapter(medicineAdapter);
+                    if(medicinesAPI != null)
+                    {
+                        medicineAdapter = new MedicineAdapter(medicinesAPI, MedicineActivity.this,
+                                position ->
+                                {
+                                    Intent intent = new Intent(MedicineActivity.this, MedicineInfoActivity.class);
+                                    intent.putExtra("medicineName", medicinesAPI.get(position).getName());
+                                    intent.putExtra("medicineQuantity", medicinesAPI.get(position).getQuantity());
+                                    intent.putExtra("medicinePrice", medicinesAPI.get(position).getPrice());
+                                    intent.putExtra("medicineDescription", medicinesAPI.get(position).getDescription());
+
+                                    Pair[] pair = new Pair[4];
+                                    pair[0] = new Pair<View, String>(findViewById(R.id.item_medicineList_photo), "transPhoto");
+                                    pair[1] = new Pair<View, String>(findViewById(R.id.item_medicineList_name), "transName");
+                                    pair[2] = new Pair<View, String>(findViewById(R.id.item_medicineList_quantity), "transQuantity");
+                                    pair[3] = new Pair<View, String>(findViewById(R.id.item_medicineList_price), "transPrice");
+
+
+                                    ActivityOptionsCompat activityOptions = ActivityOptionsCompat
+                                                    .makeSceneTransitionAnimation(MedicineActivity.this,pair);
+
+
+
+                                    startActivity(intent, activityOptions.toBundle());
+                                }
+                                , MedicineType.LIST);
+
+                        medicineRecyclerView.setAdapter(medicineAdapter);
+                    }
+                    else
+                    {
+                        Toasty.error(MedicineActivity.this, "There's no medicines").show();
+                    }
+
                     progressViewDialog.hideDialog();
                 }
             }

@@ -58,10 +58,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
         int layoutId = 0;
         switch (medicineType) {
             case LIST:
-                layoutId = R.layout.item_medicine;
-                break;
-            case AUTO_COMPELETE:
                 layoutId = R.layout.item_medicine_list;
+                break;
+            case AUTO_COMPLETE:
+                layoutId = R.layout.item_medicine_auto_complete;
                 break;
         }
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
@@ -74,10 +74,11 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
         switch (medicineType) {
             case LIST:
                 holder.medicineName.setText(medicine.getName());
-                holder.medicinePrice.setText(medicine.getPrice());
+                holder.medicineQuantity.setText("Quantity: "+medicine.getQuantity());
+                holder.medicinePrice.setText(medicine.getPrice()+" LE");
                 holder.itemView.setOnClickListener( v-> itemClick.onClick(position));
                 break;
-            case AUTO_COMPELETE:
+            case AUTO_COMPLETE:
                 holder.nameMedicineTextView.setText(medicine.getName());
                 holder.deleteMedicineImageView.setOnClickListener(v -> itemClick.onClick(position));
                 break;

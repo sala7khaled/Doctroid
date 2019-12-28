@@ -20,9 +20,9 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toTopOf="parent" >
@@ -35,7 +35,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
+                    android:padding="12dp"
                     android:src="@drawable/icon_account_setting" />
 
                 <TextView
@@ -56,9 +56,9 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_accountSetting">
@@ -71,7 +71,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
+                    android:padding="12dp"
                     android:src="@drawable/icon_personal_information" />
 
                 <TextView
@@ -92,9 +92,9 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_personalInformation">
@@ -107,7 +107,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
+                    android:padding="12dp"
                     android:src="@drawable/icon_medical_information" />
 
                 <TextView
@@ -128,9 +128,9 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_medicalInformation">
@@ -143,7 +143,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
+                    android:padding="12dp"
                     android:src="@drawable/icon_medical_cv" />
 
                 <TextView
@@ -164,9 +164,9 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_medicalCV">
@@ -179,7 +179,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
+                    android:padding="12dp"
                     android:src="@drawable/icon_notification_setting" />
 
                 <TextView
@@ -228,14 +228,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="24dp" />
+            app:layout_constraintGuide_begin="16dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="24dp" />
+            app:layout_constraintGuide_end="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
