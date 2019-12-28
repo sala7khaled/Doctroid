@@ -29,7 +29,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="view.activity.MedicineInfoActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

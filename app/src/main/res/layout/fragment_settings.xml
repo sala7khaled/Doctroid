@@ -198,11 +198,10 @@
         <Button
             android:id="@+id/settingsFragment_Logout_Button"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/back_solid_red"
             android:fontFamily="@font/gotham_rounded_medium"
             android:text="Logout"
-            android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             android:layout_marginBottom="8dp"

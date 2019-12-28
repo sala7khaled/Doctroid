@@ -44,14 +44,13 @@
     <Button
         android:id="@+id/signIn_login_button"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/back_gradient_360"
         android:fontFamily="@font/gotham_rounded_medium"
         android:text="Sign In"
-        android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="16dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toBottomOf="@+id/signIn_forgetPassword_textView" />

@@ -16,7 +16,7 @@ public class MedicineHolder extends RecyclerView.ViewHolder {
     public ImageView deleteMedicineImageView;
     public TextView nameMedicineTextView;
 
-    public ImageView medicineImageView;
+    public ImageView medicineImageView, medicineUserImageView;
     public TextView medicineName;
     public TextView medicineQuantity;
     public TextView medicinePrice;
@@ -28,6 +28,7 @@ public class MedicineHolder extends RecyclerView.ViewHolder {
         switch (medicineType) {
             case LIST:
                 medicineImageView = view.findViewById(R.id.item_medicineList_photo);
+                medicineUserImageView = view.findViewById(R.id.item_medicineList_user);
                 medicineName = view.findViewById(R.id.item_medicineList_name);
                 medicineQuantity = view.findViewById(R.id.item_medicineList_quantity);
                 medicinePrice = view.findViewById(R.id.item_medicineList_price);

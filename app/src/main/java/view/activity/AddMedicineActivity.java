@@ -99,7 +99,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         recyclerView.setLayoutManager(new GridLayoutManager(AddMedicineActivity.this, 2));
         recyclerView.setHasFixedSize(true);
 
-        medicineAdapter = new MedicineAdapter(medicineArrayList, AddMedicineActivity.this,
+        medicineAdapter = new MedicineAdapter(medicineArrayList,null, AddMedicineActivity.this,
                 position -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(medicineArrayList.get(position).toString());

@@ -4,30 +4,36 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.s7k.doctroid.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import network.model.Medicine;
 import presenter.holder.MedicineHolder;
 
-public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
+public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> implements Filterable {
 
     private List<Medicine> medicineList;
+    private List<Medicine> searchList;
     private Context context;
     private ItemClick itemClick;
     private MedicineType medicineType;
+    private String [] userMedicines;
 
-
-    public MedicineAdapter(List<Medicine> items, Context context, ItemClick itemClick, MedicineType medicineType) {
+    public MedicineAdapter(List<Medicine> items,String[] userMedicines, Context context, ItemClick itemClick, MedicineType medicineType) {
         this.medicineList = items;
         this.context = context;
         this.itemClick = itemClick;
         this.medicineType = medicineType;
+        this.userMedicines = userMedicines;
+        searchList = new ArrayList<>(medicineList);
     }
 
     public MedicineAdapter() {
@@ -73,6 +79,14 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
         Medicine medicine = medicineList.get(position);
         switch (medicineType) {
             case LIST:
+
+                for (String userMedicine : userMedicines) {
+                    if (userMedicine.equals(medicine.getId())) {
+                        holder.medicineUserImageView.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                holder.medicineImageView.setVisibility(View.VISIBLE);
                 holder.medicineName.setText(medicine.getName());
                 holder.medicineQuantity.setText("Quantity: "+medicine.getQuantity());
                 holder.medicinePrice.setText(medicine.getPrice()+" LE");
@@ -90,6 +104,45 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
     public int getItemCount() {
         return medicineList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Medicine> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0)
+            {
+                filteredList.addAll(searchList);
+            }
+            else
+            {
+                String filteredPattern = constraint.toString().toLowerCase().trim();
+                for (Medicine medicine : searchList)
+                {
+                    if (medicine.getName().toLowerCase().contains(filteredPattern))
+                    {
+                        filteredList.add(medicine);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            medicineList.clear();
+            medicineList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public interface ItemClick {
 
