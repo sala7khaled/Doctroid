@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.s7k.doctroid.BuildConfig;
 import com.s7k.doctroid.R;
+
+import java.util.Objects;
 
 import utilities.PrefManager;
 import view.activity.SignInActivity;
@@ -29,7 +32,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        context = getActivity().getApplicationContext();
+        context = getContext();
 
         initializeComponents(view);
         setListeners();
@@ -43,14 +46,30 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setListeners() {
-        version.setText("Version: "+ BuildConfig.VERSION_NAME);
-        logout.setOnClickListener(v -> {
-            PrefManager.deleteToken(context);
-            PrefManager.deleteConfirm(context);
-            PrefManager.deleteP_id(context);
-            startActivity(new Intent(context, SignInActivity.class));
-            getActivity().finish();
-        });
+        version.setText(String.format("Version: %s", BuildConfig.VERSION_NAME));
+        logout.setOnClickListener(v -> showLogoutDialog());
+    }
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(getString(R.string.logout));
+        builder.setMessage("Are you sure to logout?");
+
+        builder.setPositiveButton("Yes",
+                (dialogInterface, i) -> {
+                    PrefManager.deleteToken(context);
+                    PrefManager.deleteConfirm(context);
+                    PrefManager.deleteP_id(context);
+                    startActivity(new Intent(context, SignInActivity.class));
+                    Objects.requireNonNull(getActivity()).finish();
+                });
+
+        builder.setNegativeButton("No",
+                (dialogInterface, i) -> {
+
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }

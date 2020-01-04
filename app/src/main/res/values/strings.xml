@@ -4,6 +4,7 @@
 
     <string name="next">"Next"</string>
     <string name="welcome">"Welcome"</string>
+    <string name="logout">"LOGOUT"</string>
     <string name="start">Got it</string>
     <string name="slide_1_title">On Touch</string>
     <string name="slide_1_desc">Stay on one touch with O6U doctors and updated medical analysis.</string>

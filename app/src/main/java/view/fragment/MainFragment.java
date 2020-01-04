@@ -121,6 +121,8 @@ public class MainFragment extends Fragment {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                imageUrls.clear();
+                viewPagerAdapter.notifyDataSetChanged();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Image image = snapshot.getValue(Image.class);
                     if (image != null) {

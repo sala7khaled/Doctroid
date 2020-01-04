@@ -106,9 +106,9 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/userFragment_personalInformation"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
@@ -142,11 +142,11 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/userFragment_medicalInformation"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_personalInformation">
@@ -178,11 +178,11 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/userFragment_medicalCV"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_medicalInformation">

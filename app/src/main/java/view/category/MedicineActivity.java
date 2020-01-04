@@ -212,5 +212,6 @@ public class MedicineActivity extends BaseActivity {
                 return false;
             }
         });
+
     }
 }
