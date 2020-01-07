@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,16 +19,16 @@ import network.model.Hospital;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import view.activity.AddMedicineActivity;
 
 import com.s7k.doctroid.R;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
-public class HospitalAboutFragment extends Fragment {
+public class HospitalAboutFragment extends Fragment{
 
     public Context context;
     private TextView hospitalName, hospitalLocation,
@@ -113,15 +112,15 @@ public class HospitalAboutFragment extends Fragment {
                             facebook_layout.setVisibility(View.VISIBLE);
                             email_layout.setVisibility(View.VISIBLE);
 
-                            String content = "";
-                            content += "⦿ Email: " + hos.getHospital_email() + "\n";
-                            content += "• General Manager: " + hos.getHospital_generalManager() + "\n";
-                            content += "• Administration Manager: " + hos.getHospital_adminstratonManager() + "\n";
-                            content += "• IT Manager: " + hos.getHospital_itManager() + "\n";
-                            content += "• Marketing Manager: " + hos.getHospital_MarketingManager() + "\n";
-                            content += "• Purchasing Manager: " + hos.getHospital_PurchasingManager() + "\n";
+                            String emails = "";
+                            emails += "⦿ Email: " + hos.getHospital_email() + "\n";
+                            emails += "• General Manager: " + hos.getHospital_generalManager() + "\n";
+                            emails += "• Administration Manager: " + hos.getHospital_adminstratonManager() + "\n";
+                            emails += "• IT Manager: " + hos.getHospital_itManager() + "\n";
+                            emails += "• Marketing Manager: " + hos.getHospital_MarketingManager() + "\n";
+                            emails += "• Purchasing Manager: " + hos.getHospital_PurchasingManager() + "\n";
 
-                            hospitalEmail.append(content);
+                            hospitalEmail.append(emails);
                         }
 
                     }
@@ -135,7 +134,7 @@ public class HospitalAboutFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<List<Hospital>> call,
                                   @NonNull Throwable t) {
-                Toasty.error(context, t.getMessage(), LENGTH_LONG).show();
+                Toasty.error(context, Objects.requireNonNull(t.getMessage()), LENGTH_LONG).show();
             }
         });
     }

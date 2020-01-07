@@ -49,7 +49,7 @@
                     android:layout_marginEnd="8dp"
                     android:orientation="vertical"
                     android:padding="8dp"
-                    android:weightSum="2"
+                    android:weightSum="3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -59,21 +59,57 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="bottom|start"
                         android:fontFamily="@font/breeserif_regular"
+                        android:gravity="bottom|start"
                         android:text="This is a O6U medicine stock"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="top|start"
-                        android:fontFamily="@font/gotham_rounded_medium"
-                        android:text="You can search for medicines and have full information"
-                        android:textColor="@color/colorBabyBlue"
-                        android:textSize="14sp" />
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/icon_user" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/gotham_rounded_medium"
+                            android:gravity="center|start"
+                            android:text="The user icon shown you the medicines you takes."
+                            android:textColor="@color/colorBabyBlue"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/medicine_searchLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_marginStart="5dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/icon_search" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/gotham_rounded_medium"
+                            android:gravity="top|start"
+                            android:text="Search for specific medicine by tap search icon."
+                            android:textColor="@color/colorBabyBlue"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -92,10 +128,12 @@
             android:id="@+id/medicine_recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-            app:layout_constraintStart_toStartOf="@+id/guideline_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/medicine_searchView" />
 
         <androidx.constraintlayout.widget.Guideline

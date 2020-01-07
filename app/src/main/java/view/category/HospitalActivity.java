@@ -1,10 +1,12 @@
 package view.category;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,7 +18,7 @@ import view.fragment.HospitalAboutFragment;
 import view.fragment.HospitalLocationFragment;
 import view.fragment.HospitalPhotosFragment;
 
-public class HospitalActivity extends BaseActivity {
+public class HospitalActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemReselectedListener{
     
     ImageView phone, facebook, website;
     BottomNavigationView bottomNav;
@@ -34,6 +36,7 @@ public class HospitalActivity extends BaseActivity {
         bottomNav = findViewById(R.id.hospital_bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         setFragment(new HospitalLocationFragment());
+        bottomNav.setOnNavigationItemReselectedListener(this);
         bottomNav.getMenu().findItem(R.id.hospital_nav_location).setChecked(true);
 
         initializeComponents();
@@ -78,4 +81,7 @@ public class HospitalActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+    }
 }

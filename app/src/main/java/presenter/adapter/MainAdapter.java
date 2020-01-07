@@ -47,9 +47,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainHolder> {
         holder.categoryTextView.setText(category.getName());
         holder.categoryImageView.setImageResource(category.getIcon());
 
-        holder.categoryCardView.setOnClickListener(view -> {
-            itemClick.onClick(position);
-        });
+        holder.categoryCardView.setOnClickListener(view -> itemClick.onClick(position));
     }
 
     @Override

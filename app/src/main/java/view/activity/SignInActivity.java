@@ -78,7 +78,6 @@ public class SignInActivity extends BaseActivity {
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         signIn = findViewById(R.id.signIn_login_button);
-        forgetPassword = findViewById(R.id.signIn_forgetPassword_textView);
         createAccount = findViewById(R.id.signIn_createAccount_textView);
     }
 
@@ -104,8 +103,7 @@ public class SignInActivity extends BaseActivity {
             }
 
         });
-        forgetPassword.setOnClickListener(view ->
-                startActivity(new Intent(SignInActivity.this, ForgetPasswordActivity.class)));
+
         createAccount.setOnClickListener(view ->
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class)));
     }

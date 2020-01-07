@@ -1,7 +1,9 @@
 package view.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,7 +14,9 @@ import view.fragment.MainFragment;
 import view.fragment.SettingsFragment;
 import view.fragment.UserFragment;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener,
+        BottomNavigationView.OnNavigationItemReselectedListener {
 
     public MainActivity() {
         super(R.layout.activity_main, true);
@@ -22,36 +26,16 @@ public class MainActivity extends BaseActivity {
     protected void doOnCreate(Bundle bundle) {
 
         BottomNavigationView bottomNav = findViewById(R.id.main_bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        bottomNav.setOnNavigationItemSelectedListener(this);
+        bottomNav.setOnNavigationItemReselectedListener(this);
         setFragment(new MainFragment());
-
         bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            item -> {
-                Fragment selectedFragment = null;
-
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        selectedFragment = new MainFragment();
-                        break;
-                    case R.id.nav_user:
-                        selectedFragment = new UserFragment();
-                        break;
-                    case R.id.nav_settings:
-                        selectedFragment = new SettingsFragment();
-                        break;
-                }
-
-                setFragment(selectedFragment);
-                return true;
-            };
-
     private void setFragment(Fragment selectedFragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frameLayout, selectedFragment).commit();
-
     }
+
     @Override
     public void onBackPressed() {
 
@@ -73,5 +57,25 @@ public class MainActivity extends BaseActivity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                setFragment(new MainFragment());
+                break;
+            case R.id.nav_user:
+                setFragment(new UserFragment());
+                break;
+            case R.id.nav_settings:
+                setFragment(new SettingsFragment());
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onNavigationItemReselected(@NonNull MenuItem item) {
     }
 }

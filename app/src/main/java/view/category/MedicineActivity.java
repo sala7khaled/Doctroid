@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class MedicineActivity extends BaseActivity {
 
+    LinearLayout searchLinear;
     Dialog customDialog;
     SearchView searchView;
     ImageView medicinePhoto, userPhoto;
@@ -69,9 +72,7 @@ public class MedicineActivity extends BaseActivity {
         toolbarBackImageView.setVisibility(View.VISIBLE);
 
         initializeComponents();
-
         getUserMedicines();
-
         setListeners();
 
     }
@@ -80,6 +81,7 @@ public class MedicineActivity extends BaseActivity {
     private void initializeComponents() {
 
         searchView = findViewById(R.id.medicine_searchView);
+        searchLinear = findViewById(R.id.medicine_searchLinear);
 
         medicineRecyclerView = findViewById(R.id.medicine_recyclerView);
         medicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineActivity.this, 2));
@@ -198,6 +200,13 @@ public class MedicineActivity extends BaseActivity {
     }
 
     private void setListeners() {
+
+        searchLinear.setOnClickListener(v-> {
+            searchView.setFocusable(true);
+            searchView.setIconified(false);
+            searchView.requestFocusFromTouch();
+        });
+
         button.setOnClickListener(v -> {
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

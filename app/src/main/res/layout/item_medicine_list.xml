@@ -5,10 +5,7 @@
     android:id="@+id/item_medicine_cardView"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_margin="4dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="2dp">
 
