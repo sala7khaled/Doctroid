@@ -10,7 +10,6 @@
     app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/back_category"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -67,7 +66,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGreen"
+                android:fontFamily="@font/gotham_rounded_medium"
                 android:textSize="14sp"
                 android:transitionName="transQuantity"/>
 
@@ -78,7 +78,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGreen"
+                android:fontFamily="@font/gotham_rounded_medium"
                 android:textSize="14sp"
                 android:transitionName="transPrice" />
         </LinearLayout>

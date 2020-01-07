@@ -88,7 +88,17 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> implem
 
                 holder.medicineImageView.setVisibility(View.VISIBLE);
                 holder.medicineName.setText(medicine.getName());
-                holder.medicineQuantity.setText("Quantity: "+medicine.getQuantity());
+
+                if (Integer.parseInt(medicine.getQuantity()) < 10)
+                {
+                    holder.medicineQuantity.setTextColor(context.getResources().getColor(R.color.colorRed));
+                }
+                if (Integer.parseInt(medicine.getQuantity()) == 0)
+                {
+                    holder.medicineQuantity.setTextColor(context.getResources().getColor(R.color.colorGray));
+                }
+
+                holder.medicineQuantity.setText("QNT: "+medicine.getQuantity());
                 holder.medicinePrice.setText(medicine.getPrice()+" LE");
                 holder.itemView.setOnClickListener( v-> itemClick.onClick(position));
                 break;

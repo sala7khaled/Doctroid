@@ -1,5 +1,6 @@
 package view.category;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
@@ -54,6 +55,7 @@ public class MedicineActivity extends BaseActivity {
     Dialog customDialog;
     SearchView searchView;
     ImageView medicinePhoto, userPhoto;
+    ImageView quantityIcon;
     TextView name, quantity, price, description;
     Button button;
     MedicineAdapter medicineAdapter;
@@ -97,6 +99,7 @@ public class MedicineActivity extends BaseActivity {
         userPhoto = customDialog.findViewById(R.id.item_medicineDialog_userPhoto);
 
         name = customDialog.findViewById(R.id.item_medicineDialog_name);
+        quantityIcon = customDialog.findViewById(R.id.item_medicineDialog_quantityIcon);
         quantity = customDialog.findViewById(R.id.item_medicineDialog_quantity);
         price = customDialog.findViewById(R.id.item_medicineDialog_price);
         description = customDialog.findViewById(R.id.item_medicineDialog_description);
@@ -156,6 +159,7 @@ public class MedicineActivity extends BaseActivity {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<List<Medicine>> call = apiService.getMedicine(headers);
         call.enqueue(new Callback<List<Medicine>>() {
+
             @Override
             public void onResponse(@NonNull Call<List<Medicine>> call,
                                    @NonNull Response<List<Medicine>> response) {
@@ -176,6 +180,21 @@ public class MedicineActivity extends BaseActivity {
                                         }
                                     }
                                     name.setText(medicinesAPI.get(position).getName());
+
+                                    if (Integer.parseInt(medicinesAPI.get(position).getQuantity()) == 0) {
+                                        quantity.setTextColor(getResources().getColor(R.color.colorGray));
+                                        quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity_gray));
+                                    }
+                                    else if (Integer.parseInt(medicinesAPI.get(position).getQuantity()) < 10) {
+                                        quantity.setTextColor(getResources().getColor(R.color.colorRed));
+                                        quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity_red));
+
+                                    }
+                                    else {
+                                        quantity.setTextColor(getResources().getColor(R.color.colorGreen));
+                                        quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity));
+                                    }
+
                                     quantity.setText("Quantity: " + medicinesAPI.get(position).getQuantity());
                                     price.setText("Price: " + medicinesAPI.get(position).getPrice() + " LE");
                                     description.setText("Description: " + medicinesAPI.get(position).getDescription());
@@ -201,7 +220,7 @@ public class MedicineActivity extends BaseActivity {
 
     private void setListeners() {
 
-        searchLinear.setOnClickListener(v-> {
+        searchLinear.setOnClickListener(v -> {
             searchView.setFocusable(true);
             searchView.setIconified(false);
             searchView.requestFocusFromTouch();

@@ -3,6 +3,8 @@ package network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.Contract;
+
 public class MedicalCategory {
 
     @SerializedName("_id")
