@@ -64,6 +64,7 @@ public class MedicineActivity extends BaseActivity {
     List<Medicine> medicinesAPI = new ArrayList<>();
     String[] medicinesUser;
 
+
     public MedicineActivity() {
         super(R.layout.activity_medicine, true);
     }
