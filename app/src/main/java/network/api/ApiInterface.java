@@ -6,7 +6,9 @@ import java.util.Map;
 import app.Constants;
 import network.model.ConfirmSignUpForm;
 import network.model.Hospital;
+import network.model.MedicalCategory;
 import network.model.Medicine;
+import network.model.Patient;
 import network.model.PatientID;
 import network.model.SignInForm;
 import network.model.Token;
@@ -26,8 +28,8 @@ public interface ApiInterface {
                        @Body SignInForm signInForm);
 
     @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_USER_PROFILE)
-    Call<List<UserProfile>> getUser(@HeaderMap Map<String, String> headers,
-                                    @Body PatientID patientID);
+    Call<Patient> getUser(@HeaderMap Map<String, String> headers,
+                          @Body PatientID patientID);
 
     @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_SIGNUP)
     Call<ResponseBody> signUp(@HeaderMap Map<String, String> headers,
@@ -43,5 +45,8 @@ public interface ApiInterface {
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICINE)
     Call<List<Medicine>> getMedicine(@HeaderMap Map<String, String> headers);
+
+    @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICAL_CATEGORY)
+    Call<List<MedicalCategory>> getMedicalCategory(@HeaderMap Map<String, String> headers);
 
 }

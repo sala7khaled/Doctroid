@@ -24,6 +24,7 @@ import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
+import network.model.Patient;
 import network.model.PatientID;
 import network.model.UserProfile;
 import retrofit2.Call;
@@ -80,15 +81,15 @@ public class UserFragment extends Fragment {
 
             HashMap<String, String> headers = ApiClient.getHeaders();
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-            Call<List<UserProfile>> call = apiService.getUser(headers, patientID);
-            call.enqueue(new Callback<List<UserProfile>>() {
+            Call<Patient> call = apiService.getUser(headers, patientID);
+            call.enqueue(new Callback<Patient>() {
                 @Override
-                public void onResponse(@NonNull Call<List<UserProfile>> call,
-                                       @NonNull Response<List<UserProfile>> response) {
+                public void onResponse(@NonNull Call<Patient> call,
+                                       @NonNull Response<Patient> response) {
 
                     if (response.isSuccessful()) {
 
-                        List<UserProfile> users = response.body();
+                        List<UserProfile> users = response.body().getUsers();
 
                         if (users != null) {
                             for (UserProfile user : users) {
@@ -106,7 +107,7 @@ public class UserFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<List<UserProfile>> call,
+                public void onFailure(@NonNull Call<Patient> call,
                                       @NonNull Throwable t) {
                     Toasty.error(context, t.getMessage(), LENGTH_LONG).show();
                 }

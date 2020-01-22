@@ -13,7 +13,7 @@ public class Constants {
 
     /** GET */
     public static final String SERVICES_GET_HOSPITAL = "hospitalinfo";
-    public static final String SERVICES_GET_MEDICAL = "medical";
+    public static final String SERVICES_GET_MEDICAL_CATEGORY = "listcategories";
     public static final String SERVICES_GET_MEDICINE = "getmedicines";
 
     /** POST */

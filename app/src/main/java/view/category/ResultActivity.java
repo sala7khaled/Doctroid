@@ -3,11 +3,14 @@ package view.category;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.s7k.doctroid.R;
 
 import view.base.BaseActivity;
 
 public class ResultActivity extends BaseActivity {
+
 
     public ResultActivity() {
         super(R.layout.activity_result, true);

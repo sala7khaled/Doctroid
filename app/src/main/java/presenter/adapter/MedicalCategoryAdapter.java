@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.s7k.doctroid.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +66,13 @@ public class MedicalCategoryAdapter extends RecyclerView.Adapter<MedicalCategory
         MedicalCategory medicalCategory = medicalList.get(position);
 
         holder.medicalText.setText(medicalCategory.getName());
-        // TODO picasso
-        // holder.medicalImage
-        holder.medicalImage.setImageResource(R.drawable.icon_2_medical_analysis);
+
+        Picasso.get()
+                .load(medicalList.get(position).getImage())
+                .fit()
+                .error(R.drawable.icon_no_connection)
+                .into(holder.medicalImage);
+
         holder.medicalCard.setOnClickListener(view -> itemClick.onClick(position));
 
     }

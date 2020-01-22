@@ -1,6 +1,8 @@
 package view.category;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -13,14 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.s7k.doctroid.R;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
+import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
+import network.api.ApiClient;
+import network.api.ApiInterface;
 import network.model.MedicalCategory;
 import network.model.Medicine;
 import presenter.adapter.MedicalCategoryAdapter;
 import presenter.adapter.MedicineAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import view.activity.MedicalAnalysisActivity;
 import view.base.BaseActivity;
 
 public class MedicalActivity extends BaseActivity {
@@ -31,6 +45,8 @@ public class MedicalActivity extends BaseActivity {
     MedicalCategoryAdapter medicalCategoryAdapter;
     List<MedicalCategory> medicalCategories = new ArrayList<>();
 
+    ProgressViewDialog progressViewDialog;
+
     public MedicalActivity() {
         super(R.layout.activity_medical, true);
     }
@@ -40,6 +56,7 @@ public class MedicalActivity extends BaseActivity {
         toolbarTextView.setText("Medical Analysis");
         toolbarBackImageView.setVisibility(View.VISIBLE);
 
+        callAPI();
         initializeComponents();
         setListeners();
     }
@@ -53,28 +70,56 @@ public class MedicalActivity extends BaseActivity {
         medicalRecyclerView.setLayoutManager(new LinearLayoutManager(MedicalActivity.this));
         medicalRecyclerView.setHasFixedSize(true);
 
+    }
 
-        medicalCategories.add(new MedicalCategory("0", "Categoryaaaaaaaa1", "ss"));
-        medicalCategories.add(new MedicalCategory("1", "C", "ss"));
-        medicalCategories.add(new MedicalCategory("2", "Category3", "ss"));
-        medicalCategories.add(new MedicalCategory("3", "Category4", "ss"));
-        medicalCategories.add(new MedicalCategory("4", "Category4", "ss"));
-        medicalCategories.add(new MedicalCategory("5", "Category4", "ss"));
+    private void callAPI() {
+        progressViewDialog = new ProgressViewDialog(MedicalActivity.this);
+        progressViewDialog.isShowing();
+        progressViewDialog.setDialogCancelable(false);
+        progressViewDialog.setCanceledOnTouchOutside(false);
+        progressViewDialog.showProgressDialog("Getting medicals information");
 
-        medicalCategoryAdapter = new MedicalCategoryAdapter(MedicalActivity.this, medicalCategories,
-                new MedicalCategoryAdapter.ItemClick() {
-                    @Override
-                    public void onClick(int position) {
-                        Toasty.info(MedicalActivity.this, "Clicked "+position).show();
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<List<MedicalCategory>> call = apiService.getMedicalCategory(headers);
+        call.enqueue(new Callback<List<MedicalCategory>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<MedicalCategory>> call,
+                                   @NotNull Response<List<MedicalCategory>> response) {
+                if (response.isSuccessful()) {
+                    medicalCategories = response.body();
+
+                    if (medicalCategories != null) {
+
+                        medicalCategoryAdapter = new MedicalCategoryAdapter(MedicalActivity.this, medicalCategories,
+                                position ->
+                                {
+                                    Intent intent = new Intent(MedicalActivity.this, MedicalAnalysisActivity.class);
+                                    intent.putExtra("medicalAnalysis", (Serializable) medicalCategories.get(position).getMedicalAnalyses());
+                                    intent.putExtra("categoryName", medicalCategories.get(position).getName());
+                                    startActivity(intent);
+                                });
+
+
+                        medicalRecyclerView.setAdapter(medicalCategoryAdapter);
                     }
-                });
 
-        medicalRecyclerView.setAdapter(medicalCategoryAdapter);
+                    progressViewDialog.hideDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<MedicalCategory>> call,
+                                  @NotNull Throwable t) {
+                Toasty.error(MedicalActivity.this, Objects.requireNonNull(t.getMessage())).show();
+            }
+        });
+
     }
 
     private void setListeners() {
 
-        searchLinear.setOnClickListener(v-> {
+        searchLinear.setOnClickListener(v -> {
             searchView.setFocusable(true);
             searchView.setIconified(false);
             searchView.requestFocusFromTouch();

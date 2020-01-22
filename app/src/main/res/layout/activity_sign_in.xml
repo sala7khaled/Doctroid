@@ -47,10 +47,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/back_gradient_360"
         android:fontFamily="@font/gotham_rounded_medium"
-        android:layout_marginTop="32dp"
-        android:text="Sign In"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
+        android:layout_marginTop="32dp"
+        android:text="Sign In"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toBottomOf="@+id/signIn_password_textInputLayout" />

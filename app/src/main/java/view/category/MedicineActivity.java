@@ -1,26 +1,17 @@
 package view.category;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +27,7 @@ import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Medicine;
+import network.model.Patient;
 import network.model.PatientID;
 import network.model.UserProfile;
 import presenter.adapter.MedicineAdapter;
@@ -44,7 +36,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import utilities.PrefManager;
-import view.activity.MainActivity;
 import view.base.BaseActivity;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
@@ -123,15 +114,15 @@ public class MedicineActivity extends BaseActivity {
 
             HashMap<String, String> headers = ApiClient.getHeaders();
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-            Call<List<UserProfile>> call = apiService.getUser(headers, patientID);
-            call.enqueue(new Callback<List<UserProfile>>() {
+            Call<Patient> call = apiService.getUser(headers, patientID);
+            call.enqueue(new Callback<Patient>() {
                 @Override
-                public void onResponse(@NonNull Call<List<UserProfile>> call,
-                                       @NonNull Response<List<UserProfile>> response) {
+                public void onResponse(@NonNull Call<Patient> call,
+                                       @NonNull Response<Patient> response) {
 
                     if (response.isSuccessful()) {
 
-                        List<UserProfile> users = response.body();
+                        List<UserProfile> users = response.body().getUsers();
 
                         if (users != null) {
                             for (UserProfile user : users) {
@@ -146,7 +137,7 @@ public class MedicineActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<List<UserProfile>> call,
+                public void onFailure(@NonNull Call<Patient> call,
                                       @NonNull Throwable t) {
                     Toasty.error(MedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
                 }
