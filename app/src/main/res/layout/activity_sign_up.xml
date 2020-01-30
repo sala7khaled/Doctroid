@@ -48,7 +48,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/back_gradient_360"
         android:fontFamily="@font/gotham_rounded_medium"
-        android:text="Next"
+        android:text="Sign Up"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

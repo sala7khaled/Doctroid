@@ -160,7 +160,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     private void setListeners() {
 
         date.setOnClickListener(View -> {
-            DialogFragment datePicker = new DatePickerFragment();
+            DialogFragment datePicker = new DatePickerFragment("birthday");
             datePicker.show(getSupportFragmentManager(), "Date Picker");
         });
 

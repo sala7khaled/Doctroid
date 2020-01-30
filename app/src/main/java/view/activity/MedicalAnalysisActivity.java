@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.widget.SearchView;
-import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,10 +12,11 @@ import com.s7k.doctroid.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
 import network.model.MedicalAnalysis;
 import presenter.adapter.MedicalAnalysisAdapter;
 import view.base.BaseActivity;
+import view.fragment.BottomSheetFragment;
+
 public class MedicalAnalysisActivity extends BaseActivity {
 
     androidx.appcompat.widget.SearchView searchView;
@@ -51,7 +51,11 @@ public class MedicalAnalysisActivity extends BaseActivity {
         medicalAnalysisAdapter = new MedicalAnalysisAdapter(MedicalAnalysisActivity.this,
                 medicalAnalyses, position -> {
 
-            Toasty.info(this, "clicked "+position).show();
+            MedicalAnalysis m1 = new MedicalAnalysis();
+            m1 = medicalAnalyses.get(position);
+
+            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(m1);
+            bottomSheetFragment.show(getSupportFragmentManager(), "Appoint");
         });
 
         recyclerView.setAdapter(medicalAnalysisAdapter);
