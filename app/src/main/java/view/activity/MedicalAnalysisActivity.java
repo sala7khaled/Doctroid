@@ -41,8 +41,8 @@ public class MedicalAnalysisActivity extends BaseActivity {
         searchView = findViewById(R.id.medicalAnalysis_searchView);
 
         medicalAnalyses = (List<MedicalAnalysis>) getIntent().getSerializableExtra("medicalAnalysis");
-        String categoryname = getIntent().getStringExtra("categoryName");
-        toolbarTextView.setText(categoryname);
+        String categoryName = getIntent().getStringExtra("categoryName");
+        toolbarTextView.setText(categoryName);
 
         recyclerView = findViewById(R.id.medicalAnalysis_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(MedicalAnalysisActivity.this));
@@ -51,7 +51,7 @@ public class MedicalAnalysisActivity extends BaseActivity {
         medicalAnalysisAdapter = new MedicalAnalysisAdapter(MedicalAnalysisActivity.this,
                 medicalAnalyses, position -> {
 
-            MedicalAnalysis m1 = new MedicalAnalysis();
+            MedicalAnalysis m1;
             m1 = medicalAnalyses.get(position);
 
             BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(m1);
