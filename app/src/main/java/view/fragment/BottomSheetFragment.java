@@ -47,9 +47,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     private Button dateBTN, timeBTN, requestBTN;
 
     private MedicalAnalysis medicalAnalysis;
+    private String[] questions;
 
     public BottomSheetFragment(MedicalAnalysis medicalAnalysis) {
         this.medicalAnalysis = medicalAnalysis;
+        this.questions = medicalAnalysis.getQuestions();
         // Required empty public constructor
     }
 
@@ -101,6 +103,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     private void setListeners() {
 
         medicalTitle.setText(medicalAnalysis.getTitle());
+
+        question1TV.setText(questions[0]);
+        question2TV.setText(questions[1]);
+        question3TV.setText(questions[2]);
+
         requestBTN.setText("Request (Price: " + medicalAnalysis.getPrice() + " LE)");
 
         dateBTN.setOnClickListener(v ->

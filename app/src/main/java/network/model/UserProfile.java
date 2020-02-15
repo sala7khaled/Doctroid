@@ -156,4 +156,5 @@ public class UserProfile {
     public void setSnn(String snn) {
         this.snn = snn;
     }
+
 }

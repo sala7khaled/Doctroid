@@ -71,7 +71,7 @@ public class SignInActivity extends BaseActivity {
 
     private void initializeComponents() {
         email = findViewById(R.id.signIn_email_editText);
-        email.setText("Sala7Khaled.S7K@gmail.com");
+        // email.setText("Sala7Khaled.S7K@gmail.com");
         password = findViewById(R.id.signIn_password_editText);
         errorMessage = findViewById(R.id.signIn_errorMessage_textView);
         errorDialog = findViewById(R.id.signIn_errorDialog_imageView);

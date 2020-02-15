@@ -22,16 +22,20 @@ public class MedicalAnalysis implements Serializable {
     @SerializedName("test_description")
     @Expose
     private String description;
+    @SerializedName("test_questions")
+    @Expose
+    private String[] questions;
 
     public MedicalAnalysis() {
     }
 
-    public MedicalAnalysis(String id, String title, String period, String price, String description) {
+    public MedicalAnalysis(String id, String title, String period, String price, String description, String[] questions) {
         this.id = id;
         this.title = title;
         this.period = period;
         this.price = price;
         this.description = description;
+        this.questions = questions;
     }
 
     public String getId() {
@@ -72,5 +76,13 @@ public class MedicalAnalysis implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String[] getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(String[] questions) {
+        this.questions = questions;
     }
 }

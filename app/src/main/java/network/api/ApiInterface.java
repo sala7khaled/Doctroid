@@ -8,7 +8,6 @@ import network.model.ConfirmSignUpForm;
 import network.model.Hospital;
 import network.model.MedicalCategory;
 import network.model.Medicine;
-import network.model.Patient;
 import network.model.PatientID;
 import network.model.SignInForm;
 import network.model.Token;
@@ -28,7 +27,7 @@ public interface ApiInterface {
                        @Body SignInForm signInForm);
 
     @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_USER_PROFILE)
-    Call<Patient> getUser(@HeaderMap Map<String, String> headers,
+    Call<UserProfile> getUser(@HeaderMap Map<String, String> headers,
                           @Body PatientID patientID);
 
     @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_SIGNUP)

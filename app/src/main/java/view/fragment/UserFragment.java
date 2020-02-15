@@ -18,13 +18,12 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import com.s7k.doctroid.R;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Objects;
 
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
-import network.model.Patient;
 import network.model.PatientID;
 import network.model.UserProfile;
 import retrofit2.Call;
@@ -81,33 +80,31 @@ public class UserFragment extends Fragment {
 
             HashMap<String, String> headers = ApiClient.getHeaders();
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-            Call<Patient> call = apiService.getUser(headers, patientID);
-            call.enqueue(new Callback<Patient>() {
+            Call<UserProfile> call = apiService.getUser(headers, patientID);
+            call.enqueue(new Callback<UserProfile>() {
                 @Override
-                public void onResponse(@NonNull Call<Patient> call,
-                                       @NonNull Response<Patient> response) {
+                public void onResponse(@NonNull Call<UserProfile> call,
+                                       @NonNull Response<UserProfile> response) {
 
                     if (response.isSuccessful()) {
 
-                        List<UserProfile> users = response.body().getUsers();
+                        UserProfile user = Objects.requireNonNull(response.body());
 
-                        if (users != null) {
-                            for (UserProfile user : users) {
-                                username.setText(user.getFirstName() + " " + user.getLastName());
-                                email.setText(user.getEmail());
-                                location.setText(user.getLocation());
+                        if (user != null) {
+                            username.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
+                            email.setText(user.getEmail());
+                            location.setText(user.getLocation());
 
-                                locationIcon.setVisibility(View.VISIBLE);
+                            locationIcon.setVisibility(View.VISIBLE);
 
-                                progressViewDialog.hideDialog();
-                            }
+                            progressViewDialog.hideDialog();
                         }
                     }
 
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<Patient> call,
+                public void onFailure(@NonNull Call<UserProfile> call,
                                       @NonNull Throwable t) {
                     Toasty.error(context, t.getMessage(), LENGTH_LONG).show();
                 }

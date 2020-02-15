@@ -31,7 +31,6 @@ public class HospitalActivity extends BaseActivity implements BottomNavigationVi
     protected void doOnCreate(Bundle bundle) {
         toolbarTextView.setText("O6U Hospital");
         toolbarBackImageView.setVisibility(View.VISIBLE);
-        toolbarTextView.setTextSize(23);
 
         bottomNav = findViewById(R.id.hospital_bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
