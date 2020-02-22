@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -15,16 +16,32 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.s7k.doctroid.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Objects;
 
+import app.App;
+import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
+import network.api.ApiClient;
+import network.api.ApiInterface;
+import network.model.Appoint;
+import network.model.AppointRequest;
 import network.model.MedicalAnalysis;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import utilities.PrefManager;
+import view.category.AppointmentActivity;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment implements DatePickerFragment.DateSet,
         TimePickerFragment.TimeSet {
 
     private BottomSheetBehavior bottomSheetBehavior;
+    private ProgressViewDialog progressViewDialog;
 
     private TextView medicalTitle;
 
@@ -40,6 +57,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     private LinearLayout question2Linear;
     private LinearLayout question3Linear;
 
+    private String c_id;
     private String dateSTR = "Empty";
     private int day;
     private String peroid = "Empty";
@@ -49,8 +67,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     private MedicalAnalysis medicalAnalysis;
     private String[] questions;
 
-    public BottomSheetFragment(MedicalAnalysis medicalAnalysis) {
+    public BottomSheetFragment(MedicalAnalysis medicalAnalysis, String c_id) {
         this.medicalAnalysis = medicalAnalysis;
+        this.c_id = c_id;
         this.questions = medicalAnalysis.getQuestions();
         // Required empty public constructor
     }
@@ -88,6 +107,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
         timeBTN.setEnabled(false);
         timeBTN.setBackground(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.back_solid_gray));
         timeBTN.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorWhite));
+
         requestBTN = view.findViewById(R.id.appoint_request_button);
 
     }
@@ -122,6 +142,61 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
             timePicker.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "time picker");
         });
 
+        requestBTN.setOnClickListener(v ->
+        {
+            if (question1Answer.getText().toString().trim().length() == 0
+                    || question2Answer.getText().toString().trim().length() == 0
+                    || question3Answer.getText().toString().trim().length() == 0) {
+
+                Toasty.error(Objects.requireNonNull(getActivity()), "Please answer all the question!").show();
+
+            }
+            else if (dateSTR.equals("Empty") || timeSTR.equals("Empty"))
+            {
+                Toasty.error(Objects.requireNonNull(getActivity()), "Please pick date and time!").show();
+            }
+            else {
+                callAPI();
+            }
+        });
+
+    }
+
+    private void callAPI() {
+        progressViewDialog = new ProgressViewDialog(getContext());
+        progressViewDialog.isShowing();
+        progressViewDialog.setDialogCancelable(false);
+        progressViewDialog.setCanceledOnTouchOutside(false);
+        progressViewDialog.showProgressDialog("Requesting an appointment...");
+
+        String p_id = PrefManager.getP_id(getActivity());
+        String[] answers = {question1Answer.getText().toString().trim(),
+                question2Answer.getText().toString().trim(),
+                question3Answer.getText().toString().trim()};
+
+        AppointRequest appointRequest = new AppointRequest(c_id, medicalAnalysis.getId(), p_id,
+                "Pending", timeSTR, dateSTR, answers, "");
+
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiService.requestAppoint(headers, appointRequest);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call,
+                                   @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toasty.info(Objects.requireNonNull(getContext()), "The request has been sent. Check Appointment for the Accepting/Rejecting!", Toasty.LENGTH_LONG).show();
+                    progressViewDialog.hideDialog();
+                    dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call,
+                                  @NotNull Throwable t) {
+                Toasty.error(Objects.requireNonNull(getContext()), Objects.requireNonNull(t.getMessage())).show();
+            }
+        });
     }
 
     @Override

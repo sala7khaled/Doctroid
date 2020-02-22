@@ -36,7 +36,7 @@
                 android:paddingEnd="20dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/item_medicalAnalysis_dropArrow"
@@ -76,7 +76,7 @@
                 android:fontFamily="@font/gotham_rounded_medium"
                 android:gravity="start"
                 android:textColor="@color/colorGreen"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:transitionName="transQuantity" />
         </LinearLayout>
 
@@ -97,7 +97,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="start"
                 android:layout_weight="0.3"
-                android:src="@drawable/icon_medicine_quantity" />
+                android:src="@drawable/icon_medicine_period" />
 
             <TextView
                 android:id="@+id/item_medicalAnalysis_period"
@@ -107,7 +107,7 @@
                 android:fontFamily="@font/gotham_rounded_medium"
                 android:gravity="start"
                 android:textColor="@color/colorGreen"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:transitionName="transQuantity" />
         </LinearLayout>
 
@@ -140,7 +140,7 @@
                 android:gravity="start"
                 android:minLines="5"
                 android:textColor="@color/colorGreen"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:transitionName="transQuantity" />
         </LinearLayout>
 
@@ -167,8 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="linearLayout1,linearLayout2
-            ,linearLayout3,item_medicalAnalysis_appoint_button" />
+            app:constraint_referenced_ids="linearLayout1,linearLayout2,linearLayout3,item_medicalAnalysis_appoint_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

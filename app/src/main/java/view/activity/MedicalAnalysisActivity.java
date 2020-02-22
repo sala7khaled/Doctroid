@@ -54,7 +54,9 @@ public class MedicalAnalysisActivity extends BaseActivity {
             MedicalAnalysis m1;
             m1 = medicalAnalyses.get(position);
 
-            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(m1);
+            String c_id = getIntent().getStringExtra("c_id");
+
+            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(m1,c_id);
             bottomSheetFragment.show(getSupportFragmentManager(), "Appoint");
         });
 

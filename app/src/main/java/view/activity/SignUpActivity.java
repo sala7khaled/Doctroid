@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.s7k.doctroid.R;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import dialog.ProgressViewDialog;
@@ -168,7 +169,7 @@ public class SignUpActivity extends BaseActivity {
                                    @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
-                    Toast.makeText(SignUpActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
+                    Toasty.info(SignUpActivity.this, "Account created! Please sign in to continue.", Toast.LENGTH_SHORT).show();
                     progressViewDialog.hideDialog();
                     startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                     finish();
@@ -182,7 +183,7 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call,
                                   @NonNull Throwable t) {
-                Toasty.error(SignUpActivity.this, t.getMessage(), LENGTH_LONG).show();
+                Toasty.error(SignUpActivity.this, Objects.requireNonNull(t.getMessage()), LENGTH_LONG).show();
             }
         });
 

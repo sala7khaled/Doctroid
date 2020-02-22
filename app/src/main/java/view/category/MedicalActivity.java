@@ -97,6 +97,7 @@ public class MedicalActivity extends BaseActivity {
                                     Intent intent = new Intent(MedicalActivity.this, MedicalAnalysisActivity.class);
                                     intent.putExtra("medicalAnalysis", (Serializable) medicalCategories.get(position).getMedicalAnalyses());
                                     intent.putExtra("categoryName", medicalCategories.get(position).getName());
+                                    intent.putExtra("c_id", medicalCategories.get(position).getId());
                                     startActivity(intent);
                                 });
 

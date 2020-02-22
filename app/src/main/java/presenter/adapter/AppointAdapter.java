@@ -1,0 +1,143 @@
+package presenter.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.s7k.doctroid.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import app.App;
+import network.model.Appoint;
+import network.model.MedicalAnalysis;
+import presenter.holder.AppointHolder;
+import presenter.holder.MedicalAnalysisHolder;
+
+public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implements Filterable {
+
+    private List<Appoint> AppointList;
+    private List<Appoint> searchList;
+    private Context context;
+
+    public AppointAdapter(Context context, List<Appoint> items) {
+
+        this.context = context;
+        this.AppointList = items;
+        searchList = new ArrayList<>(AppointList);
+    }
+
+    public void addItem(Appoint appoint) {
+        AppointList.add(appoint);
+        notifyDataSetChanged();
+    }
+
+    public void deleteItem(int position) {
+        AppointList.remove(position);
+        notifyDataSetChanged();
+    }
+
+    private Context getContext() {
+        return context;
+    }
+
+
+    @NonNull
+    @Override
+    public AppointHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_appoint, parent, false);
+        return new AppointHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AppointHolder holder, int position) {
+
+        Appoint appoint = AppointList.get(position);
+
+        holder.appointTitle.setText(appoint.getTitle());
+        holder.appointQuestion1_answer.setText(appoint.getQuestion1_answer());
+        holder.appointQuestion2_answer.setText(appoint.getQuestion2_answer());
+        holder.appointQuestion3_answer.setText(appoint.getQuestion3_answer());
+        holder.appointDate.setText(appoint.getDate());
+        holder.appointTime.setText(appoint.getTime());
+
+        if (appoint.getStatus().equals("Rejected")) {
+            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorRed));
+            holder.appointNote.setText(getContext().getResources().getString(R.string.Rejected));
+            holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorRed));
+            holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorRed));
+            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_rejected));
+        } else if (appoint.getStatus().equals("Accepted")) {
+            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
+            holder.appointNote.setText(getContext().getResources().getString(R.string.Accepted));
+            holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_accepted));
+        } else {
+            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorGray));
+            holder.appointNote.setText(getContext().getResources().getString(R.string.Pending));
+            holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorGray));
+            holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorGray));
+            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_loading));
+        }
+
+        holder.questions_drop.setOnClickListener(view ->
+        {
+            if (holder.questions.getVisibility() == View.GONE) {
+                holder.questions.setVisibility(View.VISIBLE);
+                holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down));
+            } else {
+                holder.questions.setVisibility(View.GONE);
+                holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down_gray));
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return AppointList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Appoint> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(searchList);
+            } else {
+                String filteredPattern = constraint.toString().toLowerCase().trim();
+                for (Appoint appoint : searchList) {
+                    if (appoint.getTitle().toLowerCase().contains(filteredPattern)) {
+                        filteredList.add(appoint);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            AppointList.clear();
+            AppointList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+}

@@ -209,7 +209,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         dateSTR = dayOfMonth + "/" + ++month + "/" + year;
-        date.setText("Date: " + dateSTR);
+        date.setText(String.format("Date: %s", dateSTR));
 
     }
 

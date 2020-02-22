@@ -15,12 +15,15 @@ public class Constants {
     public static final String SERVICES_GET_HOSPITAL = "hospitalinfo";
     public static final String SERVICES_GET_MEDICAL_CATEGORY = "listcategories";
     public static final String SERVICES_GET_MEDICINE = "getmedicines";
+    public static final String SERVICES_GET_REQUESTS = "getreq";
 
     /** POST */
     public static final String SERVICES_POST_SIGNIN = "signin";
     public static final String SERVICES_POST_SIGNUP = "signup";
     public static final String SERVICES_POST_SIGNUP_CONFIRM = "confirmsignup";
     public static final String SERVICES_POST_USER_PROFILE = "getpatient";
+    public static final String SERVICES_POST_REQUEST = "addreq";
+    public static final String SERVICES_POST_PATIENT_REQUEST = "patientreq";
 
     /**
      * -
