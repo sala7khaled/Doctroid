@@ -70,23 +70,23 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
         holder.appointTime.setText(appoint.getTime());
 
         if (appoint.getStatus().equals("Rejected")) {
-            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointNote.setText(getContext().getResources().getString(R.string.Rejected));
+            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_rejected));
+            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorRed));
-            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_rejected));
         } else if (appoint.getStatus().equals("Accepted")) {
-            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointNote.setText(getContext().getResources().getString(R.string.Accepted));
+            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_accepted));
+            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
-            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_accepted));
         } else {
-            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorGray));
             holder.appointNote.setText(getContext().getResources().getString(R.string.Pending));
+            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_loading));
+            holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorGray));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorGray));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorGray));
-            holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_loading));
         }
 
         holder.questions_drop.setOnClickListener(view ->
