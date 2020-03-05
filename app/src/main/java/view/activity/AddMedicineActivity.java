@@ -41,8 +41,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import utilities.PrefManager;
-import view.base.BaseActivity;
 import view.fragment.DatePickerFragment;
+import view.base.BaseActivity;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
@@ -172,7 +172,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             if (medicineAdapter.checkExistMedicine(medicine)) {
                 Toast.makeText(AddMedicineActivity.this, "This medicine already selected", Toast.LENGTH_SHORT).show();
             } else {
-                medicineCardView.setVisibility(View.VISIBLE);
+                medicineCardView.setVisibility(view.VISIBLE);
                 medicineAdapter.addItem(medicine);
             }
             medicineAutoComplete.setText("");

@@ -13,7 +13,7 @@ public class AppointRequest {
     @Expose
     private String t_id;
 
-    @SerializedName("p_id")
+    @SerializedName("req_p_id")
     @Expose
     private String p_id;
 
@@ -37,7 +37,15 @@ public class AppointRequest {
     @Expose
     private String req_test;
 
-    public AppointRequest(String c_id, String t_id, String p_id, String req_status, String req_time, String req_date, String[] req_answers, String req_test) {
+    @SerializedName("req_p_name")
+    @Expose
+    private String patientName;
+
+    @SerializedName("req_p_phone")
+    @Expose
+    private String patientPhone;
+
+    public AppointRequest(String c_id, String t_id, String p_id, String req_status, String req_time, String req_date, String[] req_answers, String req_test, String patientName, String patientPhone) {
         this.c_id = c_id;
         this.t_id = t_id;
         this.p_id = p_id;
@@ -46,6 +54,8 @@ public class AppointRequest {
         this.req_date = req_date;
         this.req_answers = req_answers;
         this.req_test = req_test;
+        this.patientName = patientName;
+        this.patientPhone = patientPhone;
     }
 
     public String getC_id() {
@@ -110,5 +120,21 @@ public class AppointRequest {
 
     public void setReq_test(String req_test) {
         this.req_test = req_test;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientPhone() {
+        return patientPhone;
+    }
+
+    public void setPatientPhone(String patientPhone) {
+        this.patientPhone = patientPhone;
     }
 }

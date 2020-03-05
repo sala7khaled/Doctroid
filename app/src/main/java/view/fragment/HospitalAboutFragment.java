@@ -70,13 +70,13 @@ public class HospitalAboutFragment extends Fragment{
         facebook_layout = view.findViewById(R.id.facebook_layout);
         email_layout = view.findViewById(R.id.emails_layout);
 
-        lineView.setVisibility(View.INVISIBLE);
+        lineView.setVisibility(view.INVISIBLE);
 
-        location_layout.setVisibility(View.INVISIBLE);
-        phone_layout.setVisibility(View.INVISIBLE);
-        website_layout.setVisibility(View.INVISIBLE);
-        facebook_layout.setVisibility(View.INVISIBLE);
-        email_layout.setVisibility(View.INVISIBLE);
+        location_layout.setVisibility(view.INVISIBLE);
+        phone_layout.setVisibility(view.INVISIBLE);
+        website_layout.setVisibility(view.INVISIBLE);
+        facebook_layout.setVisibility(view.INVISIBLE);
+        email_layout.setVisibility(view.INVISIBLE);
     }
 
     private void getHospital() {
@@ -103,9 +103,7 @@ public class HospitalAboutFragment extends Fragment{
                             hospitalFacebook.setText(hos.getHospital_facebook());
 
                             progressBar.setVisibility(View.GONE);
-
                             lineView.setVisibility(View.VISIBLE);
-
                             location_layout.setVisibility(View.VISIBLE);
                             phone_layout.setVisibility(View.VISIBLE);
                             website_layout.setVisibility(View.VISIBLE);

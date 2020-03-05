@@ -72,14 +72,14 @@ public class MedicalAnalysisAdapter extends RecyclerView.Adapter<MedicalAnalysis
 
         holder.medicalAnalysisLinear.setOnClickListener(view ->
         {
-            if (holder.medicalAnalysisInfoGroup.getVisibility() == View.GONE)
+            if (holder.medicalAnalysisInfoGroup.getVisibility() == view.GONE)
             {
-                holder.medicalAnalysisInfoGroup.setVisibility(View.VISIBLE);
+                holder.medicalAnalysisInfoGroup.setVisibility(view.VISIBLE);
                 holder.medicalAnalysisDropArrow.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down));
             }
             else
             {
-                holder.medicalAnalysisInfoGroup.setVisibility(View.GONE);
+                holder.medicalAnalysisInfoGroup.setVisibility(view.GONE);
                 holder.medicalAnalysisDropArrow.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down_gray));
             }
         });

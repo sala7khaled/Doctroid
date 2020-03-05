@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGrayBackground"
-    tools:context="view.activity.SignInActivity">
+    tools:context="ssview.activity.SignInActivity">
 
     <ImageView
         android:id="@+id/signIn_errorDialog_imageView"

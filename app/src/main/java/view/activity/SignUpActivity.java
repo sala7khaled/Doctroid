@@ -86,37 +86,37 @@ public class SignUpActivity extends BaseActivity {
         signUp.setOnClickListener(view -> {
 
             if (firstName.getText().toString().trim().isEmpty()) {
-                errorDialog.setVisibility(View.VISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                errorDialog.setVisibility(view.VISIBLE);
+                errorMessage.setVisibility(view.VISIBLE);
                 errorMessage.setText("Enter your First name");
                 firstName.requestFocus();
             } else if (lastName.getText().toString().trim().isEmpty()) {
-                errorDialog.setVisibility(View.VISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                errorDialog.setVisibility(view.VISIBLE);
+                errorMessage.setVisibility(view.VISIBLE);
                 errorMessage.setText("Enter your Last name");
                 lastName.requestFocus();
             } else if (!Validator.isValidEmail(email.getText().toString().trim())) {
-                errorDialog.setVisibility(View.VISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                errorDialog.setVisibility(view.VISIBLE);
+                errorMessage.setVisibility(view.VISIBLE);
                 errorMessage.setText(getString(R.string.email_not_valid));
                 email.requestFocus();
             } else if (!Validator.isValidPhoneNumber(phone.getText().toString().trim())) {
-                errorDialog.setVisibility(View.VISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                errorDialog.setVisibility(view.VISIBLE);
+                errorMessage.setVisibility(view.VISIBLE);
                 errorMessage.setText(getString(R.string.phone_not_valid));
                 phone.requestFocus();
             } else if (!Validator.isConfirmPassMatchPass(password.getText().toString().trim(),
                     confirmPassword.getText().toString().trim())) {
-                errorDialog.setVisibility(View.VISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                errorDialog.setVisibility(view.VISIBLE);
+                errorMessage.setVisibility(view.VISIBLE);
                 errorMessage.setText(getString(R.string.password_not_valid));
             } else if (!maleSelected && !femaleSelected) {
-                errorDialog.setVisibility(View.VISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                errorDialog.setVisibility(view.VISIBLE);
+                errorMessage.setVisibility(view.VISIBLE);
                 errorMessage.setText("Please select a gender");
             } else {
-                errorDialog.setVisibility(View.INVISIBLE);
-                errorMessage.setVisibility(View.INVISIBLE);
+                errorDialog.setVisibility(view.INVISIBLE);
+                errorMessage.setVisibility(view.INVISIBLE);
             }
 
             if (Validator.registerValidation(this, firstName, lastName,

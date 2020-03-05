@@ -29,6 +29,7 @@ public class AppointHolder extends RecyclerView.ViewHolder {
     public LinearLayout questions;
     public ConstraintLayout constraint;
     public ImageView appointStatus;
+    public ImageView appointDelete;
 
     public ImageView drop;
 
@@ -42,6 +43,7 @@ public class AppointHolder extends RecyclerView.ViewHolder {
         appointDate = view.findViewById(R.id.item_appoint_date);
         appointTime = view.findViewById(R.id.item_appoint_time);
         appointStatus = view.findViewById(R.id.item_appoint_icon);
+        appointDelete = view.findViewById(R.id.item_appoint_delete);
         appointNote = view.findViewById(R.id.item_appoint_note);
         drop = view.findViewById(R.id.item_appoint_drop);
 

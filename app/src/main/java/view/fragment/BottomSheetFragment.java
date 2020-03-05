@@ -37,6 +37,8 @@ import retrofit2.Response;
 import utilities.PrefManager;
 import view.category.AppointmentActivity;
 
+import static android.view.View.inflate;
+
 public class BottomSheetFragment extends BottomSheetDialogFragment implements DatePickerFragment.DateSet,
         TimePickerFragment.TimeSet {
 
@@ -78,7 +80,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         BottomSheetDialog bottomSheet = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-        View view = View.inflate(getContext(), R.layout.fragment_appoint, null);
+        View view = inflate(getContext(), R.layout.fragment_appoint, null);
         bottomSheet.setContentView(view);
         bottomSheetBehavior = BottomSheetBehavior.from((View) (view.getParent()));
 
@@ -175,7 +177,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                 question3Answer.getText().toString().trim()};
 
         AppointRequest appointRequest = new AppointRequest(c_id, medicalAnalysis.getId(), p_id,
-                "Pending", timeSTR, dateSTR, answers, "");
+                "Pending", timeSTR, dateSTR, answers, "", "", "");
 
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);

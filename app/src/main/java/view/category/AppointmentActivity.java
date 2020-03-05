@@ -1,7 +1,6 @@
 package view.category;
 
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -142,7 +141,9 @@ public class AppointmentActivity extends BaseActivity {
                             }
                         }
 
-                        appointAdapter = new AppointAdapter(AppointmentActivity.this, appoints);
+                        appointAdapter = new AppointAdapter(AppointmentActivity.this, appoints, position -> {
+                            Toasty.info(AppointmentActivity.this, "clicked " + position).show();
+                        });
                         appointRecyclerView.setAdapter(appointAdapter);
                         searchView.setVisibility(View.VISIBLE);
                         searchLinear.setVisibility(View.VISIBLE);

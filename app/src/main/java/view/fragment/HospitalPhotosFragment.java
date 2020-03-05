@@ -89,10 +89,10 @@ public class HospitalPhotosFragment extends Fragment {
                 }
 
                 countTV.setText(String.valueOf(imageUrls.size()));
-                progressBar.setVisibility(View.INVISIBLE);
-                leftArrow.setVisibility(View.VISIBLE);
-                rightArrow.setVisibility(View.VISIBLE);
-                index.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(view.INVISIBLE);
+                leftArrow.setVisibility(view.VISIBLE);
+                rightArrow.setVisibility(view.VISIBLE);
+                index.setVisibility(view.VISIBLE);
             }
 
             @Override

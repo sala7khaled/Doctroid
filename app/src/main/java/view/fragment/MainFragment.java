@@ -133,7 +133,7 @@ public class MainFragment extends Fragment {
                     }
                 }
 
-                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(view.INVISIBLE);
             }
 
             @Override

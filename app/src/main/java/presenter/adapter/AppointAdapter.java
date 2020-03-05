@@ -27,11 +27,13 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
     private List<Appoint> AppointList;
     private List<Appoint> searchList;
     private Context context;
+    private ItemClick itemClick;
 
-    public AppointAdapter(Context context, List<Appoint> items) {
+    public AppointAdapter(Context context, List<Appoint> items, ItemClick itemClick) {
 
         this.context = context;
         this.AppointList = items;
+        this.itemClick = itemClick;
         searchList = new ArrayList<>(AppointList);
     }
 
@@ -75,30 +77,34 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
             holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorRed));
+            holder.appointDelete.setVisibility(View.VISIBLE);
         } else if (appoint.getStatus().equals("Accepted")) {
             holder.appointNote.setText(getContext().getResources().getString(R.string.Accepted));
             holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_accepted));
             holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            holder.appointDelete.setVisibility(View.GONE);
         } else {
             holder.appointNote.setText(getContext().getResources().getString(R.string.Pending));
             holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_loading));
             holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorGray));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorGray));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorGray));
+            holder.appointDelete.setVisibility(View.VISIBLE);
         }
 
         holder.questions_drop.setOnClickListener(view ->
         {
-            if (holder.questions.getVisibility() == View.GONE) {
-                holder.questions.setVisibility(View.VISIBLE);
+            if (holder.questions.getVisibility() == view.GONE) {
+                holder.questions.setVisibility(view.VISIBLE);
                 holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down));
             } else {
-                holder.questions.setVisibility(View.GONE);
+                holder.questions.setVisibility(view.GONE);
                 holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down_gray));
             }
         });
+        holder.appointDelete.setOnClickListener(view -> itemClick.onClick(position));
 
     }
 
@@ -140,4 +146,9 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
             notifyDataSetChanged();
         }
     };
+
+    public interface ItemClick {
+
+        void onClick(int position);
+    }
 }

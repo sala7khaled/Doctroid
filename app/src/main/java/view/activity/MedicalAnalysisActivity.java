@@ -14,8 +14,8 @@ import java.util.List;
 
 import network.model.MedicalAnalysis;
 import presenter.adapter.MedicalAnalysisAdapter;
-import view.base.BaseActivity;
 import view.fragment.BottomSheetFragment;
+import view.base.BaseActivity;
 
 public class MedicalAnalysisActivity extends BaseActivity {
 

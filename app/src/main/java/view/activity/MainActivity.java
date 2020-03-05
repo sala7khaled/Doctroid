@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.s7k.doctroid.R;
 
-import view.base.BaseActivity;
 import view.fragment.MainFragment;
 import view.fragment.SettingsFragment;
 import view.fragment.UserFragment;
+import view.base.BaseActivity;
 
 public class MainActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener,

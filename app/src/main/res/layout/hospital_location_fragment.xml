@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="view.fragment.HospitalLocationFragment" />
+        tools:context="ssview.fragment.HospitalLocationFragment" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/hospitalLocationFragment_markersCardView"
