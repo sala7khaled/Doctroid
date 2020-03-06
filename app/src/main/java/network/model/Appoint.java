@@ -2,6 +2,7 @@ package network.model;
 
 public class Appoint {
 
+    private String id;
     private String title;
     private String question1_answer;
     private String question2_answer;
@@ -10,7 +11,8 @@ public class Appoint {
     private String time;
     private String status;
 
-    public Appoint(String title, String question1_answer, String question2_answer, String question3_answer, String date, String time, String status) {
+    public Appoint(String id, String title, String question1_answer, String question2_answer, String question3_answer, String date, String time, String status) {
+        this.id = id;
         this.title = title;
         this.question1_answer = question1_answer;
         this.question2_answer = question2_answer;
@@ -18,6 +20,14 @@ public class Appoint {
         this.date = date;
         this.time = time;
         this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

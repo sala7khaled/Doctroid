@@ -11,19 +11,24 @@ public class Constants {
      */
     public static final String BASE_URL = "https://lms-doctoroid.herokuapp.com/";
 
-    /** GET */
+    /**
+     * GET
+     */
     public static final String SERVICES_GET_HOSPITAL = "hospitalinfo";
     public static final String SERVICES_GET_MEDICAL_CATEGORY = "listcategories";
     public static final String SERVICES_GET_MEDICINE = "getmedicines";
     public static final String SERVICES_GET_REQUESTS = "getreq";
 
-    /** POST */
+    /**
+     * POST
+     */
     public static final String SERVICES_POST_SIGNIN = "signin";
     public static final String SERVICES_POST_SIGNUP = "signup";
     public static final String SERVICES_POST_SIGNUP_CONFIRM = "confirmsignup";
     public static final String SERVICES_POST_USER_PROFILE = "getpatient";
     public static final String SERVICES_POST_REQUEST = "addreq";
     public static final String SERVICES_POST_PATIENT_REQUEST = "patientreq";
+    public static final String SERVICES_POST_DELETE_REQUEST = "delrequest";
 
     /**
      * -
@@ -60,7 +65,7 @@ public class Constants {
     public static final String FONT_GOTHAM_MEDIUM = "gotham_rounded_medium.otf";
     public static final String FONT_GOTHAM_BOOK_ITALIC = "gotham_rounded_book_italic.otf";
     public static final String FONT_BREESERIF_REGULAR = "breeserif_regular.otf";
-    public static final String FONT_PACIFICO_REGULAR= "pacifico_regular.otf";
+    public static final String FONT_PACIFICO_REGULAR = "pacifico_regular.otf";
 
     /**
      * -

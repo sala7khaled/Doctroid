@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,14 +21,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import dialog.ErrorDialog;
+import dialog.PopupDialog;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Appoint;
+import network.model.DeleteRequestForm;
 import network.model.PatientID;
 import network.model.RequestIDs;
 import network.model.UsersRequests;
+import okhttp3.ResponseBody;
 import presenter.adapter.AppointAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,13 +142,33 @@ public class AppointmentActivity extends BaseActivity {
                         for (String id : ids) {
                             if (id.equals(req.getId())) {
                                 String[] ans = req.getAnswers();
-                                appoints.add(new Appoint(req.getTitle(), ans[0], ans[1],
+                                appoints.add(new Appoint(req.getId(), req.getTitle(), ans[0], ans[1],
                                         ans[2], req.getDate(), req.getTime(), req.getStatus()));
                             }
                         }
 
                         appointAdapter = new AppointAdapter(AppointmentActivity.this, appoints, position -> {
-                            Toasty.info(AppointmentActivity.this, "clicked " + position).show();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AppointmentActivity.this);
+                            builder.setTitle("Are you sure to delete this request?");
+                            builder.setMessage("This can't be undone.");
+
+                            builder.setPositiveButton("Yes",
+                                    (dialogInterface, i) -> {
+
+                                        String p_id = PrefManager.getP_id(AppointmentActivity.this);
+                                        DeleteRequestForm deleteRequestForm = new DeleteRequestForm(p_id, appoints.get(position).getId());
+                                        deleteRequest(deleteRequestForm, appoints.get(position));
+
+                                    });
+
+                            builder.setNegativeButton("No",
+                                    (dialogInterface, i) -> {
+
+                                    });
+
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
                         });
                         appointRecyclerView.setAdapter(appointAdapter);
                         searchView.setVisibility(View.VISIBLE);
@@ -151,6 +177,7 @@ public class AppointmentActivity extends BaseActivity {
                     }
                 } else {
                     Toasty.error(AppointmentActivity.this, "Error getting data").show();
+                    progressViewDialog.hideDialog();
                 }
 
             }
@@ -160,6 +187,45 @@ public class AppointmentActivity extends BaseActivity {
                                   @NotNull Throwable t) {
                 Toasty.error(AppointmentActivity.this, t.getMessage()).show();
 
+            }
+        });
+    }
+
+    private void deleteRequest(DeleteRequestForm deleteRequestForm, Appoint appoint) {
+
+        ProgressViewDialog p2 = new ProgressViewDialog(AppointmentActivity.this);
+        p2.isShowing();
+        p2.setDialogCancelable(false);
+        p2.setCanceledOnTouchOutside(false);
+        p2.showProgressDialog("Deleting Request");
+
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiService.deleteRequest(headers, deleteRequestForm);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call,
+                                   @NotNull Response<ResponseBody> response) {
+
+                if (response.isSuccessful()) {
+                    appoints.remove(appoint);
+                    appointAdapter.notifyDataSetChanged();
+                    if (appoints.isEmpty())
+                    {
+                        emptyAppoint.setVisibility(View.VISIBLE);
+                    }
+                    p2.hideDialog();
+                } else {
+                    Toasty.error(AppointmentActivity.this, "Unable to delete this!").show();
+                    p2.hideDialog();
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call,
+                                  @NotNull Throwable t) {
+                Toasty.error(AppointmentActivity.this, t.getMessage()).show();
             }
         });
     }

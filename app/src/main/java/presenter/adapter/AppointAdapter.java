@@ -96,11 +96,11 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
 
         holder.questions_drop.setOnClickListener(view ->
         {
-            if (holder.questions.getVisibility() == view.GONE) {
-                holder.questions.setVisibility(view.VISIBLE);
+            if (holder.questions.getVisibility() == View.GONE) {
+                holder.questions.setVisibility(View.VISIBLE);
                 holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down));
             } else {
-                holder.questions.setVisibility(view.GONE);
+                holder.questions.setVisibility(View.GONE);
                 holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down_gray));
             }
         });

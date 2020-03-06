@@ -7,15 +7,25 @@
     android:background="@drawable/back_top_corner"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="100dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back_solid_primary"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+        app:layout_constraintStart_toStartOf="@+id/guideline_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/appoint_medicalAnalysis_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/gotham_rounded_medium"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_4"
         app:layout_constraintStart_toStartOf="@+id/guideline_1"
         app:layout_constraintTop_toTopOf="parent" />

@@ -89,7 +89,7 @@ public class MainFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.mainFragment_recyclerView);
         categoryList = new ArrayList<>();
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(Objects.requireNonNull(getActivity()).getBaseContext(), 2));
         recyclerView.setHasFixedSize(true);
 
         mainAdapter = new MainAdapter(categoryList, getContext(), position -> {
@@ -104,7 +104,7 @@ public class MainFragment extends Fragment {
                 case "Appointment":
                     startActivity(new Intent(getActivity(), AppointmentActivity.class));
                     break;
-                case "Result":
+                case "Medical CV":
                     startActivity(new Intent(getActivity(), ResultActivity.class));
                     break;
                 case "Medicine":
@@ -149,7 +149,7 @@ public class MainFragment extends Fragment {
         categoryList.add(new Category("O6U Hospital", R.drawable.icon_1_hospital));
         categoryList.add(new Category("Medical Analysis", R.drawable.icon_2_medical_analysis));
         categoryList.add(new Category("Appointment", R.drawable.icon_3_appointment));
-        categoryList.add(new Category("Result", R.drawable.icon_4_result));
+        categoryList.add(new Category("Medical CV", R.drawable.icon_4_result));
         categoryList.add(new Category("Medicine", R.drawable.icon_5_medicine));
         categoryList.add(new Category("Emergency", R.drawable.icon_6_emergency));
 
