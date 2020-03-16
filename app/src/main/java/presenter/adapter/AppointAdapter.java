@@ -72,21 +72,39 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
         holder.appointTime.setText(appoint.getTime());
 
         if (appoint.getStatus().equals("Rejected")) {
-            holder.appointNote.setText(getContext().getResources().getString(R.string.Rejected));
+            if (appoint.getNotes().equals("Empty")){
+                holder.appointNote.setText(getContext().getResources().getString(R.string.Rejected));
+            }
+            else
+            {
+                holder.appointNote.setText(appoint.getNotes());
+            }
             holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_rejected));
             holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointDelete.setVisibility(View.VISIBLE);
         } else if (appoint.getStatus().equals("Accepted")) {
-            holder.appointNote.setText(getContext().getResources().getString(R.string.Accepted));
+            if (appoint.getNotes().equals("Empty")){
+                holder.appointNote.setText(getContext().getResources().getString(R.string.Accepted));
+            }
+            else
+            {
+                holder.appointNote.setText(appoint.getNotes());
+            }
             holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_accepted));
             holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointDelete.setVisibility(View.GONE);
         } else {
-            holder.appointNote.setText(getContext().getResources().getString(R.string.Pending));
+            if (appoint.getNotes().equals("Empty")){
+                holder.appointNote.setText(getContext().getResources().getString(R.string.Pending));
+            }
+            else
+            {
+                holder.appointNote.setText(appoint.getNotes());
+            }
             holder.appointStatus.setImageDrawable(getContext().getDrawable(R.drawable.icon_loading));
             holder.constraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorGray));
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorGray));

@@ -132,8 +132,6 @@ public class SignInActivity extends BaseActivity {
         }
 
         if (Validator.isValidEmail(emailSTR) && passSTR.length() >= 6) {
-            errorDialog.setVisibility(View.VISIBLE);
-            errorMessage.setText(getString(R.string.loading));
             return true;
         }
         return false;

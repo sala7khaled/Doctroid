@@ -10,8 +10,9 @@ public class Appoint {
     private String date;
     private String time;
     private String status;
+    private String notes;
 
-    public Appoint(String id, String title, String question1_answer, String question2_answer, String question3_answer, String date, String time, String status) {
+    public Appoint(String id, String title, String question1_answer, String question2_answer, String question3_answer, String date, String time, String status, String notes) {
         this.id = id;
         this.title = title;
         this.question1_answer = question1_answer;
@@ -20,6 +21,7 @@ public class Appoint {
         this.date = date;
         this.time = time;
         this.status = status;
+        this.notes = notes;
     }
 
     public String getId() {
@@ -84,5 +86,13 @@ public class Appoint {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

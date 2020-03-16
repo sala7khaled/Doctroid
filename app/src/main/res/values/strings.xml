@@ -48,4 +48,5 @@
     <string name="Rejected">"The request is rejected, we sent you a notification for what's wrong. Check it out!"</string>
     <string name="Accepted">"The request is accepted, we're happy to see you in our laboratory on the declared date."</string>
     <string name="Pending">"The request is under review, please wait for us!"</string>
+    <string name="questions">Questions</string>
 </resources>

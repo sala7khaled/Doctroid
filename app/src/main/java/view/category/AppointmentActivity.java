@@ -143,7 +143,7 @@ public class AppointmentActivity extends BaseActivity {
                             if (id.equals(req.getId())) {
                                 String[] ans = req.getAnswers();
                                 appoints.add(new Appoint(req.getId(), req.getTitle(), ans[0], ans[1],
-                                        ans[2], req.getDate(), req.getTime(), req.getStatus()));
+                                        ans[2], req.getDate(), req.getTime(), req.getStatus(), req.getNotes()));
                             }
                         }
 

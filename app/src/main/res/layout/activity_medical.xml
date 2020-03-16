@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ssview.category.MedicalActivity"
+    tools:context="view.category.MedicalActivity"
     android:background="@color/colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout

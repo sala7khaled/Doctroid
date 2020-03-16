@@ -68,7 +68,25 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     @Override
     public void onBackPressed() {
 
-        Toast.makeText(this, "Please confirm your information", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("LOGOUT");
+        builder.setMessage("Are you sure to logout?");
+
+        builder.setPositiveButton("Yes",
+                (dialogInterface, i) ->
+                {
+                   PrefManager.deleteP_id(AddMedicineActivity.this);
+                   PrefManager.deleteConfirm(AddMedicineActivity.this);
+                   PrefManager.deleteToken(AddMedicineActivity.this);
+                   startActivity(new Intent(AddMedicineActivity.this, SignInActivity.class));
+                });
+
+        builder.setNegativeButton("No",
+                (dialogInterface, i) -> {
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public AddMedicineActivity() {
