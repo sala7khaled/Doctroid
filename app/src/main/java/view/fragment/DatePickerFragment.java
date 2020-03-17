@@ -40,7 +40,12 @@ public class DatePickerFragment extends DialogFragment implements
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
+            //return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
+
+            c.set(year, month, day);
+            DatePickerDialog picker = new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
+            picker.getDatePicker().setMaxDate(c.getTime().getTime());
+            return picker;
         } else {
             Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);

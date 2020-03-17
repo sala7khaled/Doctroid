@@ -25,8 +25,10 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.s7k.doctroid.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
@@ -46,7 +48,7 @@ import view.base.BaseActivity;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
-public class AddMedicineActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
+public class AddMedicineActivity extends BaseActivity implements DatePickerFragment.DateSet {
 
     Button signUp, date;
     MaterialSpinner citySpinner;
@@ -75,10 +77,10 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         builder.setPositiveButton("Yes",
                 (dialogInterface, i) ->
                 {
-                   PrefManager.deleteP_id(AddMedicineActivity.this);
-                   PrefManager.deleteConfirm(AddMedicineActivity.this);
-                   PrefManager.deleteToken(AddMedicineActivity.this);
-                   startActivity(new Intent(AddMedicineActivity.this, SignInActivity.class));
+                    PrefManager.deleteP_id(AddMedicineActivity.this);
+                    PrefManager.deleteConfirm(AddMedicineActivity.this);
+                    PrefManager.deleteToken(AddMedicineActivity.this);
+                    startActivity(new Intent(AddMedicineActivity.this, SignInActivity.class));
                 });
 
         builder.setNegativeButton("No",
@@ -117,7 +119,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         recyclerView.setLayoutManager(new GridLayoutManager(AddMedicineActivity.this, 2));
         recyclerView.setHasFixedSize(true);
 
-        medicineAdapter = new MedicineAdapter(medicineArrayList,null, AddMedicineActivity.this,
+        medicineAdapter = new MedicineAdapter(medicineArrayList, null, AddMedicineActivity.this,
                 position -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(medicineArrayList.get(position).toString());
@@ -178,8 +180,9 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     private void setListeners() {
 
         date.setOnClickListener(View -> {
-            DialogFragment datePicker = new DatePickerFragment("birthday");
-            datePicker.show(getSupportFragmentManager(), "Date Picker");
+            DialogFragment datePicker = new DatePickerFragment(AddMedicineActivity.this, "birthday");
+            datePicker.show(AddMedicineActivity.this.getSupportFragmentManager(), "Date Picker");
+
         });
 
         citySpinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) ->
@@ -190,7 +193,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             if (medicineAdapter.checkExistMedicine(medicine)) {
                 Toast.makeText(AddMedicineActivity.this, "This medicine already selected", Toast.LENGTH_SHORT).show();
             } else {
-                medicineCardView.setVisibility(view.VISIBLE);
+                medicineCardView.setVisibility(View.VISIBLE);
                 medicineAdapter.addItem(medicine);
             }
             medicineAutoComplete.setText("");
@@ -206,9 +209,9 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             } else if (citySTR.equals("Empty") || citySTR.equals("Select City")) {
                 errorDialog.setVisibility(android.view.View.VISIBLE);
                 errorMessage.setText("Please select your City");
-            } else if (snnSTR.isEmpty()) {
+            } else if (snnSTR.length() != 14) {
                 errorDialog.setVisibility(android.view.View.VISIBLE);
-                errorMessage.setText("Please Enter your SNN");
+                errorMessage.setText("Enter your SNN (14 Numbers)");
             } else if (medicineAdapter.getItemCount() == 0) {
                 errorDialog.setVisibility(android.view.View.VISIBLE);
                 errorMessage.setText("Please add your Medicines");
@@ -224,11 +227,9 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-        dateSTR = dayOfMonth + "/" + ++month + "/" + year;
-        date.setText(String.format("Date: %s", dateSTR));
-
+    public void onDateSet(int year, int month, int day) {
+        dateSTR = day + "/" + ++month + "/" + year;
+        date.setText("Date: " + dateSTR);
     }
 
     private void getMedicines() {
@@ -292,8 +293,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
             public void onResponse(@NonNull Call<ResponseBody> call,
                                    @NonNull Response<ResponseBody> response) {
 
-                if (response.isSuccessful())
-                {
+                if (response.isSuccessful()) {
                     PrefManager.saveConfirm(AddMedicineActivity.this, "true");
                     startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
                     progressViewDialog.hideDialog();
@@ -312,5 +312,4 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerDialo
         });
 
     }
-
 }

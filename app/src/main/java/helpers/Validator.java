@@ -18,7 +18,7 @@ public class Validator {
     }
 
     public static boolean isValidPhoneNumber(CharSequence phoneNumber) {
-        String regex = "^[+]?[0-9]{10,13}$";
+        String regex = "^[+]?[0-9]{11,13}$";
         return phoneNumber.toString().matches(regex);
     }
 

@@ -134,7 +134,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
         dateBTN.setOnClickListener(v ->
         {
-            DialogFragment datePicker = new DatePickerFragment(this, "medical");
+            DialogFragment datePicker = new DatePickerFragment(this, "appoint");
             datePicker.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "Date Picker");
         });
 
