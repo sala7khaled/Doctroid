@@ -20,7 +20,7 @@
       android:fillColor="#00c2ff"/>
   <path
       android:pathData="M19.592,20.892h2.2v2.2h2.2v2.2h-2.2v2.2L19.592,27.492v-2.2L17.392,25.292L17.392,23.092h2.2Z"
-      android:fillColor="#ff7474"/>
+      android:fillColor="@color/colorRed"/>
   <path
       android:pathData="M30.5,31h-20a0.5,0.5 0,0 1,-0.5 -0.5v-14a0.5,0.5 0,0 1,0.5 -0.5h11a0.5,0.5 0,0 1,0.434 0.252L23.79,19.5L30.5,19.5a0.5,0.5 0,0 1,0.5 0.5L31,30.5A0.5,0.5 0,0 1,30.5 31ZM11,30L30,30L30,20.5L23.5,20.5a0.5,0.5 0,0 1,-0.434 -0.252L21.21,17L11,17Z"
       android:fillColor="#19769f"/>
