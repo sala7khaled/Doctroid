@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.muddzdev.styleabletoast.StyleableToast;
 import com.s7k.doctroid.R;
 
 import java.util.HashMap;
@@ -106,16 +105,11 @@ public class UserFragment extends Fragment {
                 @Override
                 public void onFailure(@NonNull Call<UserProfile> call,
                                       @NonNull Throwable t) {
-                    Toasty.error(context, t.getMessage(), LENGTH_LONG).show();
+                    Toasty.error(context, Objects.requireNonNull(t.getMessage()), LENGTH_LONG).show();
                 }
             });
         } else {
-            StyleableToast.makeText(context, "Something went wrong, Please Login again!", Toast.LENGTH_LONG, R.style.stToast).show();
-            PrefManager.deleteToken(context);
-            PrefManager.deleteConfirm(context);
-            PrefManager.deleteP_id(context);
-            startActivity(new Intent(context, SignInActivity.class));
-            getActivity().finish();
+            Toasty.error(Objects.requireNonNull(getContext()),"Something went wrong, Please Login again!").show();
         }
 
     }

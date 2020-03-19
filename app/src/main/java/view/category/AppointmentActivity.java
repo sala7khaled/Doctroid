@@ -1,6 +1,7 @@
 package view.category;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -39,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import utilities.PrefManager;
 import view.base.BaseActivity;
+import www.sanju.motiontoast.MotionToast;
 
 public class AppointmentActivity extends BaseActivity {
 
@@ -138,6 +141,7 @@ public class AppointmentActivity extends BaseActivity {
                                    @NotNull Response<List<UsersRequests>> response) {
 
                 if (response.isSuccessful()) {
+
                     for (UsersRequests req : Objects.requireNonNull(response.body())) {
                         for (String id : ids) {
                             if (id.equals(req.getId())) {
@@ -233,9 +237,11 @@ public class AppointmentActivity extends BaseActivity {
     private void setListeners() {
 
         swipeRefresh.setOnRefreshListener(() -> {
-            appoints.clear();
-            appointAdapter.notifyDataSetChanged();
-
+            if (!appoints.isEmpty())
+            {
+                appoints.clear();
+                appointAdapter.notifyDataSetChanged();
+            }
             callAPI();
             swipeRefresh.setRefreshing(false);
         });

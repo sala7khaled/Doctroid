@@ -10,18 +10,6 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
-    <style name="stToast">
-        <item name="stIconStart">@drawable/icon_noback</item>
-        <item name="stColorBackground">@color/colorPrimaryDark</item>
-        <item name="stTextColor">@color/colorWhite</item>
-        <item name="stTextSize">14sp</item>
-        <item name="stFont">@font/gotham_rounded_medium</item>
-        <item name="stStrokeColor">@color/colorPrimaryDark</item>
-        <item name="stStrokeWidth">0dp</item>
-        <item name="stLength">LONG</item>
-        <item name="stRadius">30dp</item>
-    </style>
-
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
