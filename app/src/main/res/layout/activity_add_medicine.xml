@@ -178,7 +178,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/back_gradient_360"
+        android:background="@drawable/back_solid_primary_dark"
         android:fontFamily="@font/gotham_rounded_medium"
         android:text="Finish"
         android:textColor="@color/colorWhite"

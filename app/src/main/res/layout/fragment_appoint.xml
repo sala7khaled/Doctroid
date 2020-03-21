@@ -196,7 +196,7 @@
         android:id="@+id/appoint_request_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/back_gradient_360"
+        android:background="@drawable/back_solid_primary_dark"
         android:fontFamily="@font/gotham_rounded_medium"
         android:layout_marginTop="50dp"
         android:text="Request"

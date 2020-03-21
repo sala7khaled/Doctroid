@@ -45,7 +45,7 @@
         android:id="@+id/signIn_login_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/back_gradient_360"
+        android:background="@drawable/back_solid_primary_dark"
         android:fontFamily="@font/gotham_rounded_medium"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"

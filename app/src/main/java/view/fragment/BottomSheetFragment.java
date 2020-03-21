@@ -221,7 +221,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                     || question2Answer.getText().toString().trim().length() == 0
                     || question3Answer.getText().toString().trim().length() == 0) {
 
-                Toasty.error(Objects.requireNonNull(getActivity()), "Please answer all the question!").show();
+                Toasty.error(Objects.requireNonNull(getActivity()), "Please answer all the questions!").show();
 
             } else if (dateSTR.equals("Empty") || timeSTR.equals("Empty")) {
                 Toasty.error(Objects.requireNonNull(getActivity()), "Please pick date and time!").show();
