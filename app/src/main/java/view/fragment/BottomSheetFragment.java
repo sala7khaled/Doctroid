@@ -1,12 +1,14 @@
 package view.fragment;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
@@ -141,8 +143,77 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
         timeBTN.setOnClickListener(v ->
         {
-            DialogFragment timePicker = new TimePickerFragment(this);
-            timePicker.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "time picker");
+//            DialogFragment timePicker = new TimePickerFragment(this);
+//            timePicker.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "time picker");
+
+            Calendar c = Calendar.getInstance();
+            int currentDay = c.get(Calendar.DAY_OF_MONTH);
+            int currentMonth = c.get(Calendar.MONTH);
+
+            int currentHour = c.get(Calendar.HOUR_OF_DAY);
+            int currentMinute = c.get(Calendar.MINUTE);
+
+            if (appointMonth == currentMonth && appointDay == currentDay) {
+                RangeTimePickerFragment range = new RangeTimePickerFragment(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int appointHour, int minute) {
+                        String min;
+                        if (minute <= 9) {
+                            min = "0" + minute;
+                        } else {
+                            min = "" + minute;
+                        }
+                        //-----------------------------------------
+                        if (appointHour >= 12) {
+                            appointPeriod = "PM";
+                            appointHour -= 12;
+                            if (appointHour == 0) {
+                                appointHour = 12;
+                            }
+                        } else {
+                            appointPeriod = "AM";
+                            if (appointHour == 0) {
+                                appointHour = 12;
+                            }
+                        }
+                        //-----------------------------------------
+                        timeSTR = appointHour + ":" + min + " " + appointPeriod;
+                        timeBTN.setText("Time: " + timeSTR);
+                    }
+                }, currentHour + 1, currentMinute, false);
+                range.setMin(currentHour + 1, 0);
+                range.show();
+            } else {
+                RangeTimePickerFragment range = new RangeTimePickerFragment(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int appointHour, int minute) {
+                        String min;
+                        if (minute <= 9) {
+                            min = "0" + minute;
+                        } else {
+                            min = "" + minute;
+                        }
+                        //-----------------------------------------
+                        if (appointHour >= 12) {
+                            appointPeriod = "PM";
+                            appointHour -= 12;
+                            if (appointHour == 0) {
+                                appointHour = 12;
+                            }
+                        } else {
+                            appointPeriod = "AM";
+                            if (appointHour == 0) {
+                                appointHour = 12;
+                            }
+                        }
+                        //-----------------------------------------
+                        timeSTR = appointHour + ":" + min + " " + appointPeriod;
+                        timeBTN.setText("Time: " + timeSTR);
+                    }
+                }, currentHour , currentMinute, false);
+                range.show();
+            }
+
         });
 
         requestBTN.setOnClickListener(v ->
@@ -214,7 +285,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
     @Override
     public void onTimeSet(int appointHour, int minute) {
-
         String min;
         if (minute <= 9) {
             min = "0" + minute;
