@@ -61,8 +61,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
     private String c_id;
     private String dateSTR = "Empty";
-    private int day;
-    private String peroid = "Empty";
+    private int appointDay;
+    private int appointMonth;
+    private String appointPeriod = "Empty";
     private String timeSTR = "Empty";
     private Button dateBTN, timeBTN, requestBTN;
 
@@ -152,12 +153,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
                 Toasty.error(Objects.requireNonNull(getActivity()), "Please answer all the question!").show();
 
-            }
-            else if (dateSTR.equals("Empty") || timeSTR.equals("Empty"))
-            {
+            } else if (dateSTR.equals("Empty") || timeSTR.equals("Empty")) {
                 Toasty.error(Objects.requireNonNull(getActivity()), "Please pick date and time!").show();
-            }
-            else {
+            } else {
                 callAPI();
             }
         });
@@ -203,16 +201,19 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
     @Override
     public void onDateSet(int year, int month, int day) {
-        this.day = day;
+        appointDay = day;
+        appointMonth = month;
         dateSTR = day + "/" + ++month + "/" + year;
         dateBTN.setText("Date: " + dateSTR);
         timeBTN.setEnabled(true);
         timeBTN.setBackground(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.back_solid_white));
         timeBTN.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
+        timeBTN.setText("Select Time");
+        timeSTR = "Empty";
     }
 
     @Override
-    public void onTimeSet(int hourOfDay, int minute) {
+    public void onTimeSet(int appointHour, int minute) {
 
         String min;
         if (minute <= 9) {
@@ -222,29 +223,97 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
         }
 
         Calendar c = Calendar.getInstance();
-        int d = c.get(Calendar.DAY_OF_MONTH);
-        int h = c.get(Calendar.HOUR_OF_DAY);
+        int currentDay = c.get(Calendar.DAY_OF_MONTH);
+        int currentHour = c.get(Calendar.HOUR_OF_DAY);
+        int currentMonth = c.get(Calendar.MONTH);
+        int currentPeriod = c.get(Calendar.AM_PM);
 
-        if (hourOfDay <= h && day == d) {
-            Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour").show();
-        } else {
+        // ------------------------------------------------
 
-            if (hourOfDay >= 12) {
-                hourOfDay -= 12;
-                if (hourOfDay == 0) {
-                    hourOfDay = 12;
+        if (appointMonth == currentMonth) {
+
+            if (appointDay == currentDay) {
+
+                if (appointHour >= 12) {
+                    appointPeriod = "PM";
+                    appointHour -= 12;
+                    if (appointHour == 0) {
+                        appointHour = 12;
+                    }
+                } else {
+                    appointPeriod = "AM";
+                    if (appointHour == 0) {
+                        appointHour = 12;
+                    }
                 }
-                peroid = "PM";
+
+                if (appointPeriod.equals("AM") && currentPeriod == Calendar.AM) {
+
+                    if (appointHour > currentHour) {
+                        timeSTR = appointHour + ":" + min + " " + appointPeriod;
+                        timeBTN.setText("Time: " + timeSTR);
+                    } else {
+                        Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour!").show();
+                        timeBTN.setText("Select Time");
+                        timeSTR = "Empty";
+                    }
+
+                } else if (appointPeriod.equals("AM") && currentPeriod == Calendar.PM) {
+
+                    Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour!").show();
+                    timeBTN.setText("Select Time");
+                    timeSTR = "Empty";
+
+                } else if (appointPeriod.equals("PM") && currentPeriod == Calendar.AM) {
+
+                    timeSTR = appointHour + ":" + min + " " + appointPeriod;
+                    timeBTN.setText("Time: " + timeSTR);
+
+                } else if (appointPeriod.equals("PM") && currentPeriod == Calendar.PM) {
+
+                    if (appointHour > currentHour) {
+                        timeSTR = appointHour + ":" + min + " " + appointPeriod;
+                        timeBTN.setText("Time: " + timeSTR);
+                    } else {
+                        Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour!").show();
+                        timeBTN.setText("Select Time");
+                        timeSTR = "Empty";
+                    }
+
+                }
+
             } else {
-                if (hourOfDay == 0) {
-                    hourOfDay = 12;
+                if (appointHour >= 12) {
+                    appointPeriod = "PM";
+                    appointHour -= 12;
+                    if (appointHour == 0) {
+                        appointHour = 12;
+                    }
+                } else {
+                    appointPeriod = "AM";
+                    if (appointHour == 0) {
+                        appointHour = 12;
+                    }
                 }
-                peroid = "AM";
+                timeSTR = appointHour + ":" + min + " " + appointPeriod;
+                timeBTN.setText("Time: " + timeSTR);
             }
-
-            timeSTR = hourOfDay + ":" + min + " " + peroid;
+        } else {
+            if (appointHour >= 12) {
+                appointPeriod = "PM";
+                appointHour -= 12;
+                if (appointHour == 0) {
+                    appointHour = 12;
+                }
+            } else {
+                appointPeriod = "AM";
+                if (appointHour == 0) {
+                    appointHour = 12;
+                }
+            }
+            timeSTR = appointHour + ":" + min + " " + appointPeriod;
             timeBTN.setText("Time: " + timeSTR);
         }
-    }
 
+    }
 }
