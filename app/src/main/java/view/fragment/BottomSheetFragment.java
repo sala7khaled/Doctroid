@@ -149,12 +149,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
             Calendar c = Calendar.getInstance();
             int currentDay = c.get(Calendar.DAY_OF_MONTH);
             int currentMonth = c.get(Calendar.MONTH);
-
             int currentHour = c.get(Calendar.HOUR_OF_DAY);
             int currentMinute = c.get(Calendar.MINUTE);
 
             if (appointMonth == currentMonth && appointDay == currentDay) {
-                RangeTimePickerFragment range = new RangeTimePickerFragment(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                RangeTimePickerFragment rangeTimePicker = new RangeTimePickerFragment(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int appointHour, int minute) {
                         String min;
@@ -181,10 +180,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                         timeBTN.setText("Time: " + timeSTR);
                     }
                 }, currentHour + 1, currentMinute, false);
-                range.setMin(currentHour + 1, 0);
-                range.show();
+                rangeTimePicker.setMin(currentHour + 1, 0);
+                rangeTimePicker.show();
             } else {
-                RangeTimePickerFragment range = new RangeTimePickerFragment(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                RangeTimePickerFragment rangeTimePicker = new RangeTimePickerFragment(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int appointHour, int minute) {
                         String min;
@@ -211,7 +210,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                         timeBTN.setText("Time: " + timeSTR);
                     }
                 }, currentHour , currentMinute, false);
-                range.show();
+                rangeTimePicker.show();
             }
 
         });
