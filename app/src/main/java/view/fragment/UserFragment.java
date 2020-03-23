@@ -19,6 +19,9 @@ import com.s7k.doctroid.R;
 import java.util.HashMap;
 import java.util.Objects;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
@@ -28,8 +31,10 @@ import network.model.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
 import utilities.PrefManager;
 import view.activity.SignInActivity;
+import view.category.AppointmentActivity;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
@@ -50,7 +55,11 @@ public class UserFragment extends Fragment {
 
         initializeComponents(view);
         setListeners();
-        getUser();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(getContext(), CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            getUser();
+        }
 
         return view;
     }
@@ -95,21 +104,22 @@ public class UserFragment extends Fragment {
                             location.setText(user.getLocation());
 
                             locationIcon.setVisibility(View.VISIBLE);
-
-                            progressViewDialog.hideDialog();
                         }
+                    } else {
+                        CustomToast.Companion.darkColor(getContext(), CustomToastType.NO_INTERNET, "Error getting user data!");
                     }
+                    progressViewDialog.hideDialog();
 
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<UserProfile> call,
                                       @NonNull Throwable t) {
-                    Toasty.error(context, Objects.requireNonNull(t.getMessage()), LENGTH_LONG).show();
+                    CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
                 }
             });
         } else {
-            Toasty.error(Objects.requireNonNull(getContext()),"Something went wrong, Please Login again!").show();
+            CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Something went wrong, Please Login again!");
         }
 
     }

@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
@@ -19,6 +22,9 @@ import network.model.Hospital;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
+import view.category.AppointmentActivity;
+import view.category.ResultActivity;
 
 import com.s7k.doctroid.R;
 
@@ -28,7 +34,7 @@ import java.util.Objects;
 
 import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
-public class HospitalAboutFragment extends Fragment{
+public class HospitalAboutFragment extends Fragment {
 
     public Context context;
     private TextView hospitalName, hospitalLocation,
@@ -48,7 +54,11 @@ public class HospitalAboutFragment extends Fragment{
         context = getActivity().getApplicationContext();
 
         initUI(view);
-        getHospital();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(getContext(), CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            getHospital();
+        }
 
         return view;
     }
@@ -124,7 +134,7 @@ public class HospitalAboutFragment extends Fragment{
                     }
 
                 } else {
-                    Toasty.error(context, R.string.something_wrong, LENGTH_LONG).show();
+                    CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, getString(R.string.something_wrong));
                 }
 
             }
@@ -132,7 +142,7 @@ public class HospitalAboutFragment extends Fragment{
             @Override
             public void onFailure(@NonNull Call<List<Hospital>> call,
                                   @NonNull Throwable t) {
-                Toasty.error(context, Objects.requireNonNull(t.getMessage()), LENGTH_LONG).show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }

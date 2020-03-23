@@ -34,8 +34,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.s7k.doctroid.R;
 
+import app.App;
 import app.Constants;
+import customView.CustomToast;
+import customView.CustomToastType;
 import es.dmoral.toasty.Toasty;
+import utilities.InternetUtilities;
 
 public class HospitalLocationFragment extends Fragment implements OnMapReadyCallback {
 
@@ -68,7 +72,11 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         context = getActivity().getApplicationContext();
 
         initializeComponents(view);
-        initMap();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(getContext(), CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            initMap();
+        }
         setListeners();
 
         return view;
@@ -93,7 +101,7 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
             mapFragment.getMapAsync(this);
 
         } else {
-            Toasty.error(getContext(), "No GPS permission").show();
+            CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "No GPS permission.");
         }
     }
 
@@ -122,7 +130,7 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
 
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2000, null);
             } else {
-                Toasty.error(getContext(), "We cant get your current location").show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Can't get your current location.");
             }
         });
     }
@@ -201,7 +209,7 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
                         }
 
                     } else {
-                        Toasty.error(getContext(), "Enable to get your location").show();
+                        CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Can't get your current location.");
                     }
                 });
             }

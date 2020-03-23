@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
@@ -209,7 +211,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                         timeSTR = appointHour + ":" + min + " " + appointPeriod;
                         timeBTN.setText("Time: " + timeSTR);
                     }
-                }, currentHour , currentMinute, false);
+                }, currentHour, currentMinute, false);
                 rangeTimePicker.show();
             }
 
@@ -221,10 +223,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                     || question2Answer.getText().toString().trim().length() == 0
                     || question3Answer.getText().toString().trim().length() == 0) {
 
-                Toasty.error(Objects.requireNonNull(getActivity()), "Please answer all the questions!").show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Please answer all the questions.");
 
             } else if (dateSTR.equals("Empty") || timeSTR.equals("Empty")) {
-                Toasty.error(Objects.requireNonNull(getActivity()), "Please pick date and time!").show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Please pick data and time!");
             } else {
                 callAPI();
             }
@@ -255,7 +257,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
             public void onResponse(@NotNull Call<ResponseBody> call,
                                    @NotNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    Toasty.info(Objects.requireNonNull(getContext()), "The request has been sent. Check Appointment for the Accepting/Rejecting!", Toasty.LENGTH_LONG).show();
+                    CustomToast.Companion.darkColor(getContext(), CustomToastType.INFO, "The request has been sent. Check Appointment for the Accepting/Rejecting!");
                     progressViewDialog.hideDialog();
                     dismiss();
                 }
@@ -264,7 +266,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
             @Override
             public void onFailure(@NotNull Call<ResponseBody> call,
                                   @NotNull Throwable t) {
-                Toasty.error(Objects.requireNonNull(getContext()), Objects.requireNonNull(t.getMessage())).show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -322,14 +324,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                         timeSTR = appointHour + ":" + min + " " + appointPeriod;
                         timeBTN.setText("Time: " + timeSTR);
                     } else {
-                        Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour!").show();
+                        CustomToast.Companion.darkColor(getContext(), CustomToastType.WARNING, "Please choose an incoming hour!");
                         timeBTN.setText("Select Time");
                         timeSTR = "Empty";
                     }
 
                 } else if (appointPeriod.equals("AM") && currentPeriod == Calendar.PM) {
 
-                    Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour!").show();
+                    CustomToast.Companion.darkColor(getContext(), CustomToastType.WARNING, "Please choose an incoming hour!");
                     timeBTN.setText("Select Time");
                     timeSTR = "Empty";
 
@@ -344,7 +346,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
                         timeSTR = appointHour + ":" + min + " " + appointPeriod;
                         timeBTN.setText("Time: " + timeSTR);
                     } else {
-                        Toasty.warning(Objects.requireNonNull(getActivity()), "Please choose an incoming hour!").show();
+                        CustomToast.Companion.darkColor(getContext(), CustomToastType.WARNING, "Please choose an incoming hour!");
                         timeBTN.setText("Select Time");
                         timeSTR = "Empty";
                     }

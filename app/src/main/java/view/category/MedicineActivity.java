@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
@@ -34,6 +37,7 @@ import presenter.adapter.MedicineType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
 import utilities.PrefManager;
 import view.base.BaseActivity;
 
@@ -41,7 +45,7 @@ import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class MedicineActivity extends BaseActivity {
 
-    LinearLayout searchLinear;
+    LinearLayout userLinear, searchLinear;
     Dialog customDialog;
     SearchView searchView;
     ImageView medicinePhoto, userPhoto;
@@ -61,11 +65,15 @@ public class MedicineActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarTextView.setText("Medicine");
+        toolbarTextView.setText(R.string.Medicine);
         toolbarBackImageView.setVisibility(View.VISIBLE);
 
         initializeComponents();
-        getUserMedicines();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            callAPI();
+        }
         setListeners();
 
     }
@@ -75,6 +83,7 @@ public class MedicineActivity extends BaseActivity {
 
         searchView = findViewById(R.id.medicine_searchView);
         searchLinear = findViewById(R.id.medicine_searchLinear);
+        userLinear = findViewById(R.id.medicine_userLinear);
 
         medicineRecyclerView = findViewById(R.id.medicine_recyclerView);
         medicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineActivity.this, 2));
@@ -99,7 +108,7 @@ public class MedicineActivity extends BaseActivity {
 
     }
 
-    private void getUserMedicines() {
+    private void callAPI() {
 
         progressViewDialog = new ProgressViewDialog(MedicineActivity.this);
         progressViewDialog.isShowing();
@@ -127,9 +136,14 @@ public class MedicineActivity extends BaseActivity {
                             medicinesUser = new String[user.getMedicines().length];
                             medicinesUser = user.getMedicines();
                             getMedicines();
+                            userLinear.setVisibility(View.VISIBLE);
+                            searchLinear.setVisibility(View.VISIBLE);
+                            searchView.setVisibility(View.VISIBLE);
                             progressViewDialog.hideDialog();
-
                         }
+                    } else {
+                        CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.ERROR, "Error getting your appointments");
+                        progressViewDialog.hideDialog();
                     }
 
                 }
@@ -137,7 +151,7 @@ public class MedicineActivity extends BaseActivity {
                 @Override
                 public void onFailure(@NonNull Call<UserProfile> call,
                                       @NonNull Throwable t) {
-                    Toasty.error(MedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
+                    CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
                 }
             });
         }
@@ -193,7 +207,7 @@ public class MedicineActivity extends BaseActivity {
 
                         medicineRecyclerView.setAdapter(medicineAdapter);
                     } else {
-                        Toasty.error(MedicineActivity.this, "There's no medicines").show();
+                        CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.INFO, "There's no medicines.");
                     }
                 }
             }
@@ -201,7 +215,7 @@ public class MedicineActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<List<Medicine>> call,
                                   @NonNull Throwable t) {
-                Toasty.error(MedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
+                CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }

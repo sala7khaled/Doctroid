@@ -38,6 +38,8 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import customView.CustomToast;
+import customView.CustomToastType;
 import es.dmoral.toasty.Toasty;
 import helpers.Navigator;
 import network.model.Category;
@@ -129,7 +131,7 @@ public class MainFragment extends Fragment {
                         imageUrls.add(image);
                         viewPagerAdapter.notifyDataSetChanged();
                     } else {
-                        Toasty.error(context, "No photos added yet!").show();
+                        CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "No photos added yet!");
                     }
                 }
 
@@ -138,7 +140,7 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onCancelled(@NotNull DatabaseError databaseError) {
-                Toasty.error(context, databaseError.getMessage()).show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, databaseError.getMessage());
             }
         });
 

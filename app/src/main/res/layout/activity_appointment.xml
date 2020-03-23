@@ -70,7 +70,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/breeserif_regular"
                             android:gravity="bottom|start"
-                            android:text="Medical Analysis Appointments"
+                            android:text="Appointments schedule"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp" />
 

@@ -16,11 +16,11 @@
     <string name="image_icon">image_icon</string>
     <string name="first_name_required">First name is required</string>
     <string name="last_name_required">Last name is required</string>
-    <string name="email_not_valid">Enter valid Email</string>
+    <string name="email_not_valid">Enter a valid Email</string>
     <string name="email_required">Email is required</string>
     <string name="phone_required">Phone number is required</string>
     <string name="phone_not_valid">Enter valid phone number</string>
-    <string name="password_not_valid">Enter valid Password</string>
+    <string name="password_not_valid">Enter a valid Password</string>
     <string name="email_and_password_not_valid">"Email/Password not valid"</string>
     <string name="password_required">Password is required</string>
     <string name="confirm_password_required">Confirm password</string>
@@ -49,4 +49,11 @@
     <string name="Accepted">"The request is accepted, we're happy to see you in our laboratory on the declared date."</string>
     <string name="Pending">"The request is under review, please wait for us!"</string>
     <string name="questions">Questions</string>
+    <string name="appointment">Appointment</string>
+    <string name="emergency">Emergency</string>
+    <string name="hospital">O6U Hospital</string>
+    <string name="medical_analysis">Medical Analysis</string>
+    <string name="Medicine">Medicine</string>
+    <string name="medical_cv">Medical CV</string>
+    <string name="check_connection">Please check your internet connection!</string>
 </resources>

@@ -66,6 +66,7 @@
 
                     <LinearLayout
                         android:id="@+id/medical_searchLinear"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
@@ -97,6 +98,7 @@
             android:id="@+id/medical_searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/mainFragment_newsCardView" />

@@ -15,7 +15,7 @@ public class EmergencyActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarTextView.setText("Emergency");
+        toolbarTextView.setText(R.string.emergency);
         toolbarBackImageView.setVisibility(View.VISIBLE);
     }
 }

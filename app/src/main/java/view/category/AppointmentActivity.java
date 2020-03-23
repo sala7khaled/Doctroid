@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ErrorDialog;
 import dialog.PopupDialog;
 import dialog.ProgressViewDialog;
@@ -39,7 +42,9 @@ import presenter.adapter.AppointAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
 import utilities.PrefManager;
+import view.activity.SignInActivity;
 import view.base.BaseActivity;
 import www.sanju.motiontoast.MotionToast;
 
@@ -62,12 +67,16 @@ public class AppointmentActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarTextView.setText("Appointments");
+        toolbarTextView.setText(R.string.appointment);
         toolbarBackImageView.setVisibility(View.VISIBLE);
         emptyAppoint = findViewById(R.id.appoint_emptyAppoint);
         emptyAppoint.setVisibility(View.GONE);
 
-        callAPI();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            callAPI();
+        }
         initializeComponents();
         setListeners();
 
@@ -116,7 +125,8 @@ public class AppointmentActivity extends BaseActivity {
                         progressViewDialog.hideDialog();
                     }
                 } else {
-                    Toasty.error(AppointmentActivity.this, "Error getting user appointments").show();
+                    CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, "Error getting your appointments");
+                    progressViewDialog.hideDialog();
                 }
 
             }
@@ -124,7 +134,7 @@ public class AppointmentActivity extends BaseActivity {
             @Override
             public void onFailure(@NotNull Call<RequestIDs> call,
                                   @NotNull Throwable t) {
-
+                CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
 
@@ -180,7 +190,7 @@ public class AppointmentActivity extends BaseActivity {
                         progressViewDialog.hideDialog();
                     }
                 } else {
-                    Toasty.error(AppointmentActivity.this, "Error getting data").show();
+                    CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, "Error getting your data!");
                     progressViewDialog.hideDialog();
                 }
 
@@ -189,7 +199,7 @@ public class AppointmentActivity extends BaseActivity {
             @Override
             public void onFailure(@NotNull Call<List<UsersRequests>> call,
                                   @NotNull Throwable t) {
-                Toasty.error(AppointmentActivity.this, t.getMessage()).show();
+                CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
 
             }
         });
@@ -214,13 +224,12 @@ public class AppointmentActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     appoints.remove(appoint);
                     appointAdapter.notifyDataSetChanged();
-                    if (appoints.isEmpty())
-                    {
+                    if (appoints.isEmpty()) {
                         emptyAppoint.setVisibility(View.VISIBLE);
                     }
                     p2.hideDialog();
                 } else {
-                    Toasty.error(AppointmentActivity.this, "Unable to delete this!").show();
+                    CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, "Unable to delete this!");
                     p2.hideDialog();
                 }
 
@@ -229,7 +238,7 @@ public class AppointmentActivity extends BaseActivity {
             @Override
             public void onFailure(@NotNull Call<ResponseBody> call,
                                   @NotNull Throwable t) {
-                Toasty.error(AppointmentActivity.this, t.getMessage()).show();
+                CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -237,8 +246,7 @@ public class AppointmentActivity extends BaseActivity {
     private void setListeners() {
 
         swipeRefresh.setOnRefreshListener(() -> {
-            if (!appoints.isEmpty())
-            {
+            if (!appoints.isEmpty()) {
                 appoints.clear();
                 appointAdapter.notifyDataSetChanged();
             }

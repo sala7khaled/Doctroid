@@ -37,67 +37,81 @@
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:src="@drawable/icon_user"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/userFragment_userName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/breeserif_regular"
+                    android:gravity="start"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintEnd_toStartOf="@+id/g2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+                <TextView
+                    android:id="@+id/userFragment_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_rounded_book"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/g2"
+                    app:layout_constraintStart_toStartOf="@+id/g1"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3">
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/g2"
+                    app:layout_constraintStart_toStartOf="@+id/g1"
+                    app:layout_constraintTop_toBottomOf="@+id/userFragment_email">
+
+                    <ImageView
+                        android:id="@+id/userFragment_location_imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/icon_location_babyblue"
+                        android:visibility="invisible" />
 
                     <TextView
-                        android:id="@+id/userFragment_userName"
-                        android:layout_width="match_parent"
+                        android:id="@+id/userFragment_location"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/breeserif_regular"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="32sp" />
-
-                    <TextView
-                        android:id="@+id/userFragment_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/gotham_rounded_book"
-                        android:gravity="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/userFragment_location_imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icon_location_red"
-                            android:layout_marginEnd="5dp"
-                            android:visibility="invisible" />
-
-                        <TextView
-                            android:id="@+id/userFragment_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/gotham_rounded_book"
-                            android:textColor="@color/colorRed"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
+                        android:textColor="@color/colorBabyBlue"
+                        android:textSize="16sp" />
                 </LinearLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/g1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="16dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/g2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="16dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,10 +121,10 @@
             android:id="@+id/userFragment_personalInformation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:background="@drawable/back_solid_white"
             android:drawableStart="@drawable/icon_personal_information"
             android:fontFamily="@font/gotham_rounded_medium"
-            android:layout_marginTop="32dp"
             android:gravity="center"
             android:paddingStart="32dp"
             android:paddingEnd="32dp"
@@ -127,16 +141,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Medical Information"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
+            android:background="@drawable/back_solid_white"
+            android:drawableStart="@drawable/icon_medical_information"
             android:fontFamily="@font/gotham_rounded_medium"
             android:gravity="center"
-            android:drawableStart="@drawable/icon_medical_information"
-            android:background="@drawable/back_solid_white"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Medical Information"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
             app:layout_constraintTop_toBottomOf="@+id/userFragment_personalInformation" />
@@ -145,10 +159,10 @@
             android:id="@+id/userFragment_medicalCV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/back_solid_white"
             android:drawableStart="@drawable/icon_medical_cv"
             android:fontFamily="@font/gotham_rounded_medium"
-            android:layout_marginTop="16dp"
             android:gravity="center"
             android:paddingStart="32dp"
             android:paddingEnd="32dp"

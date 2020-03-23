@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.s7k.doctroid.R;
 
@@ -15,8 +14,11 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ProgressViewDialog;
-import es.dmoral.toasty.Toasty;
 import helpers.Validator;
 import network.api.ApiClient;
 import network.api.ApiInterface;
@@ -25,9 +27,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
 import view.base.BaseActivity;
 
-import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -85,47 +87,51 @@ public class SignUpActivity extends BaseActivity {
 
         signUp.setOnClickListener(view -> {
 
-            if (firstName.getText().toString().trim().isEmpty()) {
-                errorDialog.setVisibility(view.VISIBLE);
-                errorMessage.setVisibility(view.VISIBLE);
-                errorMessage.setText("Enter your First name");
-                firstName.requestFocus();
-            } else if (lastName.getText().toString().trim().isEmpty()) {
-                errorDialog.setVisibility(view.VISIBLE);
-                errorMessage.setVisibility(view.VISIBLE);
-                errorMessage.setText("Enter your Last name");
-                lastName.requestFocus();
-            } else if (!Validator.isValidEmail(email.getText().toString().trim())) {
-                errorDialog.setVisibility(view.VISIBLE);
-                errorMessage.setVisibility(view.VISIBLE);
-                errorMessage.setText(getString(R.string.email_not_valid));
-                email.requestFocus();
-            } else if (!Validator.isValidPhoneNumber(phone.getText().toString().trim())) {
-                errorDialog.setVisibility(view.VISIBLE);
-                errorMessage.setVisibility(view.VISIBLE);
-                errorMessage.setText(getString(R.string.phone_not_valid));
-                phone.requestFocus();
-            } else if (!Validator.isConfirmPassMatchPass(password.getText().toString().trim(),
-                    confirmPassword.getText().toString().trim())) {
-                errorDialog.setVisibility(view.VISIBLE);
-                errorMessage.setVisibility(view.VISIBLE);
-                errorMessage.setText(getString(R.string.password_not_valid));
-            } else if (!maleSelected && !femaleSelected) {
-                errorDialog.setVisibility(view.VISIBLE);
-                errorMessage.setVisibility(view.VISIBLE);
-                errorMessage.setText("Please select a gender");
+            if (!InternetUtilities.isConnected(App.getApplication())) {
+                CustomToast.Companion.darkColor(SignUpActivity.this, CustomToastType.NO_INTERNET, "Please check your internet connection!");
             } else {
-                errorDialog.setVisibility(view.INVISIBLE);
-                errorMessage.setVisibility(view.INVISIBLE);
-            }
+                if (firstName.getText().toString().trim().isEmpty()) {
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setVisibility(View.VISIBLE);
+                    errorMessage.setText("Enter your First name");
+                    firstName.requestFocus();
+                } else if (lastName.getText().toString().trim().isEmpty()) {
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setVisibility(View.VISIBLE);
+                    errorMessage.setText("Enter your Last name");
+                    lastName.requestFocus();
+                } else if (!Validator.isValidEmail(email.getText().toString().trim())) {
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setVisibility(View.VISIBLE);
+                    errorMessage.setText(getString(R.string.email_not_valid));
+                    email.requestFocus();
+                } else if (!Validator.isValidPhoneNumber(phone.getText().toString().trim())) {
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setVisibility(View.VISIBLE);
+                    errorMessage.setText(getString(R.string.phone_not_valid));
+                    phone.requestFocus();
+                } else if (!Validator.isConfirmPassMatchPass(password.getText().toString().trim(),
+                        confirmPassword.getText().toString().trim())) {
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setVisibility(View.VISIBLE);
+                    errorMessage.setText(getString(R.string.password_not_valid));
+                    password.requestFocus();
+                } else if (!maleSelected && !femaleSelected) {
+                    errorDialog.setVisibility(View.VISIBLE);
+                    errorMessage.setVisibility(View.VISIBLE);
+                    errorMessage.setText("Please select a gender");
+                } else {
+                    errorDialog.setVisibility(View.INVISIBLE);
+                    errorMessage.setVisibility(View.INVISIBLE);
+                }
 
-            if (Validator.registerValidation(this, firstName, lastName,
-                    email, password, confirmPassword, phone)) {
-                if (maleSelected || femaleSelected) {
-                    createNewUser();
+                if (Validator.registerValidation(this, firstName, lastName,
+                        email, password, confirmPassword, phone)) {
+                    if (maleSelected || femaleSelected) {
+                        createNewUser();
+                    }
                 }
             }
-
         });
 
     }
@@ -169,21 +175,20 @@ public class SignUpActivity extends BaseActivity {
                                    @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
-                    Toasty.info(SignUpActivity.this, "Account created! Please sign in to continue.", Toast.LENGTH_SHORT).show();
+                    CustomToast.Companion.darkColor(SignUpActivity.this, CustomToastType.SUCCESS, "Account Created! Please sing in again to continue.");
                     progressViewDialog.hideDialog();
                     startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                     finish();
 
                 } else {
-
-                    Toast.makeText(SignUpActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                    CustomToast.Companion.darkColor(SignUpActivity.this, CustomToastType.ERROR, "Please try again.");
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call,
                                   @NonNull Throwable t) {
-                Toasty.error(SignUpActivity.this, Objects.requireNonNull(t.getMessage()), LENGTH_LONG).show();
+                CustomToast.Companion.darkColor(SignUpActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
 

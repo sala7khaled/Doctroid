@@ -11,35 +11,34 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="2dp">
 
-    <ImageView
-        android:id="@+id/item_medicineAutoComplete_delete_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:translationZ="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_delete_red" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/back_solid_white">
 
+        <ImageView
+            android:id="@+id/item_medicineAutoComplete_delete_imageView"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_delete_red_filled" />
+
         <TextView
             android:id="@+id/item_medicineAutoComplete_name_textView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="0dp"
             android:fontFamily="@font/gotham_rounded_medium"
             android:gravity="center"
+            android:maxLines="1"
             android:text="@string/app_name"
+            android:padding="8dp"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_medicineAutoComplete_delete_imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

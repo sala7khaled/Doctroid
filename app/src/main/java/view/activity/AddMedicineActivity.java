@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
@@ -191,7 +193,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
         medicineAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
             Medicine medicine = (Medicine) medicineAutoComplete.getAdapter().getItem(position);
             if (medicineAdapter.checkExistMedicine(medicine)) {
-                Toast.makeText(AddMedicineActivity.this, "This medicine already selected", Toast.LENGTH_SHORT).show();
+                CustomToast.Companion.darkColor(AddMedicineActivity.this, CustomToastType.WARNING, "This medicine already selected");
             } else {
                 medicineCardView.setVisibility(View.VISIBLE);
                 medicineAdapter.addItem(medicine);
@@ -212,9 +214,11 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
             } else if (snnSTR.length() != 14) {
                 errorDialog.setVisibility(android.view.View.VISIBLE);
                 errorMessage.setText("Enter your SNN (14 Numbers)");
+                snn.requestFocus();
             } else if (medicineAdapter.getItemCount() == 0) {
                 errorDialog.setVisibility(android.view.View.VISIBLE);
                 errorMessage.setText("Please add your Medicines");
+                medicineAutoComplete.requestFocus();
             } else {
                 errorDialog.setVisibility(android.view.View.INVISIBLE);
                 errorMessage.setVisibility(android.view.View.INVISIBLE);
@@ -263,7 +267,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
             @Override
             public void onFailure(@NonNull Call<List<Medicine>> call,
                                   @NonNull Throwable t) {
-                Toasty.error(AddMedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
+                CustomToast.Companion.darkColor(AddMedicineActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -297,7 +301,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
                     PrefManager.saveConfirm(AddMedicineActivity.this, "true");
                     startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
                     progressViewDialog.hideDialog();
-                    Toasty.success(AddMedicineActivity.this, "Account Created", LENGTH_LONG).show();
+                    CustomToast.Companion.darkColor(AddMedicineActivity.this, CustomToastType.SUCCESS, "Account Created");
                     finish();
                 }
 
@@ -306,7 +310,7 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call,
                                   @NonNull Throwable t) {
-                Toasty.error(AddMedicineActivity.this, t.getMessage(), LENGTH_LONG).show();
+                CustomToast.Companion.darkColor(AddMedicineActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
 
             }
         });

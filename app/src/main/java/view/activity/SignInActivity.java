@@ -14,10 +14,15 @@ import android.widget.Toast;
 import com.s7k.doctroid.R;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
+import dialog.ErrorDialog;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import helpers.Validator;
@@ -28,6 +33,7 @@ import network.model.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
 import utilities.PrefManager;
 import view.base.BaseActivity;
 
@@ -40,7 +46,7 @@ public class SignInActivity extends BaseActivity {
     }
 
     EditText email, password;
-    TextView forgetPassword, createAccount, errorMessage;
+    TextView createAccount, errorMessage;
     ImageView errorDialog;
     Button signIn;
     ProgressViewDialog progressViewDialog;
@@ -48,7 +54,6 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         if (PrefManager.getToken(SignInActivity.this) != null
                 && PrefManager.getConfirm(SignInActivity.this).equals("true")) {
             navigateToMain();
@@ -71,7 +76,6 @@ public class SignInActivity extends BaseActivity {
 
     private void initializeComponents() {
         email = findViewById(R.id.signIn_email_editText);
-        // email.setText("Sala7Khaled.S7K@gmail.com");
         password = findViewById(R.id.signIn_password_editText);
         errorMessage = findViewById(R.id.signIn_errorMessage_textView);
         errorDialog = findViewById(R.id.signIn_errorDialog_imageView);
@@ -91,11 +95,8 @@ public class SignInActivity extends BaseActivity {
             progressViewDialog.showProgressDialog("Checking information");
 
             if (validate()) {
-                String emailSTR = email.getText().toString().toLowerCase().trim();
-                String passSTR = password.getText().toString().trim();
 
-                SignInForm signInForm = new SignInForm(emailSTR, passSTR);
-
+                SignInForm signInForm = new SignInForm(email.getText().toString().toLowerCase().trim(), password.getText().toString().trim());
                 signIn(signInForm);
 
             } else {
@@ -109,30 +110,37 @@ public class SignInActivity extends BaseActivity {
     }
 
     private boolean validate() {
-        String emailSTR = email.getText().toString().trim();
-        String passSTR = password.getText().toString().trim();
 
-        if (!Validator.isValidEmail(email.getText().toString()) && passSTR.length() < 6) {
-            errorDialog.setVisibility(View.VISIBLE);
-            errorMessage.setText(getString((R.string.email_and_password_not_valid)));
-            email.requestFocus();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(SignInActivity.this, CustomToastType.NO_INTERNET, "Please check your internet connection!");
             return false;
-        }
+        } else {
+            if (!Validator.isValidEmail(email.getText().toString()) && password.getText().toString().trim().length() < 6) {
+                errorDialog.setVisibility(View.VISIBLE);
+                errorMessage.setText(getString((R.string.email_and_password_not_valid)));
+                email.requestFocus();
+                return false;
+            }
 
-        if (Validator.isValidEmail(emailSTR) && passSTR.length() < 6) {
-            errorDialog.setVisibility(View.VISIBLE);
-            errorMessage.setText(getString(R.string.password_not_valid));
-            password.requestFocus();
-            return false;
-        }
-        if (!Validator.isValidEmail(email.getText().toString()) && passSTR.length() >= 6) {
-            errorDialog.setVisibility(View.VISIBLE);
-            errorMessage.setText(getString(R.string.email_not_valid));
-            return false;
-        }
+            if (!Validator.isValidEmail(email.getText().toString()) && password.getText().toString().trim().length() >= 6) {
+                errorDialog.setVisibility(View.VISIBLE);
+                errorMessage.setText(getString(R.string.email_not_valid));
+                email.requestFocus();
+                return false;
+            }
 
-        if (Validator.isValidEmail(emailSTR) && passSTR.length() >= 6) {
-            return true;
+            if (Validator.isValidEmail(email.getText().toString()) && password.getText().toString().trim().length() < 6) {
+                errorDialog.setVisibility(View.VISIBLE);
+                errorMessage.setText(getString(R.string.password_not_valid));
+                password.requestFocus();
+                return false;
+            }
+
+            if (Validator.isValidEmail(email.getText().toString()) && password.getText().toString().trim().length() >= 6) {
+                errorDialog.setVisibility(View.INVISIBLE);
+                errorMessage.setText("");
+                return true;
+            }
         }
         return false;
     }
@@ -175,9 +183,7 @@ public class SignInActivity extends BaseActivity {
 
                 } else {
 
-                    errorDialog.setVisibility(View.GONE);
-                    errorMessage.setVisibility(View.GONE);
-                    Toast.makeText(SignInActivity.this, R.string.email_and_password_not_valid, Toast.LENGTH_SHORT).show();
+                    CustomToast.Companion.darkColor(SignInActivity.this, CustomToastType.WARNING, getString(R.string.email_and_password_not_valid));
                     progressViewDialog.hideDialog();
                 }
 
@@ -186,7 +192,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<Token> call,
                                   @NonNull Throwable t) {
-                Toasty.error(SignInActivity.this, t.getMessage(), LENGTH_LONG).show();
+                CustomToast.Companion.darkColor(SignInActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }

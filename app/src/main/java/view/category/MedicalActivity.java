@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import dialog.ProgressViewDialog;
 import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
@@ -34,6 +37,7 @@ import presenter.adapter.MedicineAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utilities.InternetUtilities;
 import view.activity.MedicalAnalysisActivity;
 import view.base.BaseActivity;
 
@@ -53,10 +57,14 @@ public class MedicalActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle bundle) {
-        toolbarTextView.setText("Medical Analysis");
+        toolbarTextView.setText(R.string.medical_analysis);
         toolbarBackImageView.setVisibility(View.VISIBLE);
 
-        callAPI();
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(MedicalActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            callAPI();
+        }
         initializeComponents();
         setListeners();
     }
@@ -100,11 +108,13 @@ public class MedicalActivity extends BaseActivity {
                                     intent.putExtra("c_id", medicalCategories.get(position).getId());
                                     startActivity(intent);
                                 });
-
-
                         medicalRecyclerView.setAdapter(medicalCategoryAdapter);
                     }
-
+                    searchLinear.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.VISIBLE);
+                    progressViewDialog.hideDialog();
+                } else {
+                    CustomToast.Companion.darkColor(MedicalActivity.this, CustomToastType.ERROR, "Error getting your appointments");
                     progressViewDialog.hideDialog();
                 }
             }
@@ -112,7 +122,7 @@ public class MedicalActivity extends BaseActivity {
             @Override
             public void onFailure(@NotNull Call<List<MedicalCategory>> call,
                                   @NotNull Throwable t) {
-                Toasty.error(MedicalActivity.this, Objects.requireNonNull(t.getMessage())).show();
+                CustomToast.Companion.darkColor(MedicalActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
 

@@ -29,10 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import app.App;
+import customView.CustomToast;
+import customView.CustomToastType;
 import es.dmoral.toasty.Toasty;
 import helpers.Navigator;
 import network.model.Image;
 import presenter.adapter.ViewPagerAdapter;
+import utilities.InternetUtilities;
 
 public class HospitalPhotosFragment extends Fragment {
 
@@ -55,10 +59,16 @@ public class HospitalPhotosFragment extends Fragment {
         context = Objects.requireNonNull(getActivity()).getApplicationContext();
 
         initializeComponents(view);
+        if (!InternetUtilities.isConnected(App.getApplication())) {
+            CustomToast.Companion.darkColor(getContext(), CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+        } else {
+            getPhotos();
+        }
         setListeners();
 
         return view;
     }
+
 
     private void initializeComponents(View view) {
         leftArrow = view.findViewById(R.id.hospitalPhotosFragment_leftArrow);
@@ -74,6 +84,8 @@ public class HospitalPhotosFragment extends Fragment {
         viewPagerAdapter = new ViewPagerAdapter(context, imageUrls);
         viewPager.setAdapter(viewPagerAdapter);
 
+    }
+    private void getPhotos() {
         database = FirebaseDatabase.getInstance().getReference().child("O6U").child("images");
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,20 +96,20 @@ public class HospitalPhotosFragment extends Fragment {
                         imageUrls.add(image);
                         viewPagerAdapter.notifyDataSetChanged();
                     } else {
-                        Toasty.error(context, "No photos added yet!").show();
+                        CustomToast.Companion.darkColor(getContext(), CustomToastType.INFO, "No photos added yet!");
                     }
                 }
 
                 countTV.setText(String.valueOf(imageUrls.size()));
-                progressBar.setVisibility(view.INVISIBLE);
-                leftArrow.setVisibility(view.VISIBLE);
-                rightArrow.setVisibility(view.VISIBLE);
-                index.setVisibility(view.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                leftArrow.setVisibility(View.VISIBLE);
+                rightArrow.setVisibility(View.VISIBLE);
+                index.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NotNull DatabaseError databaseError) {
-                Toasty.error(context, databaseError.getMessage()).show();
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, databaseError.getMessage());
             }
         });
     }
