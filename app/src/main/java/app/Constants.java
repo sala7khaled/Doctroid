@@ -38,7 +38,6 @@ public class Constants {
     public static final String KEY_TOKEN = "keyToken";
     public static final String KEY_CONFIRM = "keyConfirm";
     public static final String KEY_P_ID = "keyP_id";
-    public static final String KEY_PERMISSION = "keyPermission";
 
     public static final String INTENT_ID = "intentId";
     public static final String INTENT_KEY = "intentKey";
