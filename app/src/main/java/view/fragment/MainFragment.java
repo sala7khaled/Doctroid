@@ -1,7 +1,9 @@
 package view.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -79,6 +82,7 @@ public class MainFragment extends Fragment {
 
         initializeComponents(view);
         setListeners();
+        checkLocationPermission();
         return view;
     }
 
@@ -155,28 +159,43 @@ public class MainFragment extends Fragment {
         categoryList.add(new Category("Medicine", R.drawable.icon_5_medicine));
         categoryList.add(new Category("Emergency", R.drawable.icon_6_emergency));
 
-        prepareDots(currentPosition);
+        prepareDots();
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 currentPosition = position;
             }
-
             @Override
             public void onPageSelected(int position) {
                 currentPosition = position;
                 if (position == viewPagerAdapter.getCount()) {
                     currentPosition = 0;
                 }
-                prepareDots(currentPosition);
+                prepareDots();
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
         });
         createSlideShow();
+    }
+
+    private void checkLocationPermission() {
+        int permission = ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Permission denied.");
+            }
+        }
     }
 
     private void createSlideShow() {
@@ -199,7 +218,7 @@ public class MainFragment extends Fragment {
         }, 1000, 3500);
     }
 
-    private void prepareDots(int currentPosition) {
+    private void prepareDots() {
 
         if (dots.getChildCount() > 0) {
             dots.removeAllViews();
@@ -215,6 +234,7 @@ public class MainFragment extends Fragment {
             } else {
                 dotsIV[i].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.slider_inactive_dot));
             }
+
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(8, 0, 8, 0);

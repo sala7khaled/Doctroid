@@ -1,5 +1,6 @@
 package utilities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -14,6 +15,8 @@ import android.util.Base64;
 import android.view.Gravity;
 import android.widget.Toast;
 
+
+import androidx.core.content.ContextCompat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +38,11 @@ public class Utilities {
 
     public static Context getContext() {
         return App.getContext();
+    }
+
+    public static boolean checkLocationPermission(Context context) {
+        int permission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
+        return permission == PackageManager.PERMISSION_GRANTED;
     }
 
     public static String errorToString(Throwable t) {

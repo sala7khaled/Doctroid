@@ -71,10 +71,11 @@ public class MedicineActivity extends BaseActivity {
         initializeComponents();
         if (!InternetUtilities.isConnected(App.getApplication())) {
             CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+            finish();
         } else {
             callAPI();
+            setListeners();
         }
-        setListeners();
 
     }
 

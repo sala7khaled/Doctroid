@@ -67,5 +67,4 @@ public class PrefManager {
         editor.putString(Constants.KEY_P_ID, null);
         editor.apply();
     }
-
 }

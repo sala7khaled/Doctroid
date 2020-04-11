@@ -1,11 +1,13 @@
 package view.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,18 +36,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.s7k.doctroid.R;
 
-import app.App;
-import app.Constants;
+import java.util.Objects;
+
 import customView.CustomToast;
 import customView.CustomToastType;
-import es.dmoral.toasty.Toasty;
 import utilities.InternetUtilities;
+import utilities.Utilities;
 
 public class HospitalLocationFragment extends Fragment implements OnMapReadyCallback {
 
     public Context context;
 
-    private LatLng hospitalLatLng = new LatLng(29.9787019,30.9501475);
+    private LatLng hospitalLatLng = new LatLng(29.9787019, 30.9501475);
     private GoogleMap map;
     private CameraPosition googlePlex;
     private Location userCurrentLocation;
@@ -53,8 +55,6 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
 
     private CardView markers;
     private ImageView hospitalMarker, userMarker;
-
-    private Boolean locationPermissionsGranted = false;
 
     public HospitalLocationFragment() {
     }
@@ -72,11 +72,6 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         context = getActivity().getApplicationContext();
 
         initializeComponents(view);
-        if (!InternetUtilities.isConnected(App.getApplication())) {
-            CustomToast.Companion.darkColor(getContext(), CustomToastType.NO_INTERNET, getString(R.string.check_connection));
-        } else {
-            initMap();
-        }
         setListeners();
 
         return view;
@@ -91,18 +86,8 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.hospitalLocationFragment_map);
 
-        getLocationPermission();
-
-    }
-
-    private void initMap() {
-
-        if (locationPermissionsGranted) {
-            mapFragment.getMapAsync(this);
-
-        } else {
-            CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "No GPS permission.");
-        }
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
     }
 
     private void setListeners() {
@@ -135,22 +120,6 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         });
     }
 
-    private void getLocationPermission() {
-
-        String[] permissions = {Constants.FINE_LOCATION, Constants.COURSE_LOCATION};
-
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Constants.FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(getContext(),
-                Constants.COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationPermissionsGranted = true;
-            initMap();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), permissions, Constants.LOCATION_PERMISSION_REQUEST_CODE);
-        }
-
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
@@ -178,41 +147,39 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
 
         // User Marker
         try {
-            if (locationPermissionsGranted) {
+            if (Utilities.checkLocationPermission(getContext())) {
+                if (InternetUtilities.isLocationEnabled(Objects.requireNonNull(getContext()))) {
+                    FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+                    Task location = fusedLocationProviderClient.getLastLocation();
 
-                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                    location.addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            userCurrentLocation = (Location) task.getResult();
+                            if (userCurrentLocation != null) {
 
-                final Task location = fusedLocationProviderClient.getLastLocation();
+                                // map.setMyLocationEnabled(true);  -- Blue dot
+                                // map.getUiSettings().setMyLocationButtonEnabled(true); -- my location button
+                                map.getUiSettings().setCompassEnabled(false);
 
-                location.addOnCompleteListener(task -> {
+                                map.addMarker(new MarkerOptions()
+                                        .position(new LatLng(userCurrentLocation.getLatitude(), userCurrentLocation.getLongitude()))
+                                        .title("YOU")
+                                        .snippet("Your Location")
+                                        .draggable(false)
+                                        .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.icon_user_map)));
 
-                    if (task.isSuccessful()) {
+                                markers.setVisibility(View.VISIBLE);
+                            }
 
-                        userCurrentLocation = (Location) task.getResult();
-
-                        if (userCurrentLocation != null) {
-
-                            // map.setMyLocationEnabled(true);
-                            //map.getUiSettings().setMyLocationButtonEnabled(true);
-                            map.getUiSettings().setCompassEnabled(false);
-
-                            map.addMarker(new MarkerOptions()
-                                    .position(new LatLng(userCurrentLocation.getLatitude(), userCurrentLocation.getLongitude()))
-                                    .title("YOU")
-                                    .snippet("Your Location")
-                                    .draggable(false)
-                                    .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.icon_user_map)));
-
-                            markers.setVisibility(View.VISIBLE);
-                        } else {
-                            getLocationPermission();
                         }
-
-                    } else {
-                        CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Can't get your current location.");
-                    }
-                });
+                    });
+                } else {
+                    CustomToast.Companion.darkColor(getContext(), CustomToastType.WARNING, "Please enable GPS to get your current location.");
+                }
+                } else {
+                checkLocationPermission();
             }
+
         } catch (SecurityException e) {
             Log.v("getDeviceLocation", "getDeviceLocation: SecurityException: " + e.getMessage());
         }
@@ -225,6 +192,49 @@ public class HospitalLocationFragment extends Fragment implements OnMapReadyCall
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapFragment.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mapFragment != null) {
+            mapFragment.onDestroy();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapFragment.onPause();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapFragment.onLowMemory();
+    }
+
+    private void checkLocationPermission() {
+        int permission = ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Permission denied.");
+            }
+        }
     }
 
 }

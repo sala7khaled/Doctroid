@@ -12,14 +12,20 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.s7k.doctroid.R;
 
+import java.util.Objects;
+
+import customView.CustomToast;
+import customView.CustomToastType;
 import helpers.Navigator;
+import network.model.Hospital;
+import utilities.InternetUtilities;
 import view.base.BaseActivity;
 import view.fragment.HospitalAboutFragment;
 import view.fragment.HospitalLocationFragment;
 import view.fragment.HospitalPhotosFragment;
 
-public class HospitalActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemReselectedListener{
-    
+public class HospitalActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemReselectedListener {
+
     ImageView phone, facebook, website;
     BottomNavigationView bottomNav;
 
@@ -38,23 +44,29 @@ public class HospitalActivity extends BaseActivity implements BottomNavigationVi
         bottomNav.setOnNavigationItemReselectedListener(this);
         bottomNav.getMenu().findItem(R.id.hospital_nav_location).setChecked(true);
 
-        initializeComponents();
-        setListeners();
+        if (!InternetUtilities.isConnected(HospitalActivity.this)) {
+            CustomToast.Companion.darkColor(HospitalActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+            finish();
+        } else {
+            initializeComponents();
+            setListeners();
+        }
     }
-    
+
     private void initializeComponents() {
         phone = findViewById(R.id.hospital_phone_icon);
         facebook = findViewById(R.id.hospital_facebook_icon);
         website = findViewById(R.id.hospital_website_icon);
     }
-    
+
     private void setListeners() {
-        
+
         phone.setOnClickListener(View -> Navigator.callPhoneNumber(HospitalActivity.this, getString(R.string.hospital_phone)));
         facebook.setOnClickListener(View -> Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_facebook)));
         website.setOnClickListener(View -> Navigator.openUrlInBrowser(HospitalActivity.this, getString(R.string.hospital_website)));
-        
+
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
                 Fragment selectedFragment = null;

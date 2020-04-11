@@ -42,6 +42,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+
         ImageView imageView = new ImageView(context);
 
         Picasso.get()

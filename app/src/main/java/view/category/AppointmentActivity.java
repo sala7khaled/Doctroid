@@ -74,12 +74,12 @@ public class AppointmentActivity extends BaseActivity {
 
         if (!InternetUtilities.isConnected(App.getApplication())) {
             CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+            finish();
         } else {
             callAPI();
+            initializeComponents();
+            setListeners();
         }
-        initializeComponents();
-        setListeners();
-
     }
 
     private void initializeComponents() {
