@@ -26,8 +26,10 @@
 
         <ImageView
             android:id="@+id/item_medicineList_photo"
-            android:layout_width="70dp"
+            android:layout_width="0dp"
             android:layout_height="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="16dp"
             android:transitionName="transPhoto"
             app:layout_constraintEnd_toEndOf="parent"

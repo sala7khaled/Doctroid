@@ -72,14 +72,9 @@ public class AppointmentActivity extends BaseActivity {
         emptyAppoint = findViewById(R.id.appoint_emptyAppoint);
         emptyAppoint.setVisibility(View.GONE);
 
-        if (!InternetUtilities.isConnected(App.getApplication())) {
-            CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
-            finish();
-        } else {
-            callAPI();
-            initializeComponents();
-            setListeners();
-        }
+        callAPI();
+        initializeComponents();
+        setListeners();
     }
 
     private void initializeComponents() {

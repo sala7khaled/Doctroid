@@ -177,4 +177,12 @@ public class Utilities {
         activity.finish();
         activity.startActivity(intent);
     }
+
+    public static void shareText(Activity activity, String text) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        activity.startActivity(Intent.createChooser(intent, "Share Using"));
+    }
+
 }

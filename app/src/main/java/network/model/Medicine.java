@@ -16,10 +16,16 @@ public class Medicine {
     private String price;
     @SerializedName("medicine_Description")
     @Expose
-    private String Description;
+    private String description;
     @SerializedName("medicine_Quantity")
     @Expose
     private String quantity;
+    @SerializedName("medicine_ImageUrl")
+    @Expose
+    private String image;
+    @SerializedName("medicine_Unit")
+    @Expose
+    private String unit;
 
 
     @Override
@@ -41,12 +47,14 @@ public class Medicine {
 
 
 
-    public Medicine(String id, String name, String price, String description, String quantity) {
+    public Medicine(String id, String name, String price, String description, String quantity, String image, String unit) {
         this.id = id;
         this.name = name;
         this.price = price;
-        Description = description;
+        this.description = description;
         this.quantity = quantity;
+        this.image = image;
+        this.unit = unit;
     }
 
     public String getId() {
@@ -74,11 +82,11 @@ public class Medicine {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getQuantity() {
@@ -87,5 +95,21 @@ public class Medicine {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

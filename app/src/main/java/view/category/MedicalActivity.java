@@ -60,14 +60,9 @@ public class MedicalActivity extends BaseActivity {
         toolbarTextView.setText(R.string.medical_analysis);
         toolbarBackImageView.setVisibility(View.VISIBLE);
 
-        if (!InternetUtilities.isConnected(App.getApplication())) {
-            CustomToast.Companion.darkColor(MedicalActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
-            finish();
-        } else {
-            callAPI();
-            initializeComponents();
-            setListeners();
-        }
+        callAPI();
+        initializeComponents();
+        setListeners();
     }
 
     private void initializeComponents() {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="30dp"
-    app:cardElevation="20dp">
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,18 +18,47 @@
             android:id="@+id/item_medicineDialog_userPhoto"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
             android:src="@drawable/icon_user"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_medicineDialog_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:fontFamily="@font/gotham_rounded_medium"
+            android:gravity="center"
+            android:text="@string/add_medicine"
+            android:textColor="@color/colorGreen"
+            android:textSize="13sp"
+            android:transitionName="transName"
+            app:layout_constraintStart_toStartOf="@id/guideline_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_medicineDialog_remove"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gotham_rounded_medium"
+            android:gravity="center"
+            android:text="- I'm no longer taking this"
+            android:textColor="@color/colorRed"
+            android:textSize="13sp"
+            android:transitionName="transName"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/item_medicineDialog_photo"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
             android:src="@drawable/icon_medicine_loading"
             android:transitionName="transPhoto"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
@@ -116,9 +145,8 @@
             android:id="@+id/linearLayout3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:weightSum="2"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
@@ -128,17 +156,15 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="start"
                 android:layout_weight="0.3"
-                android:src="@drawable/icon_medicine_description" />
+                android:layout_gravity="start"
+                android:src="@drawable/icon_medicine_unit" />
 
             <TextView
-                android:id="@+id/item_medicineDialog_description"
+                android:id="@+id/item_medicineDialog_unit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.7"
-                android:layout_gravity="start"
-                android:minLines="15"
                 android:fontFamily="@font/gotham_rounded_medium"
                 android:gravity="start"
                 android:textColor="@color/colorGreen"
@@ -146,15 +172,55 @@
                 android:transitionName="transQuantity" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:minHeight="200dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/item_medicineDialog_button"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+            app:layout_constraintStart_toStartOf="@+id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="start"
+                android:layout_weight="0.3"
+                android:src="@drawable/icon_medicine_description" />
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:layout_gravity="start">
+                <TextView
+                    android:id="@+id/item_medicineDialog_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_rounded_medium"
+                    android:gravity="start"
+                    android:textColor="@color/colorGreen"
+                    android:textSize="16sp"
+                    android:transitionName="transQuantity" />
+            </ScrollView>
+
+        </LinearLayout>
+
 
         <Button
-            android:id="@+id/item_medicineDialog_button"
+            android:id="@+id/item_medicineDialog_preOrder_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/back_solid_primary_dark"
             android:fontFamily="@font/gotham_rounded_medium"
-            android:text="Book"
+            android:text="Pre-order"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

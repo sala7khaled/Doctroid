@@ -27,7 +27,6 @@ public class ResultActivity extends BaseActivity {
 
     private void callAPI() {
 
-        CustomToast.Companion.darkColor(ResultActivity.this, CustomToastType.NO_INTERNET, "Please check your internet connection!");
     }
 
     private void initializeComponents() {

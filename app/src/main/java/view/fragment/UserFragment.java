@@ -42,8 +42,7 @@ public class UserFragment extends Fragment {
 
     public Context context;
     private TextView username, email, location;
-    ImageView locationIcon;
-
+    private ImageView locationIcon;
     private ProgressViewDialog progressViewDialog;
 
     @Nullable

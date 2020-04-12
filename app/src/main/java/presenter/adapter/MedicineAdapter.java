@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.s7k.doctroid.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,13 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> implem
                 holder.medicineQuantity.setText("QNT: "+medicine.getQuantity());
                 holder.medicinePrice.setText(medicine.getPrice()+" LE");
                 holder.itemView.setOnClickListener( v-> itemClick.onClick(position));
+
+                Picasso.get()
+                        .load(medicine.getImage())
+                        .fit()
+                        .error(R.drawable.icon_no_connection)
+                        .into(holder.medicineImageView);
+
                 break;
             case AUTO_COMPLETE:
                 holder.nameMedicineTextView.setText(medicine.getName());

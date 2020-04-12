@@ -41,6 +41,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import app.App;
 import customView.CustomToast;
 import customView.CustomToastType;
 import es.dmoral.toasty.Toasty;
@@ -49,6 +50,7 @@ import network.model.Category;
 import network.model.Image;
 import presenter.adapter.MainAdapter;
 import presenter.adapter.ViewPagerAdapter;
+import utilities.InternetUtilities;
 import view.category.AppointmentActivity;
 import view.category.EmergencyActivity;
 import view.category.HospitalActivity;
@@ -100,25 +102,29 @@ public class MainFragment extends Fragment {
 
         mainAdapter = new MainAdapter(categoryList, getContext(), position -> {
             String categoryName = categoryList.get(position).getName();
-            switch (categoryName) {
-                case "O6U Hospital":
-                    startActivity(new Intent(getActivity(), HospitalActivity.class));
-                    break;
-                case "Medical Analysis":
-                    startActivity(new Intent(getActivity(), MedicalActivity.class));
-                    break;
-                case "Appointment":
-                    startActivity(new Intent(getActivity(), AppointmentActivity.class));
-                    break;
-                case "Medical CV":
-                    startActivity(new Intent(getActivity(), ResultActivity.class));
-                    break;
-                case "Medicine":
-                    startActivity(new Intent(getActivity(), MedicineActivity.class));
-                    break;
-                case "Emergency":
-                    startActivity(new Intent(getActivity(), EmergencyActivity.class));
-                    break;
+            if (!InternetUtilities.isConnected(App.getApplication())) {
+                CustomToast.Companion.darkColor(getActivity(), CustomToastType.NO_INTERNET, getString(R.string.check_connection));
+            } else {
+                switch (categoryName) {
+                    case "O6U Hospital":
+                        startActivity(new Intent(getActivity(), HospitalActivity.class));
+                        break;
+                    case "Medical Analysis":
+                        startActivity(new Intent(getActivity(), MedicalActivity.class));
+                        break;
+                    case "Appointment":
+                        startActivity(new Intent(getActivity(), AppointmentActivity.class));
+                        break;
+                    case "Medical CV":
+                        startActivity(new Intent(getActivity(), ResultActivity.class));
+                        break;
+                    case "Medicine":
+                        startActivity(new Intent(getActivity(), MedicineActivity.class));
+                        break;
+                    case "Emergency":
+                        startActivity(new Intent(getActivity(), EmergencyActivity.class));
+                        break;
+                }
             }
         });
         recyclerView.setAdapter(mainAdapter);
@@ -139,7 +145,7 @@ public class MainFragment extends Fragment {
                     }
                 }
 
-                progressBar.setVisibility(view.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -181,23 +187,6 @@ public class MainFragment extends Fragment {
         createSlideShow();
     }
 
-    private void checkLocationPermission() {
-        int permission = ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 1) {
-            if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Permission denied.");
-            }
-        }
-    }
-
     private void createSlideShow() {
 
         Timer timer = new Timer();
@@ -215,7 +204,7 @@ public class MainFragment extends Fragment {
             public void run() {
                 handler.post(runnable);
             }
-        }, 1000, 3500);
+        }, 2000, 5000);
     }
 
     private void prepareDots() {
@@ -240,6 +229,23 @@ public class MainFragment extends Fragment {
             layoutParams.setMargins(8, 0, 8, 0);
             dots.addView(dotsIV[i], layoutParams);
 
+        }
+    }
+
+    private void checkLocationPermission() {
+        int permission = ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Permission denied.");
+            }
         }
     }
 }

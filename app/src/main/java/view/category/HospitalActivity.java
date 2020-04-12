@@ -44,13 +44,8 @@ public class HospitalActivity extends BaseActivity implements BottomNavigationVi
         bottomNav.setOnNavigationItemReselectedListener(this);
         bottomNav.getMenu().findItem(R.id.hospital_nav_location).setChecked(true);
 
-        if (!InternetUtilities.isConnected(HospitalActivity.this)) {
-            CustomToast.Companion.darkColor(HospitalActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
-            finish();
-        } else {
-            initializeComponents();
-            setListeners();
-        }
+        initializeComponents();
+        setListeners();
     }
 
     private void initializeComponents() {

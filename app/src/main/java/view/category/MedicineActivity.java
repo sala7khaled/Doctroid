@@ -2,6 +2,7 @@ package view.category;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -11,22 +12,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.s7k.doctroid.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import app.App;
 import customView.CustomToast;
 import customView.CustomToastType;
 import dialog.ProgressViewDialog;
-import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.Medicine;
@@ -37,21 +38,19 @@ import presenter.adapter.MedicineType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import utilities.InternetUtilities;
 import utilities.PrefManager;
+import utilities.Utilities;
 import view.base.BaseActivity;
-
-import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 public class MedicineActivity extends BaseActivity {
 
     LinearLayout userLinear, searchLinear;
     Dialog customDialog;
     SearchView searchView;
-    ImageView medicinePhoto, userPhoto;
+    ImageView userPhoto, medicineImage;
     ImageView quantityIcon;
-    TextView name, quantity, price, description;
-    Button button;
+    TextView name, quantity, price, description, unit, add, remove;
+    Button preOrderButton;
     MedicineAdapter medicineAdapter;
     RecyclerView medicineRecyclerView;
     ProgressViewDialog progressViewDialog;
@@ -69,14 +68,8 @@ public class MedicineActivity extends BaseActivity {
         toolbarBackImageView.setVisibility(View.VISIBLE);
 
         initializeComponents();
-        if (!InternetUtilities.isConnected(App.getApplication())) {
-            CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.NO_INTERNET, getString(R.string.check_connection));
-            finish();
-        } else {
-            callAPI();
-            setListeners();
-        }
-
+        callAPI();
+        setListeners();
     }
 
 
@@ -96,7 +89,6 @@ public class MedicineActivity extends BaseActivity {
         customDialog.setCancelable(true);
         Objects.requireNonNull(customDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-        medicinePhoto = customDialog.findViewById(R.id.item_medicineDialog_photo);
         userPhoto = customDialog.findViewById(R.id.item_medicineDialog_userPhoto);
 
         name = customDialog.findViewById(R.id.item_medicineDialog_name);
@@ -104,7 +96,11 @@ public class MedicineActivity extends BaseActivity {
         quantity = customDialog.findViewById(R.id.item_medicineDialog_quantity);
         price = customDialog.findViewById(R.id.item_medicineDialog_price);
         description = customDialog.findViewById(R.id.item_medicineDialog_description);
-        button = customDialog.findViewById(R.id.item_medicineDialog_button);
+        preOrderButton = customDialog.findViewById(R.id.item_medicineDialog_preOrder_button);
+        unit = customDialog.findViewById(R.id.item_medicineDialog_unit);
+        add = customDialog.findViewById(R.id.item_medicineDialog_add);
+        remove = customDialog.findViewById(R.id.item_medicineDialog_remove);
+        medicineImage = customDialog.findViewById(R.id.item_medicineDialog_photo);
 
 
     }
@@ -180,38 +176,27 @@ public class MedicineActivity extends BaseActivity {
                                     for (String s : medicinesUser) {
                                         if (s.equals(medicinesAPI.get(position).getId())) {
                                             userPhoto.setVisibility(View.VISIBLE);
+                                            remove.setVisibility(View.VISIBLE);
+                                            add.setVisibility(View.GONE);
                                         } else {
                                             userPhoto.setVisibility(View.GONE);
+                                            remove.setVisibility(View.GONE);
+                                            add.setVisibility(View.VISIBLE);
                                         }
                                     }
-                                    name.setText(medicinesAPI.get(position).getName());
-
-                                    if (Integer.parseInt(medicinesAPI.get(position).getQuantity()) == 0) {
-                                        quantity.setTextColor(getResources().getColor(R.color.colorGray));
-                                        quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity_gray));
-                                    } else if (Integer.parseInt(medicinesAPI.get(position).getQuantity()) < 10) {
-                                        quantity.setTextColor(getResources().getColor(R.color.colorRed));
-                                        quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity_red));
-
-                                    } else {
-                                        quantity.setTextColor(getResources().getColor(R.color.colorGreen));
-                                        quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity));
-                                    }
-
-                                    quantity.setText("Quantity: " + medicinesAPI.get(position).getQuantity());
-                                    price.setText("Price: " + medicinesAPI.get(position).getPrice() + " LE");
-                                    description.setText("Description: " + medicinesAPI.get(position).getDescription());
-
+                                    setUpDialog(position);
                                     customDialog.show();
                                 }
                                 , MedicineType.LIST);
 
                         medicineRecyclerView.setAdapter(medicineAdapter);
                     } else {
-                        CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.INFO, "There's no medicines.");
+                        CustomToast.Companion.darkColor(MedicineActivity.this, CustomToastType.WARNING, "There's no medicines.");
                     }
                 }
             }
+
+
 
             @Override
             public void onFailure(@NonNull Call<List<Medicine>> call,
@@ -220,7 +205,77 @@ public class MedicineActivity extends BaseActivity {
             }
         });
     }
+    private void setUpDialog(int position) {
 
+        add.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MedicineActivity.this);
+            builder.setTitle(medicinesAPI.get(position).getName());
+            builder.setMessage("Are you sure to add ''" + medicinesAPI.get(position).getName()+"'' to your taken medicines?");
+
+            builder.setPositiveButton("Yes",
+                    (dialogInterface, i) -> {
+
+                    });
+
+            builder.setNegativeButton("No",
+                    (dialogInterface, i) -> {
+
+                    });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
+
+        remove.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MedicineActivity.this);
+            builder.setTitle(medicinesAPI.get(position).getName());
+            builder.setMessage("Are you sure to remove ''" + medicinesAPI.get(position).getName()+"'' from your taken medicines?");
+
+            builder.setPositiveButton("Yes",
+                    (dialogInterface, i) -> {
+
+                    });
+
+            builder.setNegativeButton("No",
+                    (dialogInterface, i) -> {
+
+                    });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
+        name.setText(medicinesAPI.get(position).getName());
+
+        if (Integer.parseInt(medicinesAPI.get(position).getQuantity()) == 0) {
+            quantity.setTextColor(getResources().getColor(R.color.colorGray));
+            quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity_gray));
+            quantity.setText("Quantity: " + medicinesAPI.get(position).getQuantity()+ " (Out of stock)");
+        } else if (Integer.parseInt(medicinesAPI.get(position).getQuantity()) < 10) {
+            quantity.setTextColor(getResources().getColor(R.color.colorRed));
+            quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity_red));
+            quantity.setText("Quantity: " + medicinesAPI.get(position).getQuantity());
+
+        } else {
+            quantity.setTextColor(getResources().getColor(R.color.colorGreen));
+            quantityIcon.setImageDrawable(getResources().getDrawable(R.drawable.icon_medicine_quantity));
+            quantity.setText("Quantity: " + medicinesAPI.get(position).getQuantity());
+        }
+        price.setText("Price: " + medicinesAPI.get(position).getPrice() + " LE");
+        description.setText("Description: " + medicinesAPI.get(position).getDescription());
+        unit.setText(medicinesAPI.get(position).getUnit());
+
+        Picasso.get()
+                .load(medicinesAPI.get(position).getImage())
+                .fit()
+                .error(R.drawable.icon_no_connection)
+                .into(medicineImage);
+
+        preOrderButton.setOnClickListener(v -> {
+
+            //TODO Pre-Order API
+
+        });
+    }
     private void setListeners() {
 
         searchLinear.setOnClickListener(v -> {
@@ -229,8 +284,6 @@ public class MedicineActivity extends BaseActivity {
             searchView.requestFocusFromTouch();
         });
 
-        button.setOnClickListener(v -> {
-        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -245,4 +298,5 @@ public class MedicineActivity extends BaseActivity {
         });
 
     }
+
 }
