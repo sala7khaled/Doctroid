@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import app.App;
@@ -35,6 +36,7 @@ import network.api.ApiInterface;
 import network.model.Appoint;
 import network.model.DeleteRequestForm;
 import network.model.PatientID;
+import network.model.Precautions;
 import network.model.RequestIDs;
 import network.model.UsersRequests;
 import okhttp3.ResponseBody;
@@ -150,9 +152,7 @@ public class AppointmentActivity extends BaseActivity {
                     for (UsersRequests req : Objects.requireNonNull(response.body())) {
                         for (String id : ids) {
                             if (id.equals(req.getId())) {
-                                String[] ans = req.getAnswers();
-                                appoints.add(new Appoint(req.getId(), req.getTitle(), ans[0], ans[1],
-                                        ans[2], req.getDate(), req.getTime(), req.getStatus(), req.getNotes()));
+                                getPrecaustion(req);
                             }
                         }
 
@@ -196,6 +196,39 @@ public class AppointmentActivity extends BaseActivity {
                                   @NotNull Throwable t) {
                 CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
 
+            }
+        });
+    }
+
+    private void getPrecaustion(UsersRequests req) {
+
+        HashMap<String, String> headers = ApiClient.getHeaders();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Map<String, String> body = new HashMap<>();
+        body.put("t_id", req.getT_id());
+
+
+        Call<Precautions> call = apiService.getPrecautions(headers, body,req.getC_id());
+        call.enqueue(new Callback<Precautions>() {
+            @Override
+            public void onResponse(@NotNull Call<Precautions> call,
+                                   @NotNull Response<Precautions> response) {
+                if (response.isSuccessful()) {
+                    Precautions precautions = response.body();
+                    assert precautions != null;
+                    appoints.add(new Appoint(req.getId(), req.getTitle(),
+                            req.getComment(), req.getDate(), req.getTime(), req.getStatus(), req.getNotes(), precautions.getEnglish(), precautions.getArabic()));
+                    appointAdapter.notifyDataSetChanged();
+                } else {
+                    CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, "Error getting Precautions");
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Precautions> call,
+                                  @NotNull Throwable t) {
+                CustomToast.Companion.darkColor(AppointmentActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }
         });
     }

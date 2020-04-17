@@ -65,14 +65,14 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
         Appoint appoint = AppointList.get(position);
 
         holder.appointTitle.setText(appoint.getTitle());
-        holder.appointQuestion1_answer.setText(appoint.getQuestion1_answer());
-        holder.appointQuestion2_answer.setText(appoint.getQuestion2_answer());
-        holder.appointQuestion3_answer.setText(appoint.getQuestion3_answer());
+        holder.precautions_en.setText(appoint.getPre_en());
+        holder.precautions_ar.setText(appoint.getPre_ar());
         holder.appointDate.setText(appoint.getDate());
         holder.appointTime.setText(appoint.getTime());
+        holder.comment.setText(appoint.getComment());
 
-        if (appoint.getStatus().equals("Rejected")) {
-            if (appoint.getNotes().equals("Empty")){
+        if (appoint.getStatus().toLowerCase().equals("rejected")) {
+            if (appoint.getNotes().toLowerCase().equals("empty")){
                 holder.appointNote.setText(getContext().getResources().getString(R.string.Rejected));
             }
             else
@@ -84,8 +84,8 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
             holder.appointTime.setTextColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorRed));
             holder.appointDelete.setVisibility(View.VISIBLE);
-        } else if (appoint.getStatus().equals("Accepted")) {
-            if (appoint.getNotes().equals("Empty")){
+        } else if (appoint.getStatus().toLowerCase().equals("accepted")) {
+            if (appoint.getNotes().toLowerCase().equals("empty")){
                 holder.appointNote.setText(getContext().getResources().getString(R.string.Accepted));
             }
             else
@@ -98,7 +98,7 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
             holder.appointDate.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             holder.appointDelete.setVisibility(View.GONE);
         } else {
-            if (appoint.getNotes().equals("Empty")){
+            if (appoint.getNotes().toLowerCase().equals("empty")){
                 holder.appointNote.setText(getContext().getResources().getString(R.string.Pending));
             }
             else
@@ -112,16 +112,16 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointHolder> implemen
             holder.appointDelete.setVisibility(View.VISIBLE);
         }
 
-        holder.questions_drop.setOnClickListener(view ->
-        {
-            if (holder.questions.getVisibility() == View.GONE) {
-                holder.questions.setVisibility(View.VISIBLE);
-                holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down));
-            } else {
-                holder.questions.setVisibility(View.GONE);
-                holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down_gray));
-            }
-        });
+//        holder.questions_drop.setOnClickListener(view ->
+//        {
+//            if (holder.questions.getVisibility() == View.GONE) {
+//                holder.questions.setVisibility(View.VISIBLE);
+//                holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down));
+//            } else {
+//                holder.questions.setVisibility(View.GONE);
+//                holder.drop.setImageDrawable(getContext().getDrawable(R.drawable.icon_arrow_drop_down_gray));
+//            }
+//        });
         holder.appointDelete.setOnClickListener(view -> itemClick.onClick(position));
 
     }

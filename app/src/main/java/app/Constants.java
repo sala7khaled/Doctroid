@@ -18,6 +18,7 @@ public class Constants {
     public static final String SERVICES_GET_MEDICAL_CATEGORY = "listcategories";
     public static final String SERVICES_GET_MEDICINE = "getmedicines";
     public static final String SERVICES_GET_REQUESTS = "getreq";
+    public static final String SERVICES_GET_PRECAUTIONS = "getprecautions";
 
     /**
      * POST
@@ -53,7 +54,6 @@ public class Constants {
     public static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     public static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-
 
     /**
      * -

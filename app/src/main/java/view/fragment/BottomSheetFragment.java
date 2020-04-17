@@ -49,35 +49,23 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     private BottomSheetBehavior bottomSheetBehavior;
     private ProgressViewDialog progressViewDialog;
 
-    private TextView medicalTitle;
-
-    private TextView question1TV;
-    private TextView question2TV;
-    private TextView question3TV;
-
-    private EditText question1Answer;
-    private EditText question2Answer;
-    private EditText question3Answer;
-
-    private LinearLayout question1Linear;
-    private LinearLayout question2Linear;
-    private LinearLayout question3Linear;
+    private LinearLayout precautions;
+    private TextView medicalTitle, precautions_en, precautions_ar, comment;
 
     private String c_id;
-    private String dateSTR = "Empty";
     private int appointDay;
     private int appointMonth;
+    private String dateSTR = "Empty";
     private String appointPeriod = "Empty";
     private String timeSTR = "Empty";
+    private String commentSTR = "Empty";
     private Button dateBTN, timeBTN, requestBTN;
 
     private MedicalAnalysis medicalAnalysis;
-    private String[] questions;
 
     public BottomSheetFragment(MedicalAnalysis medicalAnalysis, String c_id) {
         this.medicalAnalysis = medicalAnalysis;
         this.c_id = c_id;
-        this.questions = medicalAnalysis.getQuestions();
         // Required empty public constructor
     }
 
@@ -96,18 +84,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
     private void initView(View view) {
 
         medicalTitle = view.findViewById(R.id.appoint_medicalAnalysis_title);
-
-        question1TV = view.findViewById(R.id.appoint_question1_textView);
-        question2TV = view.findViewById(R.id.appoint_question2_textView);
-        question3TV = view.findViewById(R.id.appoint_question3_textView);
-
-        question1Answer = view.findViewById(R.id.appoint_question1_editText);
-        question2Answer = view.findViewById(R.id.appoint_question2_editText);
-        question3Answer = view.findViewById(R.id.appoint_question3_editText);
-
-        question1Linear = view.findViewById(R.id.appoint_question1_linearLayout);
-        question2Linear = view.findViewById(R.id.appoint_question2_linearLayout);
-        question3Linear = view.findViewById(R.id.appoint_question3_linearLayout);
+        precautions = view.findViewById(R.id.appoint_precautions_linearLayout);
+        precautions_en = view.findViewById(R.id.appoint_en_precautions_textView);
+        precautions_ar = view.findViewById(R.id.appoint_ar_precautions_textView);
+        comment = view.findViewById(R.id.appoint_comment_editText);
 
         dateBTN = view.findViewById(R.id.appoint_date_BTN);
         timeBTN = view.findViewById(R.id.appoint_time_BTN);
@@ -131,9 +111,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
         medicalTitle.setText(medicalAnalysis.getTitle());
 
-        question1TV.setText(questions[0]);
-        question2TV.setText(questions[1]);
-        question3TV.setText(questions[2]);
+        if (medicalAnalysis.getPrecautions_en().toLowerCase().equals("empty")
+                || medicalAnalysis.getPrecautions_ar().toLowerCase().equals("empty")) {
+            precautions.setVisibility(View.GONE);
+        } else {
+            precautions.setVisibility(View.VISIBLE);
+            precautions_en.setText(medicalAnalysis.getPrecautions_en());
+            precautions_ar.setText(medicalAnalysis.getPrecautions_ar());
+        }
 
         requestBTN.setText("Request (Price: " + medicalAnalysis.getPrice() + " LE)");
 
@@ -145,9 +130,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
         timeBTN.setOnClickListener(v ->
         {
-//            DialogFragment timePicker = new TimePickerFragment(this);
-//            timePicker.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "time picker");
-
             Calendar c = Calendar.getInstance();
             int currentDay = c.get(Calendar.DAY_OF_MONTH);
             int currentMonth = c.get(Calendar.MONTH);
@@ -219,13 +201,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
 
         requestBTN.setOnClickListener(v ->
         {
-            if (question1Answer.getText().toString().trim().length() == 0
-                    || question2Answer.getText().toString().trim().length() == 0
-                    || question3Answer.getText().toString().trim().length() == 0) {
-
-                CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Please answer all the questions.");
-
-            } else if (dateSTR.equals("Empty") || timeSTR.equals("Empty")) {
+            if (dateSTR.equals("Empty") || timeSTR.equals("Empty")) {
                 CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, "Please pick data and time!");
             } else {
                 callAPI();
@@ -242,12 +218,15 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Da
         progressViewDialog.showProgressDialog("Requesting an appointment...");
 
         String p_id = PrefManager.getP_id(getActivity());
-        String[] answers = {question1Answer.getText().toString().trim(),
-                question2Answer.getText().toString().trim(),
-                question3Answer.getText().toString().trim()};
+
+        if (comment.getText().length() == 0) {
+            commentSTR = "No Comment Added.";
+        } else {
+            commentSTR = comment.getText().toString();
+        }
 
         AppointRequest appointRequest = new AppointRequest(c_id, medicalAnalysis.getId(), p_id,
-                "Pending", timeSTR, dateSTR, answers, "", "", "");
+                "Pending", timeSTR, dateSTR, commentSTR);
 
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);

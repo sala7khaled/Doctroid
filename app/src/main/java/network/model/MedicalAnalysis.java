@@ -22,20 +22,21 @@ public class MedicalAnalysis implements Serializable {
     @SerializedName("test_description")
     @Expose
     private String description;
-    @SerializedName("test_questions")
+    @SerializedName("test_precautions_en")
     @Expose
-    private String[] questions;
+    private String precautions_en;
+    @SerializedName("test_precautions_ar")
+    @Expose
+    private String precautions_ar;
 
-    public MedicalAnalysis() {
-    }
-
-    public MedicalAnalysis(String id, String title, String period, String price, String description, String[] questions) {
+    public MedicalAnalysis(String id, String title, String period, String price, String description, String precautions_en, String precautions_ar) {
         this.id = id;
         this.title = title;
         this.period = period;
         this.price = price;
         this.description = description;
-        this.questions = questions;
+        this.precautions_en = precautions_en;
+        this.precautions_ar = precautions_ar;
     }
 
     public String getId() {
@@ -78,11 +79,19 @@ public class MedicalAnalysis implements Serializable {
         this.description = description;
     }
 
-    public String[] getQuestions() {
-        return questions;
+    public String getPrecautions_en() {
+        return precautions_en;
     }
 
-    public void setQuestions(String[] questions) {
-        this.questions = questions;
+    public void setPrecautions_en(String precautions_en) {
+        this.precautions_en = precautions_en;
+    }
+
+    public String getPrecautions_ar() {
+        return precautions_ar;
+    }
+
+    public void setPrecautions_ar(String precautions_ar) {
+        this.precautions_ar = precautions_ar;
     }
 }

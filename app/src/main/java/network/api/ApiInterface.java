@@ -1,12 +1,9 @@
 package network.api;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 import java.util.Map;
 
 import app.Constants;
-import network.model.Appoint;
 import network.model.AppointRequest;
 import network.model.ConfirmSignUpForm;
 import network.model.DeleteRequestForm;
@@ -14,19 +11,20 @@ import network.model.Hospital;
 import network.model.MedicalCategory;
 import network.model.Medicine;
 import network.model.PatientID;
+import network.model.Precautions;
 import network.model.RequestIDs;
 import network.model.SignInForm;
 import network.model.Token;
 import network.model.User;
 import network.model.UserProfile;
 import network.model.UsersRequests;
-import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
 
@@ -58,6 +56,11 @@ public interface ApiInterface {
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_REQUESTS)
     Call<List<UsersRequests>> getRequests(@HeaderMap Map<String, String> headers);
+
+    @POST(ApiClient.BASE_URL + Constants.SERVICES_GET_PRECAUTIONS + "/{id}")
+    Call<Precautions> getPrecautions(@HeaderMap Map<String, String> headers,
+                                     @Body Map<String, String> tId,
+                                     @Path("id") String id);
 
     @POST(ApiClient.BASE_URL + Constants.SERVICES_POST_PATIENT_REQUEST)
     Call<RequestIDs> getPatientRequests(@HeaderMap Map<String, String> headers,

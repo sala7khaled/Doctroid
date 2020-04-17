@@ -29,33 +29,18 @@ public class AppointRequest {
     @Expose
     private String req_date;
 
-    @SerializedName("req_answers")
+    @SerializedName("req_comment")
     @Expose
-    private String[] req_answers;
+    private String req_comment;
 
-    @SerializedName("req_test")
-    @Expose
-    private String req_test;
-
-    @SerializedName("req_p_name")
-    @Expose
-    private String patientName;
-
-    @SerializedName("req_p_phone")
-    @Expose
-    private String patientPhone;
-
-    public AppointRequest(String c_id, String t_id, String p_id, String req_status, String req_time, String req_date, String[] req_answers, String req_test, String patientName, String patientPhone) {
+    public AppointRequest(String c_id, String t_id, String p_id, String req_status, String req_time, String req_date, String req_comment) {
         this.c_id = c_id;
         this.t_id = t_id;
         this.p_id = p_id;
         this.req_status = req_status;
         this.req_time = req_time;
         this.req_date = req_date;
-        this.req_answers = req_answers;
-        this.req_test = req_test;
-        this.patientName = patientName;
-        this.patientPhone = patientPhone;
+        this.req_comment = req_comment;
     }
 
     public String getC_id() {
@@ -106,35 +91,11 @@ public class AppointRequest {
         this.req_date = req_date;
     }
 
-    public String[] getReq_answers() {
-        return req_answers;
+    public String getReq_comment() {
+        return req_comment;
     }
 
-    public void setReq_answers(String[] req_answers) {
-        this.req_answers = req_answers;
-    }
-
-    public String getReq_test() {
-        return req_test;
-    }
-
-    public void setReq_test(String req_test) {
-        this.req_test = req_test;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public String getPatientPhone() {
-        return patientPhone;
-    }
-
-    public void setPatientPhone(String patientPhone) {
-        this.patientPhone = patientPhone;
+    public void setReq_comment(String req_comment) {
+        this.req_comment = req_comment;
     }
 }

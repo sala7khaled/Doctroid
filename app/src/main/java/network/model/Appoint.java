@@ -4,24 +4,24 @@ public class Appoint {
 
     private String id;
     private String title;
-    private String question1_answer;
-    private String question2_answer;
-    private String question3_answer;
+    private String comment;
     private String date;
     private String time;
     private String status;
     private String notes;
+    private String pre_ar;
+    private String pre_en;
 
-    public Appoint(String id, String title, String question1_answer, String question2_answer, String question3_answer, String date, String time, String status, String notes) {
+    public Appoint(String id, String title, String comment, String date, String time, String status, String notes, String pre_en, String pre_ar) {
         this.id = id;
         this.title = title;
-        this.question1_answer = question1_answer;
-        this.question2_answer = question2_answer;
-        this.question3_answer = question3_answer;
+        this.comment = comment;
         this.date = date;
         this.time = time;
         this.status = status;
         this.notes = notes;
+        this.pre_en = pre_en;
+        this.pre_ar = pre_ar;
     }
 
     public String getId() {
@@ -40,28 +40,12 @@ public class Appoint {
         this.title = title;
     }
 
-    public String getQuestion1_answer() {
-        return question1_answer;
+    public String getComment() {
+        return comment;
     }
 
-    public void setQuestion1_answer(String question1_answer) {
-        this.question1_answer = question1_answer;
-    }
-
-    public String getQuestion2_answer() {
-        return question2_answer;
-    }
-
-    public void setQuestion2_answer(String question2_answer) {
-        this.question2_answer = question2_answer;
-    }
-
-    public String getQuestion3_answer() {
-        return question3_answer;
-    }
-
-    public void setQuestion3_answer(String question3_answer) {
-        this.question3_answer = question3_answer;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getDate() {
@@ -94,5 +78,21 @@ public class Appoint {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getPre_ar() {
+        return pre_ar;
+    }
+
+    public void setPre_ar(String pre_ar) {
+        this.pre_ar = pre_ar;
+    }
+
+    public String getPre_en() {
+        return pre_en;
+    }
+
+    public void setPre_en(String pre_en) {
+        this.pre_en = pre_en;
     }
 }
