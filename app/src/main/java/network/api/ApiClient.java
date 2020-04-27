@@ -49,11 +49,13 @@ public class ApiClient {
                     Request request = chain.request();
                     okhttp3.Headers headers = request.headers();
 
-                    Logger.instance().v("⚡️", "------------------------------------- (Start Request) -------------------------------------");
-                    Logger.instance().v("Request URL 🌐", request.url());
-                    Logger.instance().v("Request Headers ", headers.toString());
-                    Logger.instance().v("Request Body", (request.body() != null) ? bodyToString(request.body()) : "NULL/Empty");
-                    Logger.instance().v("⚡️", "------------------------------------- (End Request) -------------------------------------");
+                    Logger.instance().v("", "️");
+                    Logger.instance().v("⬇️ :Request Start", "⬇️");
+                    Logger.instance().v("🌎 Request URL", request.url());
+                    Logger.instance().v("🧩 Request Headers ", headers.toString());
+                    Logger.instance().v("📥 Request Body", (request.body() != null) ? bodyToString(request.body()) : "NULL/Empty");
+                    Logger.instance().v("⬆️ :Request End", "⬆️");
+                    Logger.instance().v("", "️");
 
                     if (InternetUtilities.isConnected(App.getApplication())) {
                         request = request.newBuilder().header("Cache-Control", "public, max-age=" + 50000).build();

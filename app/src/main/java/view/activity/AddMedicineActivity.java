@@ -1,18 +1,14 @@
 package view.activity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -25,7 +21,6 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.s7k.doctroid.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +28,6 @@ import java.util.Objects;
 import customView.CustomToast;
 import customView.CustomToastType;
 import dialog.ProgressViewDialog;
-import es.dmoral.toasty.Toasty;
 import network.api.ApiClient;
 import network.api.ApiInterface;
 import network.model.ConfirmSignUpForm;
@@ -48,24 +42,22 @@ import utilities.PrefManager;
 import view.fragment.DatePickerFragment;
 import view.base.BaseActivity;
 
-import static es.dmoral.toasty.Toasty.LENGTH_LONG;
-
 public class AddMedicineActivity extends BaseActivity implements DatePickerFragment.DateSet {
 
-    Button signUp, date;
-    MaterialSpinner citySpinner;
-    ProgressViewDialog progressViewDialog;
-    EditText snn;
-    AutoCompleteTextView medicineAutoComplete;
-    CardView medicineCardView;
+    private Button signUp, date;
+    private MaterialSpinner citySpinner;
+    private ProgressViewDialog progressViewDialog;
+    private EditText snn;
+    private AutoCompleteTextView medicineAutoComplete;
+    private CardView medicineCardView;
 
-    ImageView errorDialog;
-    TextView errorMessage;
+    private ImageView errorDialog;
+    private TextView errorMessage;
 
-    public RecyclerView recyclerView;
-    public MedicineAdapter medicineAdapter;
-    public List<Medicine> medicineArrayList = new ArrayList<>();
-    public List<Medicine> medicinesAPI = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private MedicineAdapter medicineAdapter;
+    private List<Medicine> medicineArrayList = new ArrayList<>();
+    private List<Medicine> medicinesAPI = new ArrayList<>();
 
     String citySTR = "Empty", dateSTR = "Empty";
 
@@ -144,6 +136,8 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
                     alertDialog.show();
                 }, MedicineType.AUTO_COMPLETE);
         recyclerView.setAdapter(medicineAdapter);
+
+        citySpinner.setItems();
 
         citySpinner.setItems("Select City",
                 "6th of October City",
@@ -283,7 +277,6 @@ public class AddMedicineActivity extends BaseActivity implements DatePickerFragm
         String[] medicineIDs = new String[medicineArrayList.size()];
         for (int i = 0; i < medicineArrayList.size(); i++) {
             medicineIDs[i] = medicineArrayList.get(i).getId();
-            Log.v("ITEM: " + i, "ID:" + medicineIDs[i]);
         }
 
         String p_id = PrefManager.getP_id(AddMedicineActivity.this);

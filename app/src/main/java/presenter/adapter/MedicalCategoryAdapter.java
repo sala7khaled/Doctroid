@@ -66,12 +66,23 @@ public class MedicalCategoryAdapter extends RecyclerView.Adapter<MedicalCategory
         MedicalCategory medicalCategory = medicalList.get(position);
 
         holder.medicalText.setText(medicalCategory.getName());
+        holder.medicalDesc.setText(medicalCategory.getDesc());
 
         Picasso.get()
                 .load(medicalList.get(position).getImage())
                 .fit()
                 .error(R.drawable.icon_no_connection)
                 .into(holder.medicalImage);
+
+        holder.medicalInfo.setOnClickListener( v -> {
+            if (holder.medicalDesc.getVisibility() == View.GONE) {
+                holder.medicalDesc.setVisibility(View.VISIBLE);
+                holder.medicalConstraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
+            } else {
+                holder.medicalDesc.setVisibility(View.GONE);
+                holder.medicalConstraint.setBackgroundColor(getContext().getResources().getColor(R.color.colorHide));
+            }
+        });
 
         holder.medicalCard.setOnClickListener(view -> itemClick.onClick(position));
 

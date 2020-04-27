@@ -19,17 +19,18 @@ public class MedicalCategory implements Serializable {
     @SerializedName("category_imgLink")
     @Expose
     private String image;
+    @SerializedName("category_description")
+    @Expose
+    private String desc;
     @SerializedName("category_medical_tests")
     @Expose
     private List<MedicalAnalysis> medicalAnalyses;
 
-    public MedicalCategory() {
-    }
-
-    public MedicalCategory(String id, String name, String image, List<MedicalAnalysis> medicalAnalyses) {
+    public MedicalCategory(String id, String name, String image, String desc, List<MedicalAnalysis> medicalAnalyses) {
         this.id = id;
         this.name = name;
         this.image = image;
+        this.desc = desc;
         this.medicalAnalyses = medicalAnalyses;
     }
 
@@ -55,6 +56,14 @@ public class MedicalCategory implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public List<MedicalAnalysis> getMedicalAnalyses() {

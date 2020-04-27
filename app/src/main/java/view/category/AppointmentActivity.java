@@ -147,8 +147,8 @@ public class AppointmentActivity extends BaseActivity {
             public void onResponse(@NotNull Call<List<UsersRequests>> call,
                                    @NotNull Response<List<UsersRequests>> response) {
 
+                assert response.body() != null;
                 if (response.isSuccessful()) {
-
                     for (UsersRequests req : Objects.requireNonNull(response.body())) {
                         for (String id : ids) {
                             if (id.equals(req.getId())) {
@@ -209,7 +209,7 @@ public class AppointmentActivity extends BaseActivity {
         body.put("t_id", req.getT_id());
 
 
-        Call<Precautions> call = apiService.getPrecautions(headers, body,req.getC_id());
+        Call<Precautions> call = apiService.getPrecautions(headers, body, req.getC_id());
         call.enqueue(new Callback<Precautions>() {
             @Override
             public void onResponse(@NotNull Call<Precautions> call,
