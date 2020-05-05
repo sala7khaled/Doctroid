@@ -93,44 +93,40 @@ public class HospitalAboutFragment extends Fragment {
 
         HashMap<String, String> headers = ApiClient.getHeaders();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<Hospital>> call = apiService.getHospital(headers);
-        call.enqueue(new Callback<List<Hospital>>() {
+        Call<Hospital> call = apiService.getHospital(headers);
+        call.enqueue(new Callback<Hospital>() {
             @Override
-            public void onResponse(@NonNull Call<List<Hospital>> call,
-                                   @NonNull Response<List<Hospital>> response) {
+            public void onResponse(@NonNull Call<Hospital> call,
+                                   @NonNull Response<Hospital> response) {
 
                 if (response.isSuccessful()) {
 
-                    List<Hospital> hospital = response.body();
+                    Hospital hospital = response.body();
 
                     if (hospital != null) {
-                        for (Hospital hos : hospital) {
+                        hospitalName.setText(hospital.getHospital_name());
+                        hospitalLocation.setText(hospital.getHospital_location());
+                        hospitalPhone.setText(hospital.getHospital_phone());
+                        hospitalWebsite.setText(hospital.getHospital_website());
+                        hospitalFacebook.setText(hospital.getHospital_facebook());
 
-                            hospitalName.setText(hos.getHospital_name());
-                            hospitalLocation.setText(hos.getHospital_location());
-                            hospitalPhone.setText(hos.getHospital_phone());
-                            hospitalWebsite.setText(hos.getHospital_website());
-                            hospitalFacebook.setText(hos.getHospital_facebook());
+                        progressBar.setVisibility(View.GONE);
+                        lineView.setVisibility(View.VISIBLE);
+                        location_layout.setVisibility(View.VISIBLE);
+                        phone_layout.setVisibility(View.VISIBLE);
+                        website_layout.setVisibility(View.VISIBLE);
+                        facebook_layout.setVisibility(View.VISIBLE);
+                        email_layout.setVisibility(View.VISIBLE);
 
-                            progressBar.setVisibility(View.GONE);
-                            lineView.setVisibility(View.VISIBLE);
-                            location_layout.setVisibility(View.VISIBLE);
-                            phone_layout.setVisibility(View.VISIBLE);
-                            website_layout.setVisibility(View.VISIBLE);
-                            facebook_layout.setVisibility(View.VISIBLE);
-                            email_layout.setVisibility(View.VISIBLE);
+                        String emails = "";
+                        emails += "⦿ Email: " + hospital.getHospital_email() + "\n";
+                        emails += "• General Manager: " + hospital.getHospital_generalManager() + "\n";
+                        emails += "• Administration Manager: " + hospital.getHospital_adminstratonManager() + "\n";
+                        emails += "• IT Manager: " + hospital.getHospital_itManager() + "\n";
+                        emails += "• Marketing Manager: " + hospital.getHospital_MarketingManager() + "\n";
+                        emails += "• Purchasing Manager: " + hospital.getHospital_PurchasingManager() + "\n";
 
-                            String emails = "";
-                            emails += "⦿ Email: " + hos.getHospital_email() + "\n";
-                            emails += "• General Manager: " + hos.getHospital_generalManager() + "\n";
-                            emails += "• Administration Manager: " + hos.getHospital_adminstratonManager() + "\n";
-                            emails += "• IT Manager: " + hos.getHospital_itManager() + "\n";
-                            emails += "• Marketing Manager: " + hos.getHospital_MarketingManager() + "\n";
-                            emails += "• Purchasing Manager: " + hos.getHospital_PurchasingManager() + "\n";
-
-                            hospitalEmail.append(emails);
-                        }
-
+                        hospitalEmail.append(emails);
                     }
 
                 } else {
@@ -140,7 +136,7 @@ public class HospitalAboutFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Hospital>> call,
+            public void onFailure(@NonNull Call<Hospital> call,
                                   @NonNull Throwable t) {
                 CustomToast.Companion.darkColor(getContext(), CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
             }

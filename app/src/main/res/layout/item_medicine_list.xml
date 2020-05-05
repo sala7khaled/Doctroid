@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/gotham_rounded_medium"
             android:gravity="center"
+            android:layout_marginTop="10dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:maxLines="1"
@@ -69,7 +70,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/colorGreen"
-                android:fontFamily="@font/gotham_rounded_medium"
+                android:fontFamily="@font/gotham_rounded_book"
                 android:textSize="14sp"
                 android:transitionName="transQuantity"/>
 
@@ -81,7 +82,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/colorGreen"
-                android:fontFamily="@font/gotham_rounded_medium"
+                android:fontFamily="@font/gotham_rounded_book"
                 android:textSize="14sp"
                 android:transitionName="transPrice" />
         </LinearLayout>

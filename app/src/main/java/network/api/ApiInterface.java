@@ -45,7 +45,7 @@ public interface ApiInterface {
                                      @Body ConfirmSignUpForm confirmSignUpForm);
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_HOSPITAL)
-    Call<List<Hospital>> getHospital(@HeaderMap Map<String, String> headers);
+    Call<Hospital> getHospital(@HeaderMap Map<String, String> headers);
 
 
     @GET(ApiClient.BASE_URL + Constants.SERVICES_GET_MEDICINE)

@@ -49,7 +49,7 @@ public class MedicineActivity extends BaseActivity {
     SearchView searchView;
     ImageView userPhoto, medicineImage;
     ImageView quantityIcon;
-    TextView name, quantity, price, description, unit, add, remove;
+    TextView name, quantity, price, unit, add, remove;
     Button preOrderButton;
     MedicineAdapter medicineAdapter;
     RecyclerView medicineRecyclerView;
@@ -95,7 +95,6 @@ public class MedicineActivity extends BaseActivity {
         quantityIcon = customDialog.findViewById(R.id.item_medicineDialog_quantityIcon);
         quantity = customDialog.findViewById(R.id.item_medicineDialog_quantity);
         price = customDialog.findViewById(R.id.item_medicineDialog_price);
-        description = customDialog.findViewById(R.id.item_medicineDialog_description);
         preOrderButton = customDialog.findViewById(R.id.item_medicineDialog_preOrder_button);
         unit = customDialog.findViewById(R.id.item_medicineDialog_unit);
         add = customDialog.findViewById(R.id.item_medicineDialog_add);
@@ -261,7 +260,6 @@ public class MedicineActivity extends BaseActivity {
             quantity.setText("Quantity: " + medicinesAPI.get(position).getQuantity());
         }
         price.setText("Price: " + medicinesAPI.get(position).getPrice() + " LE");
-        description.setText("Description: " + medicinesAPI.get(position).getDescription());
         unit.setText(medicinesAPI.get(position).getUnit());
 
         Picasso.get()

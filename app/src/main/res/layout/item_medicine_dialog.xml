@@ -66,6 +66,7 @@
             android:id="@+id/item_medicineDialog_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/gotham_rounded_medium"
             android:gravity="center"
             android:textColor="@color/colorPrimaryDark"
@@ -169,52 +170,12 @@
                 android:transitionName="transQuantity" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:minHeight="200dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            app:layout_constraintBottom_toTopOf="@+id/item_medicineDialog_preOrder_button"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-            app:layout_constraintStart_toStartOf="@+id/guideline_1"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="start"
-                android:layout_weight="0.3"
-                android:src="@drawable/icon_medicine_description" />
-
-            <ScrollView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1.7">
-
-                <TextView
-                    android:id="@+id/item_medicineDialog_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_rounded_medium"
-                    android:gravity="start"
-                    android:textColor="@color/colorGreen"
-                    android:textSize="16sp"
-                    android:transitionName="transQuantity" />
-            </ScrollView>
-
-        </LinearLayout>
-
-
         <Button
             android:id="@+id/item_medicineDialog_preOrder_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/back_solid_primary_dark"
             android:fontFamily="@font/gotham_rounded_medium"
             android:text="Pre-order"
@@ -222,7 +183,8 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-            app:layout_constraintStart_toStartOf="@+id/guideline_1" />
+            app:layout_constraintStart_toStartOf="@+id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_1"

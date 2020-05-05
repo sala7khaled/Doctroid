@@ -64,8 +64,7 @@ public class MedicalAnalysisAdapter extends RecyclerView.Adapter<MedicalAnalysis
 
         holder.medicalAnalysisTitle.setText(medicalAnalysis.getTitle());
         holder.medicalAnalysisPrice.setText("Price: " + medicalAnalysis.getPrice() + " LE");
-        holder.medicalAnalysisPeroid.setText("Period: " + medicalAnalysis.getPeriod() + " Days");
-        holder.medicalAnalysisDescription.setText("Description: " + medicalAnalysis.getDescription());
+        holder.medicalAnalysisPeriod.setText("Period: " + medicalAnalysis.getPeriod() + " Days");
 
         holder.medicalAnalysisAppoint.setOnClickListener(view ->
                 itemClick.onClick(position));

@@ -2,6 +2,7 @@ package presenter.holder;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -16,7 +17,8 @@ public class MedicalCategoryHolder extends RecyclerView.ViewHolder {
 
     public ImageView medicalImage;
     public TextView medicalText, medicalDesc;
-    public CardView medicalCard, medicalInfo;
+    public CardView medicalCard;
+    public LinearLayout medicalInfo;
     public ConstraintLayout medicalConstraint;
 
     public MedicalCategoryHolder(View view) {

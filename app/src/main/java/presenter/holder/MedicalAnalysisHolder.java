@@ -14,7 +14,7 @@ import com.s7k.doctroid.R;
 
 public class MedicalAnalysisHolder extends RecyclerView.ViewHolder {
 
-    public TextView medicalAnalysisTitle, medicalAnalysisPrice, medicalAnalysisPeroid, medicalAnalysisDescription;
+    public TextView medicalAnalysisTitle, medicalAnalysisPrice, medicalAnalysisPeriod;
 
     public LinearLayout medicalAnalysisLinear;
     public ImageView medicalAnalysisDropArrow;
@@ -27,8 +27,7 @@ public class MedicalAnalysisHolder extends RecyclerView.ViewHolder {
         super(view);
         medicalAnalysisTitle = view.findViewById(R.id.item_medicalAnalysis_title);
         medicalAnalysisPrice = view.findViewById(R.id.item_medicalAnalysis_price);
-        medicalAnalysisPeroid = view.findViewById(R.id.item_medicalAnalysis_period);
-        medicalAnalysisDescription = view.findViewById(R.id.item_medicalAnalysis_description);
+        medicalAnalysisPeriod = view.findViewById(R.id.item_medicalAnalysis_period);
 
         medicalAnalysisLinear = view.findViewById(R.id.item_medicalAnalysis_linearLayout);
         medicalAnalysisDropArrow = view.findViewById(R.id.item_medicalAnalysis_dropArrow);
