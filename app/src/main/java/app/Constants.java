@@ -72,6 +72,6 @@ public class Constants {
      * - TIMING
      * -
      */
-    public static final int SPLASH_TIME_OUT = 0000;
+    public static final int SPLASH_TIME_OUT = 3000;
 
 }

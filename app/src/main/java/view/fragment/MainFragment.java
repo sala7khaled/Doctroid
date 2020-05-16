@@ -163,7 +163,7 @@ public class MainFragment extends Fragment {
         categoryList.add(new Category("Appointment", R.drawable.icon_3_appointment));
         categoryList.add(new Category("Medical CV", R.drawable.icon_4_result));
         categoryList.add(new Category("Medicine", R.drawable.icon_5_medicine));
-        categoryList.add(new Category("Emergency", R.drawable.icon_6_emergency));
+        //categoryList.add(new Category("Emergency", R.drawable.icon_6_emergency));
 
         prepareDots();
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

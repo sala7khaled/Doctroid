@@ -188,7 +188,8 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call,
                                   @NonNull Throwable t) {
-                CustomToast.Companion.darkColor(SignUpActivity.this, CustomToastType.ERROR, Objects.requireNonNull(t.getMessage()));
+                CustomToast.Companion.darkColor(SignUpActivity.this, CustomToastType.ERROR,
+                        Objects.requireNonNull(t.getMessage()));
             }
         });
 

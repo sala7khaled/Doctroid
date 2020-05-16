@@ -2,7 +2,6 @@ package view.category;
 
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;

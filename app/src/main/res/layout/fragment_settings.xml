@@ -26,185 +26,81 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settingsFragment_accountSetting"
+        <Button
+            android:id="@+id/settingFragment_accountSettings"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/back_solid_white"
+            android:drawableStart="@drawable/icon_account_setting"
+            android:fontFamily="@font/gotham_rounded_medium"
+            android:gravity="center"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Account Settings"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
+            app:layout_constraintStart_toStartOf="@+id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <Button
+            android:id="@+id/settingFragment_personalInformation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/back_solid_white"
+            android:drawableStart="@drawable/icon_personal_information"
+            android:fontFamily="@font/gotham_rounded_medium"
+            android:gravity="center"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Personal Information"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
-            app:layout_constraintTop_toBottomOf="@id/imageView" >
+            app:layout_constraintTop_toBottomOf="@+id/settingFragment_accountSettings" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:src="@drawable/icon_account_setting" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/gotham_rounded_medium"
-                    android:gravity="center_vertical"
-                    android:text="Account Setting"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settingsFragment_personalInformation"
+        <Button
+            android:id="@+id/settingFragment_medicalInformation"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_solid_white"
+            android:drawableStart="@drawable/icon_medical_information"
+            android:fontFamily="@font/gotham_rounded_medium"
+            android:gravity="center"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Medical Information"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
-            app:layout_constraintTop_toBottomOf="@+id/settingsFragment_accountSetting">
+            app:layout_constraintTop_toBottomOf="@+id/settingFragment_personalInformation" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:src="@drawable/icon_personal_information" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/gotham_rounded_medium"
-                    android:gravity="center_vertical"
-                    android:text="Personal Information"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settingsFragment_medicalInformation"
+        <Button
+            android:id="@+id/settingFragment_notification"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_solid_white"
+            android:drawableStart="@drawable/icon_notification_setting"
+            android:fontFamily="@font/gotham_rounded_medium"
+            android:gravity="center"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Notification Setting"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_4"
             app:layout_constraintStart_toStartOf="@+id/guideline_1"
-            app:layout_constraintTop_toBottomOf="@+id/settingsFragment_personalInformation">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:src="@drawable/icon_medical_information" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/gotham_rounded_medium"
-                    android:gravity="center_vertical"
-                    android:text="Medical Information"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settingsFragment_medicalCV"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-            app:layout_constraintStart_toStartOf="@+id/guideline_1"
-            app:layout_constraintTop_toBottomOf="@+id/settingsFragment_medicalInformation">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:src="@drawable/icon_medical_cv" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/gotham_rounded_medium"
-                    android:gravity="center_vertical"
-                    android:text="Medical CV"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settingsFragment_notificationSetting"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_4"
-            app:layout_constraintStart_toStartOf="@+id/guideline_1"
-            app:layout_constraintTop_toBottomOf="@+id/settingsFragment_medicalCV">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:src="@drawable/icon_notification_setting" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/gotham_rounded_medium"
-                    android:gravity="center_vertical"
-                    android:text="Notification Setting"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@+id/settingFragment_medicalInformation" />
 
         <Button
             android:id="@+id/settingsFragment_Logout_Button"
